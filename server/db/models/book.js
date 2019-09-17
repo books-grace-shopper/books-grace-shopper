@@ -16,14 +16,16 @@ const Book = db.define('book', {
     type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
-      isFloat: true
+      isFloat: true,
+      min: 0
     }
   },
-  quantity: {
+  inventory: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     validate: {
-      isInt: true
+      isInt: true,
+      min: 0
     }
   },
   imageUrl: {
@@ -32,6 +34,20 @@ const Book = db.define('book', {
       'https://imageog.flaticon.com/icons/png/512/36/36601.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF',
     validate: {
       isUrl: true
+    }
+  },
+  genre: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  author: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
     }
   }
 });
