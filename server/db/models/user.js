@@ -30,6 +30,20 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  address: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   }
 });
 
@@ -65,6 +79,10 @@ const setSaltAndPassword = user => {
     user.salt = User.generateSalt();
     user.password = User.encryptPassword(user.password(), user.salt());
   }
+};
+
+User.showMagic = function() {
+  console.log(Object.keys(User.prototype));
 };
 
 User.beforeCreate(setSaltAndPassword);

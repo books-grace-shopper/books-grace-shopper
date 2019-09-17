@@ -16,14 +16,16 @@ const Book = db.define('book', {
     type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
-      isFloat: true
+      isFloat: true,
+      min: 0
     }
   },
-  quantity: {
+  inventory: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     validate: {
-      isInt: true
+      isInt: true,
+      min: 0
     }
   },
   imageUrl: {
@@ -33,7 +35,25 @@ const Book = db.define('book', {
     validate: {
       isUrl: true
     }
+  },
+  genre: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  author: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   }
 });
+
+Book.showMagic = function() {
+  console.log(Object.keys(Book.prototype));
+};
 
 module.exports = Book;

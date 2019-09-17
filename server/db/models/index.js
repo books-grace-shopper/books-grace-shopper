@@ -2,12 +2,11 @@ const User = require('./user');
 const Book = require('./book');
 const Review = require('./review');
 const Order = require('./order');
+const OrderBook = require('./orderBook.js');
 
-Book.belongsToMany(User, {through: 'user_book'});
-Book.belongsToMany(Order, {through: 'order_book'});
+Book.belongsToMany(Order, {through: OrderBook});
 Book.hasMany(Review);
 
-User.belongsToMany(Book, {through: 'user_book'});
 User.hasMany(Review);
 User.hasMany(Order);
 
@@ -15,11 +14,12 @@ Review.belongsTo(User);
 Review.belongsTo(Book);
 
 Order.belongsTo(User);
-Order.belongsToMany(Book, {through: 'order_book'});
+Order.belongsToMany(Book, {through: OrderBook});
 
 module.exports = {
   User,
   Book,
   Review,
-  Order
+  Order,
+  OrderBook
 };
