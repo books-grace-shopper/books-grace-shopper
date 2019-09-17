@@ -66,14 +66,17 @@ async function seed() {
   const reviews = await Review.bulkCreate(
     [
       {
+        title: 'default title',
         description: 'This book is not good',
         rating: 0
       },
       {
+        title: 'default title',
         description: 'This book is great',
         rating: 5
       },
       {
+        title: 'default title',
         description: 'This book makes me question reality',
         rating: 3
       }
@@ -93,7 +96,7 @@ async function seed() {
   await reviews[0].setBook([books[0].id])
   await users[0].addOrder([orders[0]])
   await orders[0].addBook([books[0].id])
-  await OrderBook.incrementOrderBookQuantity(books[0].id, orders[0].id)
+  await OrderBook.updateQuantityPrice(books[0].id, orders[0].id)
   console.log(`seeded successfully`)
 }
 

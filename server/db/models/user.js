@@ -31,9 +31,6 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  role: {
-    //maybe this instead?
-  },
   address: {
     type: Sequelize.TEXT,
     allowNull: false,

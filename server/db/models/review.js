@@ -2,8 +2,13 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Review = db.define('review', {
-  title: {},
-  user: {},
+  title: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   description: {
     type: Sequelize.TEXT
   },

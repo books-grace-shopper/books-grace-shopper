@@ -3,13 +3,18 @@ const db = require('../db')
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.ENUM('cart', 'ordered', 'shipped', 'delivered', 'canceled'),
+    type: Sequelize.ENUM(
+      'cart',
+      'ordered',
+      'shipped',
+      'delivered',
+      'cancelled'
+    ),
     defaultValue: 'cart',
     validate: {
-      isIn: [['cart', 'ordered', 'shipped', 'delivered', 'canceled']]
+      isIn: [['cart', 'ordered', 'shipped', 'delivered', 'cancelled']]
     }
-  },
-  totalPrice: {}
+  }
 })
 
 Order.showMagic = function() {
