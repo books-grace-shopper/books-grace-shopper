@@ -1,7 +1,9 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 const Review = db.define('review', {
+  title: {},
+  user: {},
   description: {
     type: Sequelize.TEXT
   },
@@ -14,10 +16,10 @@ const Review = db.define('review', {
     },
     defaultValue: 0
   }
-});
+})
 
 Review.showMagic = function() {
-  console.log(Object.keys(Review.prototype));
-};
+  console.log(Object.keys(Review.prototype))
+}
 
-module.exports = Review;
+module.exports = Review

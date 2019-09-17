@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 const OrderBook = db.define('order_book', {
   quantity: {
@@ -9,8 +9,9 @@ const OrderBook = db.define('order_book', {
       isInt: true,
       min: 0
     }
-  }
-});
+  },
+  price: {}
+})
 
 OrderBook.incrementOrderBookQuantity = async function(bookId, orderId) {
   const curOrder = await OrderBook.findOne({
@@ -18,10 +19,10 @@ OrderBook.incrementOrderBookQuantity = async function(bookId, orderId) {
       bookId,
       orderId
     }
-  });
+  })
   await curOrder.update({
     quantity: ++curOrder.quantity
-  });
-};
+  })
+}
 
-module.exports = OrderBook;
+module.exports = OrderBook
