@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 const Book = db.define('book', {
   title: {
@@ -13,19 +13,34 @@ const Book = db.define('book', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      isFloat: true,
+      isInt: true,
       min: 0
     }
+    // price cannot be a FLOAT; see DECIMAL instead
+    //store price as an integer as cents  --> decimal types do not exist in JS
+    //i.e. 5.99 --> 599
+    //floats have gaps in numbers they can rep
   },
-  inventory: {
+  inventoryTotal: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
     validate: {
       isInt: true,
       min: 0
+    }
+  },
+  //prob shouldn't subtract from inventory count
+  //have another count like how many have we sold
+  // i.e. shipped orders
+  //inventory should be additive, not subtractive
+  inventorySold: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    validate: {
+      isInt: true
     }
   },
   imageUrl: {
@@ -50,10 +65,10 @@ const Book = db.define('book', {
       notEmpty: true
     }
   }
-});
+})
 
 Book.showMagic = function() {
-  console.log(Object.keys(Book.prototype));
-};
+  console.log(Object.keys(Book.prototype))
+}
 
-module.exports = Book;
+module.exports = Book

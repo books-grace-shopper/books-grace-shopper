@@ -1,12 +1,15 @@
-'use strict';
+'use strict'
 
-const db = require('../server/db');
-const {User, Book, Order, Review, OrderBook} = require('../server/db/models');
+const db = require('../server/db')
+const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
 
 async function seed() {
-  await db.sync({force: true});
-  console.log('db synced!');
+  await db.sync({force: true})
+  console.log('db synced!')
 
+  //create users at various stages within the store - guest, ready to checkout, one book in cart, etc.
+  //orders at all stages
+  //come up with all scenarios as a group
   const users = await User.bulkCreate(
     [
       {
@@ -29,7 +32,7 @@ async function seed() {
       }
     ],
     {returning: true}
-  );
+  )
 
   const books = await Book.bulkCreate(
     [
@@ -59,24 +62,27 @@ async function seed() {
       }
     ],
     {returning: true}
-  );
+  )
   const reviews = await Review.bulkCreate(
     [
       {
+        title: 'default title',
         description: 'This book is not good',
         rating: 0
       },
       {
+        title: 'default title',
         description: 'This book is great',
         rating: 5
       },
       {
+        title: 'default title',
         description: 'This book makes me question reality',
         rating: 3
       }
     ],
     {returning: true}
-  );
+  )
   const orders = await Order.bulkCreate(
     [
       {status: 'cart'},
@@ -85,29 +91,29 @@ async function seed() {
       {status: 'ordered'}
     ],
     {returning: true}
-  );
-  await users[0].addReview([reviews[0]]);
-  await reviews[0].setBook([books[0].id]);
-  await users[0].addOrder([orders[0]]);
-  await orders[0].addBook([books[0].id]);
-  await OrderBook.incrementOrderBookQuantity(books[0].id, orders[0].id);
-  console.log(`seeded successfully`);
+  )
+  await users[0].addReview([reviews[0]])
+  await reviews[0].setBook([books[0].id])
+  await users[0].addOrder([orders[0]])
+  await orders[0].addBook([books[0].id])
+  await OrderBook.updateQuantityPrice(books[0].id, orders[0].id)
+  console.log(`seeded successfully`)
 }
 
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
 // The `seed` function is concerned only with modifying the database.
 async function runSeed() {
-  console.log('seeding...');
+  console.log('seeding...')
   try {
-    await seed();
+    await seed()
   } catch (err) {
-    console.error(err);
-    process.exitCode = 1;
+    console.error(err)
+    process.exitCode = 1
   } finally {
-    console.log('closing db connection');
-    await db.close();
-    console.log('db connection closed');
+    console.log('closing db connection')
+    await db.close()
+    console.log('db connection closed')
   }
 }
 
@@ -115,8 +121,8 @@ async function runSeed() {
 // `Async` functions always return a promise, so we can use `catch` to handle
 // any errors that might occur inside of `seed`.
 if (module === require.main) {
-  runSeed();
+  runSeed()
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed;
+module.exports = seed
