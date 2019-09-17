@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('../server/db');
-const {User, Book, Order, Review} = require('../server/db/models');
+const {User, Book, Order, Review, OrderBook} = require('../server/db/models');
 
 async function seed() {
   await db.sync({force: true});
@@ -60,6 +60,37 @@ async function seed() {
     ],
     {returning: true}
   );
+  const reviews = await Review.bulkCreate(
+    [
+      {
+        description: 'This book is not good',
+        rating: 0
+      },
+      {
+        description: 'This book is great',
+        rating: 5
+      },
+      {
+        description: 'This book makes me question reality',
+        rating: 3
+      }
+    ],
+    {returning: true}
+  );
+  const orders = await Order.bulkCreate(
+    [
+      {status: 'cart'},
+      {status: 'shipped'},
+      {status: 'delivered'},
+      {status: 'ordered'}
+    ],
+    {returning: true}
+  );
+  await users[0].addReview([reviews[0]]);
+  await reviews[0].setBook([books[0].id]);
+  await users[0].addOrder([orders[0]]);
+  await orders[0].addBook([books[0].id]);
+  await OrderBook.incrementOrderBookQuantity(books[0].id, orders[0].id);
   console.log(`seeded successfully`);
 }
 

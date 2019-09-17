@@ -5,7 +5,7 @@ const Review = db.define('review', {
   description: {
     type: Sequelize.TEXT
   },
-  stars: {
+  rating: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
@@ -15,5 +15,9 @@ const Review = db.define('review', {
     defaultValue: 0
   }
 });
+
+Review.showMagic = function() {
+  console.log(Object.keys(Review.prototype));
+};
 
 module.exports = Review;

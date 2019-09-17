@@ -81,6 +81,10 @@ const setSaltAndPassword = user => {
   }
 };
 
+User.showMagic = function() {
+  console.log(Object.keys(User.prototype));
+};
+
 User.beforeCreate(setSaltAndPassword);
 User.beforeUpdate(setSaltAndPassword);
 User.beforeBulkCreate(users => {

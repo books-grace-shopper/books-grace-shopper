@@ -11,4 +11,8 @@ const Order = db.define('order', {
   }
 });
 
+Order.showMagic = function() {
+  console.log(Object.keys(Order.prototype));
+};
+
 module.exports = Order;
