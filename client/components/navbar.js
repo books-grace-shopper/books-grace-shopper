@@ -25,6 +25,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
+      <Link to="/cart">
+        <button type="button">
+          <img
+            className="cart-button-img"
+            src="https://image.flaticon.com/icons/png/512/34/34627.png"
+          />
+        </button>
+      </Link>
     </nav>
     <hr />
   </div>

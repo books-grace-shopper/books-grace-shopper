@@ -17,7 +17,7 @@ function SelectedBookCard(props) {
             <p>{book.title}</p>
             <p>By: {book.author}</p>
             <p>RATING</p>
-            <p>{book.price}</p>
+            <p>${book.price}</p>
             <button type="button">Add to Cart</button>
           </div>
         </Card>
