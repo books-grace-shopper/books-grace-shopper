@@ -8,13 +8,13 @@ const NameAndAddress = () => {
     <div>
       <div>
         <label htmlFor="userName">
-          <small>Name</small>
+          <small>Name (Optional)</small>
         </label>
         <input name="userName" type="text" />
       </div>
       <div>
         <label htmlFor="address">
-          <small>Address</small>
+          <small>Address (Optional)</small>
         </label>
         <input name="address" type="text" />
       </div>

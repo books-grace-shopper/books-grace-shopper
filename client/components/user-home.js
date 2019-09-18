@@ -6,11 +6,11 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {name} = props
+  const {email, name} = props
   console.log('auth form UserHome: ', props)
   return (
     <div>
-      <h3>Welcome, {name}</h3>
+      <h3>Welcome, {name ? name : email}</h3>
     </div>
   )
 }
