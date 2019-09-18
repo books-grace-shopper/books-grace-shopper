@@ -7,6 +7,7 @@ async function guestAddsToCart() {
     const book = await Book.findByPk(i)
     books.push(book)
   }
+  await Promise.all(books.map(book => newOrder.requestBook(book)))
   const duplicateBook = await Book.findByPk(5)
   await newOrder.requestBook(duplicateBook)
   await newOrder.requestBook(duplicateBook)
@@ -15,25 +16,38 @@ async function guestAddsToCart() {
 
 async function guestSignsUpWithCart() {
   const order = await guestAddsToCart()
+  const testUser = {
+    email: 'userWith12Items@gmail.com',
+    address: '344 Sunrise Circle',
+    name: 'Jim',
+    password: '1234'
+  }
+  await order.createUserWithCart(testUser)
+  return order
 }
 
-async function userMakesOrder() {
-  const user = await User.findByPk(5)
-  const order = await Order.findByPk(3)
+async function userAddsToCart(id) {
+  const user = await User.findByPk(id)
+  await user.createCart()
+  const order = await user.findCart()
+  const books = []
+  for (let i = id; i <= id + 10; i++) {
+    const book = await Book.findByPk(i)
+    books.push(book)
+  }
+  await Promise.all(books.map(book => order.requestBook(book)))
+  return user
 }
 
-async function userBuysOrder() {
-  const user = await User.findByPk(7)
-}
-
-async function userCancelsOrder() {
-  const user = await User.findByPk(3)
+async function userBuysOrder(id) {
+  const user = await userAddsToCart(id)
+  // const order = await user.findCart();
+  await user.purchaseCart()
 }
 
 module.exports = {
   guestAddsToCart,
   guestSignsUpWithCart,
-  userMakesOrder,
-  userBuysOrder,
-  userCancelsOrder
+  userAddsToCart,
+  userBuysOrder
 }

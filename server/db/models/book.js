@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const OrderBook = require('./orderBook.js')
 const db = require('../db')
 
 const Book = db.define('book', {
@@ -58,5 +59,9 @@ const Book = db.define('book', {
     }
   }
 })
+
+Book.prototype.updateInventorySold = function() {
+  console.log(OrderBook)
+}
 
 module.exports = Book

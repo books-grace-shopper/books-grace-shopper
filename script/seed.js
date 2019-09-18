@@ -4,9 +4,8 @@ const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
 const {
   guestAddsToCart,
   guestSignsUpWithCart,
-  userMakesOrder,
-  userBuysOrder,
-  userCancelsOrder
+  userAddsToCart,
+  userBuysOrder
 } = require('./seedStory')
 
 const {
@@ -28,9 +27,8 @@ async function seed() {
 
   await guestAddsToCart()
   await guestSignsUpWithCart()
-  // await userMakesOrder();
-  // await userBuysOrder();
-  // await userCancelsOrder();
+  await userAddsToCart(7)
+  await userBuysOrder(8)
   console.log(`seeded successfully`)
 }
 
