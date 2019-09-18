@@ -43,7 +43,6 @@ class AllBooks extends React.Component {
     this.props.fetchBooks()
   }
   render() {
-    console.log('THE PROPS ON ALL BOOKS', this.props)
     return (
       // <div className="all-books-container">
       <>
