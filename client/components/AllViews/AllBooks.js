@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
+import {Link} from 'react-router-dom'
 
 /* SINGLE BOOK CARD ON THE PAGE */
 function SingleBook(props) {
@@ -12,7 +13,9 @@ function SingleBook(props) {
       <hr />
       <div key={book.id} className="single-book-card">
         <Card style={{width: '16rem'}}>
-          <Card.Img variant="top" src={book.imageUrl} />
+          <Link to={`/books/${book.id}`}>
+            <Card.Img variant="top" src={book.imageUrl} />
+          </Link>
           <Card.Body>
             <Card.Title>{book.title}</Card.Title>
             <Card.Text>{book.author}</Card.Text>
@@ -20,12 +23,6 @@ function SingleBook(props) {
             <Card.Text>${book.price}</Card.Text>
           </Card.Body>
         </Card>
-        {/* <hr />
-        <img style={{height: '75px', width: '75px'}} src={book.imageUrl} />
-        <p>{book.title}</p>
-        <p>{book.author}</p>
-        <p>Book rating</p>
-        <p>${book.price}</p> */}
       </div>
     </>
   )
