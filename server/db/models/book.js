@@ -59,8 +59,4 @@ const Book = db.define('book', {
   }
 })
 
-Book.showMagic = function() {
-  console.log(Object.keys(Book.prototype))
-}
-
 module.exports = Book

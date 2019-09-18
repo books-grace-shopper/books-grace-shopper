@@ -19,13 +19,16 @@ async function seed() {
   await bulkGenerate(Review, 80, makeRandomReview)
   await bulkGenerate(Order, 80, makeRandomOrder)
 
-  const book = await Book.findOne()
-  const order = await Order.findOne()
-  await order.addBook(book)
-  // TODO: write hooks for addBook and changeOrderStatus
-  // that correctly updates relate inventory values
-  await OrderBook.updateQuantityPrice(book.id, order.id)
-  await OrderBook.updateQuantityPrice(book.id, order.id)
+  Book.showMagic()
+  User.showMagic()
+  Order.showMagic()
+  Review.showMagic()
+
+  // const book = await Book.findOne()
+  // const order = await Order.findOne()
+  // await order.requestBook(book);
+  // await order.addBook(book)
+  // await OrderBook.updateQuantityPrice(book.id, order.id)
 
   console.log(`seeded successfully`)
 }

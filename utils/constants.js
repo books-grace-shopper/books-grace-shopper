@@ -1,4 +1,13 @@
 const Chance = require('chance')
+const modelMethods = require('./modelMethods')
+
+const MODEL_METHODS = Object.keys(modelMethods).reduce(
+  (methodArray, curMethod) => {
+    methodArray.push(modelMethods[curMethod])
+    return methodArray
+  },
+  []
+)
 
 const GENRES = [
   'fiction',
@@ -38,5 +47,6 @@ const ORDER_STATUSES = ['cart', 'ordered', 'shipped', 'delivered', 'cancelled']
 module.exports = {
   ORDER_STATUSES,
   GENRES,
-  AUTHORS
+  AUTHORS,
+  MODEL_METHODS
 }

@@ -1,4 +1,5 @@
-const {GENRES, AUTHORS, ORDER_STATUSES} = require('./constants')
+const {GENRES, AUTHORS, ORDER_STATUSES, MODEL_METHODS} = require('./constants')
+
 const {
   pickRandom,
   makeRandomizedArray,
@@ -8,6 +9,8 @@ const {
   makeRandomReview,
   bulkGenerate
 } = require('./randomGenerators')
+
+const {showMagic, findOneRandom} = require('./modelMethods.js')
 
 function die(status) {
   const error = new Error()
@@ -26,5 +29,8 @@ module.exports = {
   ORDER_STATUSES,
   GENRES,
   AUTHORS,
+  MODEL_METHODS,
+  showMagic,
+  findOneRandom,
   die
 }

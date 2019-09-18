@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const OrderBook = require('./orderBook.js')
 const db = require('../db')
 
 const Order = db.define('order', {
@@ -17,8 +18,9 @@ const Order = db.define('order', {
   }
 })
 
-Order.showMagic = function() {
-  console.log(Object.keys(Order.prototype))
+Order.prototype.requestBook = async function(book) {
+  await this.addBook(book)
+  await OrderBook.updateQuantityPrice(book.id, this.id)
 }
 
 module.exports = Order
