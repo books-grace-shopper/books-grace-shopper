@@ -29,7 +29,7 @@ function makeRandomBook() {
   return {
     title: chance.word(),
     description: chance.paragraph(),
-    price: chance.integer({min: 0, max: 2000000000}),
+    price: chance.integer({min: 0, max: 20000000}),
     inventoryTotal: chance.integer({min: 1001, max: 2000000}),
     inventorySold: chance.integer({min: 0, max: 1000}),
     genre: pickRandom(GENRES),

@@ -10,8 +10,6 @@ const {
   bulkGenerate
 } = require('./randomGenerators')
 
-const {showMagic, findOneRandom} = require('./modelMethods.js')
-
 function die(status) {
   const error = new Error()
   error.status = status
@@ -30,7 +28,5 @@ module.exports = {
   GENRES,
   AUTHORS,
   MODEL_METHODS,
-  showMagic,
-  findOneRandom,
   die
 }
