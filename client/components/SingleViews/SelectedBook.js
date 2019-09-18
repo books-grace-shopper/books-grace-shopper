@@ -6,6 +6,7 @@ import BookReviews from './BookReviews'
 
 function SelectedBookCard(props) {
   const book = props.selectedBook
+
   return (
     <>
       <div className="selected-book-container">
@@ -18,7 +19,12 @@ function SelectedBookCard(props) {
             <p>By: {book.author}</p>
             <p>RATING</p>
             <p>${book.price}</p>
-            <button type="button">Add to Cart</button>
+            {props.cart ? (
+              (<button type="button">Quantity</button>,
+              <button type="button">DELETE</button>)
+            ) : (
+              <button type="button">Add to Cart</button>
+            )}
           </div>
         </Card>
       </div>
