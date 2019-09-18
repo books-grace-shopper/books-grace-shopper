@@ -24,6 +24,19 @@ Order.prototype.requestBook = async function(book) {
   await OrderBook.updateQuantityPrice(book.id, this.id)
 }
 
+Order.prototype.getPrice = async function() {
+  const orderBook = await OrderBook.findOne({
+    where: {
+      orderId: this.id
+    }
+  })
+  return orderBook.price / 100
+}
+
+Order.prototype.isCart = function() {
+  return this.status === 'cart'
+}
+
 Order.prototype.purchaseSelf = async function() {
   await this.update({
     status: 'ordered'

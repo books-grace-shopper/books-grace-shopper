@@ -11,6 +11,10 @@ async function guestAddsToCart() {
   const duplicateBook = await Book.findByPk(5)
   await newOrder.requestBook(duplicateBook)
   await newOrder.requestBook(duplicateBook)
+  /*
+   * For checking the price method:
+   * const price = await newOrder.getPrice();
+   */
   return newOrder
 }
 
