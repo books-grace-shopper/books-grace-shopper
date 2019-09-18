@@ -7,10 +7,10 @@ const NameAndAddress = () => {
   return (
     <div>
       <div>
-        <label htmlFor="name">
+        <label htmlFor="userName">
           <small>Name</small>
         </label>
-        <input name="name" type="text" />
+        <input name="userName" type="text" />
       </div>
       <div>
         <label htmlFor="address">
@@ -47,6 +47,7 @@ const EmailAndPassword = () => {
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error, location} = props
+  // console.log('props... ', props);
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -89,10 +90,15 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
+      const user = {
+        email: evt.target.email.value,
+        password: evt.target.password.value
+      }
+      if (evt.target.userName) user.name = evt.target.userName.value
+      if (evt.target.address) user.address = evt.target.address.value
+
       const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(user, formName))
     }
   }
 }
