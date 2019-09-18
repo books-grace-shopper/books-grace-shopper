@@ -1,102 +1,32 @@
 'use strict'
-
 const db = require('../server/db')
 const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
+const {
+  pickRandom,
+  makeRandomUser,
+  makeRandomBook,
+  makeRandomOrder,
+  makeRandomReview,
+  bulkGenerate
+} = require('../utils')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  //create users at various stages within the store - guest, ready to checkout, one book in cart, etc.
-  //orders at all stages
-  //come up with all scenarios as a group
-  const users = await User.bulkCreate(
-    [
-      {
-        email: 'jimmy@jimmy.com',
-        password: '123',
-        address: '344 Sunrise Circle',
-        name: 'jimmy'
-      },
-      {
-        email: 'bobby@jimmy.com',
-        password: '123',
-        address: '344 Sunrise Circle',
-        name: 'bobby'
-      },
-      {
-        email: 'katie@katie.com',
-        password: '456',
-        address: '344 Sunrise Circle',
-        name: 'katie'
-      }
-    ],
-    {returning: true}
-  )
+  await bulkGenerate(Book, 200, makeRandomBook)
+  await bulkGenerate(User, 100, makeRandomUser)
+  await bulkGenerate(Review, 80, makeRandomReview)
+  await bulkGenerate(Order, 80, makeRandomOrder)
 
-  const books = await Book.bulkCreate(
-    [
-      {
-        title: 'Example 1',
-        description: 'Example 1',
-        price: 3.72,
-        quantity: 5,
-        author: 'jim',
-        genre: 'fiction'
-      },
-      {
-        title: 'Example 2',
-        description: 'Example 2',
-        price: 4.72,
-        quantity: 2,
-        author: 'bill',
-        genre: 'sci-fi'
-      },
-      {
-        title: 'Example 3',
-        description: 'Example 3',
-        price: 43,
-        quantity: 1,
-        author: 'amy',
-        genre: 'biography'
-      }
-    ],
-    {returning: true}
-  )
-  const reviews = await Review.bulkCreate(
-    [
-      {
-        title: 'default title',
-        description: 'This book is not good',
-        rating: 0
-      },
-      {
-        title: 'default title',
-        description: 'This book is great',
-        rating: 5
-      },
-      {
-        title: 'default title',
-        description: 'This book makes me question reality',
-        rating: 3
-      }
-    ],
-    {returning: true}
-  )
-  const orders = await Order.bulkCreate(
-    [
-      {status: 'cart'},
-      {status: 'shipped'},
-      {status: 'delivered'},
-      {status: 'ordered'}
-    ],
-    {returning: true}
-  )
-  await users[0].addReview([reviews[0]])
-  await reviews[0].setBook([books[0].id])
-  await users[0].addOrder([orders[0]])
-  await orders[0].addBook([books[0].id])
-  await OrderBook.updateQuantityPrice(books[0].id, orders[0].id)
+  const book = await Book.findOne()
+  const order = await Order.findOne()
+  await order.addBook(book)
+  // TODO: write hooks for addBook and changeOrderStatus
+  // that correctly updates relate inventory values
+  await OrderBook.updateQuantityPrice(book.id, order.id)
+  await OrderBook.updateQuantityPrice(book.id, order.id)
+
   console.log(`seeded successfully`)
 }
 

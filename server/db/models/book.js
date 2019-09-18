@@ -19,10 +19,6 @@ const Book = db.define('book', {
       isInt: true,
       min: 0
     }
-    // price cannot be a FLOAT; see DECIMAL instead
-    //store price as an integer as cents  --> decimal types do not exist in JS
-    //i.e. 5.99 --> 599
-    //floats have gaps in numbers they can rep
   },
   inventoryTotal: {
     type: Sequelize.INTEGER,
@@ -32,10 +28,6 @@ const Book = db.define('book', {
       min: 0
     }
   },
-  //prob shouldn't subtract from inventory count
-  //have another count like how many have we sold
-  // i.e. shipped orders
-  //inventory should be additive, not subtractive
   inventorySold: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
