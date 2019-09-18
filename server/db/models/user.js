@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const Order = require('./order.js')
 
 const User = db.define('user', {
   email: {
@@ -29,6 +30,7 @@ const User = db.define('user', {
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
+
     defaultValue: false
   },
   address: {
@@ -48,6 +50,37 @@ const User = db.define('user', {
 })
 
 module.exports = User
+
+User.prototype.findCart = async function() {
+  const cart = await this.getOrders()
+  return cart.find(order => order.status === 'cart')
+}
+
+User.prototype.createCart = async function() {
+  const cart = await this.findCart()
+  if (cart) {
+    throw new Error('USER CART ALREADY EXISTS')
+  } else {
+    const order = await Order.create()
+    await this.addOrder(order)
+    return order
+  }
+}
+
+User.prototype.purchaseCart = async function() {
+  const cart = await this.findCart()
+  if (!cart) {
+    throw new Error('USER CART DOES NOT EXIST')
+  } else {
+    await cart.purchaseSelf()
+  }
+}
+
+Order.prototype.createUserWithCart = async function(user) {
+  const newUser = await User.create(user)
+  newUser.addOrder(this)
+  return this
+}
 
 /**
  * instanceMethods
@@ -79,10 +112,6 @@ const setSaltAndPassword = user => {
     user.salt = User.generateSalt()
     user.password = User.encryptPassword(user.password(), user.salt())
   }
-}
-
-User.showMagic = function() {
-  console.log(Object.keys(User.prototype))
 }
 
 User.beforeCreate(setSaltAndPassword)

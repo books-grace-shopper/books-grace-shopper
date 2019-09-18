@@ -23,8 +23,4 @@ const Review = db.define('review', {
   }
 })
 
-Review.showMagic = function() {
-  console.log(Object.keys(Review.prototype))
-}
-
 module.exports = Review

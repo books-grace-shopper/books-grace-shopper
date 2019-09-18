@@ -1,4 +1,13 @@
 const Chance = require('chance')
+const modelMethods = require('./modelMethods')
+
+const MODEL_METHODS = Object.keys(modelMethods).reduce(
+  (methodArray, curMethod) => {
+    methodArray.push(modelMethods[curMethod])
+    return methodArray
+  },
+  []
+)
 
 const GENRES = [
   'fiction',
@@ -33,10 +42,11 @@ function createAuthors(num) {
 
 const AUTHORS = createAuthors(50)
 
-const STATUSES = ['cart', 'ordered', 'shipped', 'delivered', 'cancelled']
+const ORDER_STATUSES = ['cart', 'ordered', 'shipped', 'delivered', 'cancelled']
 
 module.exports = {
-  STATUSES,
+  ORDER_STATUSES,
   GENRES,
-  AUTHORS
+  AUTHORS,
+  MODEL_METHODS
 }

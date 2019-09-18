@@ -1,20 +1,30 @@
-const User = require('./user');
-const Book = require('./book');
-const Review = require('./review');
-const Order = require('./order');
-const OrderBook = require('./orderBook.js');
+const User = require('./user')
+const Book = require('./book')
+const Review = require('./review')
+const Order = require('./order')
+const OrderBook = require('./orderBook.js')
 
-Book.belongsToMany(Order, {through: OrderBook});
-Book.hasMany(Review);
+const {MODEL_METHODS} = require('../../../utils')
 
-User.hasMany(Review);
-User.hasMany(Order);
+Book.belongsToMany(Order, {through: OrderBook})
+Book.hasMany(Review)
 
-Review.belongsTo(User);
-Review.belongsTo(Book);
+Order.belongsToMany(Book, {through: OrderBook})
+Order.belongsTo(User)
 
-Order.belongsTo(User);
-Order.belongsToMany(Book, {through: OrderBook});
+User.hasMany(Review)
+User.hasMany(Order)
+
+Review.belongsTo(User)
+Review.belongsTo(Book)
+
+const MODELS = [User, Book, Review, Order, OrderBook]
+
+MODELS.forEach(Model => {
+  MODEL_METHODS.forEach(method => {
+    Model[method.name] = () => method(Model)
+  })
+})
 
 module.exports = {
   User,
@@ -22,4 +32,4 @@ module.exports = {
   Review,
   Order,
   OrderBook
-};
+}
