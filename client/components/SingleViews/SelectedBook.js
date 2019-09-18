@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSelectedBook} from '../../store/selectedBook'
 import Card from 'react-bootstrap/Card'
+import BookReviews from './BookReviews'
 
 function SelectedBookCard(props) {
   const book = props.selectedBook
@@ -35,7 +36,10 @@ class SelectedBook extends React.Component {
       <>
         <h1>Check out this book!</h1>
         {this.props.selectedBook ? (
-          <SelectedBookCard selectedBook={this.props.selectedBook} />
+          <>
+            <SelectedBookCard selectedBook={this.props.selectedBook} />
+            <BookReviews />
+          </>
         ) : (
           <p>Loading</p>
         )}
