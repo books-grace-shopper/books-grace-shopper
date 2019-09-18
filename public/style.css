@@ -42,3 +42,8 @@ form div {
   height: 100px;
   width: 100px;
 }
+
+.cart-button-img {
+  height: 35px;
+  width: 35px;
+}
