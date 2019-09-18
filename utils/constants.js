@@ -33,10 +33,10 @@ function createAuthors(num) {
 
 const AUTHORS = createAuthors(50)
 
-const STATUSES = ['cart', 'ordered', 'shipped', 'delivered', 'cancelled']
+const ORDER_STATUSES = ['cart', 'ordered', 'shipped', 'delivered', 'cancelled']
 
 module.exports = {
-  STATUSES,
+  ORDER_STATUSES,
   GENRES,
   AUTHORS
 }

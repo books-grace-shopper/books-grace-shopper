@@ -1,20 +1,20 @@
-const User = require('./user');
-const Book = require('./book');
-const Review = require('./review');
-const Order = require('./order');
-const OrderBook = require('./orderBook.js');
+const User = require('./user')
+const Book = require('./book')
+const Review = require('./review')
+const Order = require('./order')
+const OrderBook = require('./orderBook.js')
 
-Book.belongsToMany(Order, {through: OrderBook});
-Book.hasMany(Review);
+Book.belongsToMany(Order, {through: OrderBook})
+Book.hasMany(Review)
 
-User.hasMany(Review);
-User.hasMany(Order);
+Order.belongsToMany(Book, {through: OrderBook})
+Order.belongsTo(User)
 
-Review.belongsTo(User);
-Review.belongsTo(Book);
+User.hasMany(Review)
+User.hasMany(Order)
 
-Order.belongsTo(User);
-Order.belongsToMany(Book, {through: OrderBook});
+Review.belongsTo(User)
+Review.belongsTo(Book)
 
 module.exports = {
   User,
@@ -22,4 +22,4 @@ module.exports = {
   Review,
   Order,
   OrderBook
-};
+}

@@ -1,4 +1,13 @@
-const {GENRES, AUTHORS, STATUSES} = require('./constants')
+const {GENRES, AUTHORS, ORDER_STATUSES} = require('./constants')
+const {
+  pickRandom,
+  makeRandomizedArray,
+  makeRandomUser,
+  makeRandomBook,
+  makeRandomOrder,
+  makeRandomReview,
+  bulkGenerate
+} = require('./randomGenerators')
 
 function die(status) {
   const error = new Error()
@@ -6,14 +15,16 @@ function die(status) {
   throw error
 }
 
-function pickRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)]
-}
-
 module.exports = {
-  STATUSES,
+  pickRandom,
+  makeRandomizedArray,
+  makeRandomUser,
+  makeRandomBook,
+  makeRandomOrder,
+  makeRandomReview,
+  bulkGenerate,
+  ORDER_STATUSES,
   GENRES,
   AUTHORS,
-  die,
-  pickRandom
+  die
 }
