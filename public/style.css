@@ -37,3 +37,13 @@ form div {
   flex: 0 0 20%;
   padding-bottom: 25px;
 }
+
+.selected-book-img {
+  height: 100px;
+  width: 100px;
+}
+
+.cart-button-img {
+  height: 35px;
+  width: 35px;
+}
