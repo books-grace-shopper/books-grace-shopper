@@ -20,67 +20,69 @@ const Order = db.define('order', {
 })
 
 Order.prototype.requestBook = async function(book) {
-  await this.addBook(book)
-  await OrderBook.increaseQuantityPrice(book.id, this.id)
+  try {
+    await this.addBook(book)
+    await OrderBook.increaseQuantityPrice(book.id, this.id)
+  } catch (err) {
+    console.error('METHOD requestBook ON Order BROKE')
+  }
 }
 
 Order.prototype.unrequestBook = async function(book) {
-  await OrderBook.decreaseQuantityPrice(book.id, this.id)
+  try {
+    await OrderBook.decreaseQuantityPrice(book.id, this.id)
+  } catch (err) {
+    console.error('METHOD unrequestBook ON Order BROKE')
+  }
 }
 
 Order.prototype.getPrice = async function() {
-  const orderBooks = await OrderBook.findAll({
-    where: {
-      orderId: this.id
-    }
-  })
-  return (
-    orderBooks.reduce((sum, orderBook) => {
-      sum += orderBook.price * orderBook.quantity
-      return sum
-    }, 0) / 100
-  )
+  try {
+    const orderBooks = await OrderBook.findAll({
+      where: {
+        orderId: this.id
+      }
+    })
+    return (
+      orderBooks.reduce((sum, orderBook) => {
+        sum += orderBook.price * orderBook.quantity
+        return sum
+      }, 0) / 100
+    )
+  } catch (err) {
+    console.error('METHOD getPrice ON Order BROKE')
+  }
 }
 
 Order.prototype.getBooksWithQuantities = async function() {
-  const orderBooks = await OrderBook.findAll({
-    where: {
-      orderId: this.id
+  try {
+    const orderBooks = await OrderBook.findAll({
+      where: {
+        orderId: this.id
+      }
+    })
+    const books = []
+    try {
+      for (let i = 0; i < orderBooks.length; i++) {
+        const book = await Book.findByPk(orderBooks[i].bookId)
+        book.dataValues.quantity = orderBooks[i].quantity
+        books.push(book)
+      }
+    } catch (err) {
+      console.error('ERROR: GETTING BOOK ON getBooksWithQuantities FAILED')
     }
-  })
-  const books = []
-  for (let i = 0; i < orderBooks.length; i++) {
-    const book = await Book.findByPk(orderBooks[i].bookId)
-    book.quantity = orderBooks[i].quantity
-    books.push(orderBooks[i])
+    return books
+  } catch (err) {
+    console.error('METHOD getBooksWithQuantities ON Order BROKE')
   }
-  return books
 }
 
-Order.prototype.isCart = function() {
-  return this.status === 'cart'
+Order.prototype.purchaseSelf = function() {
+  throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMENTED')
 }
 
-Order.prototype.purchaseSelf = async function() {
-  await this.update({
-    status: 'ordered'
-  })
-  const books = await this.getBooks()
-  await Promise.all(books.map(book => book.updateInventorySold(this.id)))
-}
-
-Book.prototype.updateInventorySold = async function(orderId) {
-  const orderBook = await OrderBook.findOne({
-    where: {
-      bookId: this.id,
-      orderId: orderId
-    }
-  })
-  const quantity = orderBook.quantity
-  const newSold = this.inventorySold + quantity
-  await this.update({
-    inventorySold: newSold
-  })
+Book.prototype.updateInventorySold = function(orderId) {
+  throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMEMENTED')
 }
 
 module.exports = Order

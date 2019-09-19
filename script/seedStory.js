@@ -2,33 +2,42 @@ const {pickRandom} = require('../utils')
 const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
 
 async function guestAddsToCart() {
-  const newOrder = await Order.create()
-  const duplicateBook = await Book.findByPk(5)
-  for (let i = 1; i <= 10; i++) {
-    const book = await Book.findByPk(i)
-    await newOrder.requestBook(book)
+  try {
+    const newOrder = await Order.create()
+    const duplicateBook = await Book.findByPk(5)
+    for (let i = 1; i <= 10; i++) {
+      const book = await Book.findByPk(i)
+      await newOrder.requestBook(book)
+    }
+    await newOrder.requestBook(duplicateBook)
+    await newOrder.requestBook(duplicateBook)
+    const books = await newOrder.getBooksWithQuantities()
+    for (let i = 0; i < books.length; i++) {
+      let booksObj = {}
+      booksObj.quantity = books[i].quantity
+      booksObj.id = books[i].bookId
+    }
+    return newOrder
+  } catch (err) {
+    console.error('METHOD guestAddsToCart IN seedStory FAILED')
   }
-  await newOrder.requestBook(duplicateBook)
-  await newOrder.requestBook(duplicateBook)
-  const books = await newOrder.getBooksWithQuantities()
-  for (let i = 0; i < books.length; i++) {
-    let booksObj = {}
-    booksObj.quantity = books[i].quantity
-    booksObj.id = books[i].bookId
-  }
-  return newOrder
 }
 
 async function guestRemovesFromCart() {
-  const order = await guestAddsToCart()
-  const initialPrice = await order.getPrice()
-  const books = await order.getBooks()
-  const book = pickRandom(books)
-  await order.unrequestBook(book)
-  const priceAfterRemoval = await order.getPrice()
-  const mathError = initialPrice * 100 - book.price !== priceAfterRemoval * 100
-  if (mathError) {
-    console.error('ERROR: MATH INVOLVING PRICE BROKEN')
+  try {
+    const order = await guestAddsToCart()
+    const initialPrice = await order.getPrice()
+    const books = await order.getBooks()
+    const book = pickRandom(books)
+    await order.unrequestBook(book)
+    const priceAfterRemoval = await order.getPrice()
+    const mathError =
+      initialPrice * 100 - book.price !== priceAfterRemoval * 100
+    if (mathError) {
+      console.error('ERROR: MATH INVOLVING PRICE BROKEN')
+    }
+  } catch (err) {
+    console.error('METHOD guestRemovesFromCart IN seedStory FAILED')
   }
 }
 
@@ -46,8 +55,7 @@ async function guestSignsUpWithCart() {
 
 async function userAddsToCart(id) {
   const user = await User.findByPk(id)
-  await user.createCart()
-  const order = await user.findCart()
+  const order = await user.findOrCreateCart()
   for (let i = id; i <= id + 10; i++) {
     const book = await Book.findByPk(i)
     await order.requestBook(book)

@@ -43,45 +43,32 @@ const User = db.define('user', {
 module.exports = User
 
 User.prototype.findOrCreateCart = async function() {
-  const orders = await this.getOrders()
-  const cart = await orders.find(order => order.status === 'cart')
-  if (!cart) {
-    const newCart = await Order.create()
-    await this.addOrder(newCart)
-    return newCart
-  }
-  return cart
-}
-
-User.prototype.findCart = async function() {
-  const cart = await this.getOrders()
-  return cart.find(order => order.status === 'cart')
-}
-
-User.prototype.createCart = async function() {
-  const cart = await this.findCart()
-  if (cart) {
-    throw new Error('USER CART ALREADY EXISTS')
-  } else {
-    const order = await Order.create()
-    await this.addOrder(order)
-    return order
+  try {
+    const orders = await this.getOrders()
+    const cart = await orders.find(order => order.status === 'cart')
+    if (!cart) {
+      const newCart = await Order.create()
+      await this.addOrder(newCart)
+      return newCart
+    }
+    return cart
+  } catch (err) {
+    console.error('METHOD findOrCreateCart ON User BROKE')
   }
 }
 
 User.prototype.purchaseCart = async function() {
-  const cart = await this.findCart()
-  if (!cart) {
-    throw new Error('USER CART DOES NOT EXIST')
-  } else {
-    await cart.purchaseSelf()
-  }
+  throw new Error('THIS METHOD IS BROKEN RIGHT NOW AND NEEDS TO BE FIXED')
 }
 
 Order.prototype.createUserWithCart = async function(user) {
-  const newUser = await User.create(user)
-  newUser.addOrder(this)
-  return this
+  try {
+    const newUser = await User.create(user)
+    newUser.addOrder(this)
+    return this
+  } catch (err) {
+    console.error('METHOD createUserWithCart ON Order FAILED')
+  }
 }
 
 /**
