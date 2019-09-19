@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
+import {requestBookOnCart, decrementBookThunk} from '../store/order'
 
-function CartBook(props) {
-  const book = props.book
+const CartBook = props => {
+  const {book, cartId} = props
   return (
     <>
       <div className="cart-book-container">
@@ -33,31 +33,9 @@ function CartBook(props) {
     </>
   )
 }
-
-function mapState(state) {
-  return {
-    cart: state.cart
-  }
-}
-
-class Cart extends React.Component {
-  render() {
-    const cart = this.props.cart
-    if (!cart.books) {
-      return <div>Loading cart...</div>
-    }
-    return (
-      <div>
-        {cart.books.length === 0 ? (
-          <h1>Go add things to the cart!</h1>
-        ) : (
-          cart.books.map(book => {
-            return <CartBook key={book.bookId} book={book} />
-          })
-        )}
-      </div>
-    )
-  }
-}
-
-export default connect(mapState)(Cart)
+const mapDispatch = dispatch => ({
+  incrementBook: (bookId, cartId) =>
+    dispatch(requestBookOnCart(bookId, cartId)),
+  decrementBook: (bookId, cartId) =>
+    dispatch(decrementBookThunk(bookId, cartId))
+})
