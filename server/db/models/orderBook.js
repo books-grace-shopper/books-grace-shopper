@@ -55,6 +55,9 @@ OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
       quantity: --bookOrder.quantity,
       price: bookOrder.price - book.price
     })
+    if (bookOrder.quantity === 0) {
+      await book.removeOrder(orderId)
+    }
   } catch (err) {
     console.error('METHOD decreaseQuantityPrice BROKE')
   }
