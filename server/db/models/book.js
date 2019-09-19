@@ -60,8 +60,4 @@ const Book = db.define('book', {
   }
 })
 
-Book.prototype.updateInventorySold = function() {
-  console.log(OrderBook)
-}
-
 module.exports = Book

@@ -22,30 +22,45 @@ const OrderBook = db.define('order_book', {
 })
 
 OrderBook.findBookAndOrder = async function(bookId, orderId) {
-  const curBookOrder = await OrderBook.findOne({
-    where: {
-      bookId: bookId,
-      orderId: orderId
-    }
-  })
-  const curBook = await Book.findByPk(bookId)
-  return {bookOrder: curBookOrder, book: curBook}
+  try {
+    const curBookOrder = await OrderBook.findOne({
+      where: {
+        bookId: bookId,
+        orderId: orderId
+      }
+    })
+    const curBook = await Book.findByPk(bookId)
+    return {bookOrder: curBookOrder, book: curBook}
+  } catch (err) {
+    console.error('METHOD findBookAndOrder BROKE')
+    console.error(err)
+  }
 }
 
 OrderBook.increaseQuantityPrice = async function(bookId, orderId) {
-  const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId)
-  await bookOrder.update({
-    quantity: ++bookOrder.quantity,
-    price: bookOrder.price + book.price
-  })
+  try {
+    const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId)
+    await bookOrder.update({
+      quantity: ++bookOrder.quantity,
+      price: bookOrder.price + book.price
+    })
+  } catch (err) {
+    console.error('METHOD increaseQuantityPrice BROKE')
+    console.error(err)
+  }
 }
 
 OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
-  const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId)
-  await bookOrder.update({
-    quantity: --bookOrder.quantity,
-    price: bookOrder.price - book.price
-  })
+  try {
+    const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId)
+    await bookOrder.update({
+      quantity: --bookOrder.quantity,
+      price: bookOrder.price - book.price
+    })
+  } catch (err) {
+    console.error('METHOD decreaseQuantityPrice BROKE')
+    console.error(err)
+  }
 }
 
 module.exports = OrderBook
