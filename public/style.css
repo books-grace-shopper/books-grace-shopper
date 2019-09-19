@@ -20,26 +20,20 @@ form div {
   display: inline-block;
 }
 
-.all-books-container {
-  width: 100%;
-  background-color: red;
-  padding: 10px;
-}
 .all-book-cards {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: space-around;
-
-  /* margin: 0 auto; */
-}
-.single-book-card {
-  flex: 0 0 20%;
-  padding-bottom: 25px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  padding: 5rem;
 }
 
 .selected-book-img {
   height: 100px;
+  width: 100px;
+}
+
+.card-img-top {
+  height: 200px;
   width: 100px;
 }
 

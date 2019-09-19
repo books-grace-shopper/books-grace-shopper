@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const OrderBook = require('./orderBook.js')
 const db = require('../db')
+const {pickRandomImage} = require('../../../utils')
 
 const Book = db.define('book', {
   title: {
@@ -38,8 +39,7 @@ const Book = db.define('book', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue:
-      'https://imageog.flaticon.com/icons/png/512/36/36601.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF',
+    defaultValue: pickRandomImage,
     validate: {
       isUrl: true
     }

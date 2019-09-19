@@ -1,8 +1,12 @@
 const Chance = require('chance')
-const {GENRES, AUTHORS, ORDER_STATUSES} = require('./constants')
+const {GENRES, AUTHORS, IMAGES, ORDER_STATUSES} = require('./constants')
 
 function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
+}
+
+function pickRandomImage() {
+  return pickRandom(IMAGES)
 }
 
 function makeRandomizedArray(num, makeRandomFunc) {
@@ -27,7 +31,7 @@ function makeRandomUser() {
 function makeRandomBook() {
   const chance = new Chance()
   return {
-    title: chance.word(),
+    title: `The ${chance.profession()} of ${chance.city()}`,
     description: chance.paragraph(),
     price: chance.integer({min: 10, max: 5000}),
     inventoryTotal: chance.integer({min: 1001, max: 2000000}),
@@ -60,6 +64,7 @@ function bulkGenerate(Model, num, makeRandomFunc) {
 
 module.exports = {
   pickRandom,
+  pickRandomImage,
   makeRandomizedArray,
   makeRandomUser,
   makeRandomBook,
