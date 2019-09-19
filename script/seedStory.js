@@ -10,18 +10,19 @@ async function guestAddsToCart() {
   }
   await newOrder.requestBook(duplicateBook)
   await newOrder.requestBook(duplicateBook)
-  const price = await newOrder.getPrice()
-  console.log('PRICE AFTER ADDITIONS', price)
   return newOrder
 }
 
 async function guestRemovesFromCart() {
   const order = await guestAddsToCart()
+  const initialPrice = await order.getPrice()
+  console.log('INITIAL PRICE OF ORDER', initialPrice)
   const books = await order.getBooks()
   const book = pickRandom(books)
+  console.log('PRICE OF BOOK TO REMOVE', book.price / 100)
   await order.unrequestBook(book)
   const priceAfterRemoval = await order.getPrice()
-  // await console.log(priceAfterRemoval);
+  await console.log('PRICE AFTER REMOVAL', priceAfterRemoval)
 }
 
 async function guestSignsUpWithCart() {
@@ -40,18 +41,15 @@ async function userAddsToCart(id) {
   const user = await User.findByPk(id)
   await user.createCart()
   const order = await user.findCart()
-  const books = []
   for (let i = id; i <= id + 10; i++) {
     const book = await Book.findByPk(i)
-    books.push(book)
+    await order.requestBook(book)
   }
-  await Promise.all(books.map(book => order.requestBook(book)))
   return user
 }
 
 async function userBuysOrder(id) {
   const user = await userAddsToCart(id)
-  // const order = await user.findCart();
   await user.purchaseCart()
 }
 

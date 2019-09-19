@@ -34,9 +34,9 @@ async function seed() {
   await bulkGenerate(Order, 80, makeRandomOrder)
 
   await guestAddsToCart()
-  // await guestRemovesFromCart();
-  // await guestSignsUpWithCart()
-  // await userAddsToCart(7)
+  await guestRemovesFromCart()
+  await guestSignsUpWithCart()
+  await userAddsToCart(7)
   // await userBuysOrder(8)
   console.log(`seeded successfully`)
 }

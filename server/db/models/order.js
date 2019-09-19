@@ -25,8 +25,7 @@ Order.prototype.requestBook = async function(book) {
 }
 
 Order.prototype.unrequestBook = async function(book) {
-  console.log('WRITE ME! :)')
-  // await OrderBook.decreaseQuantityPrice(book.id, this.id);
+  await OrderBook.decreaseQuantityPrice(book.id, this.id)
 }
 
 Order.prototype.getPrice = async function() {
@@ -37,20 +36,10 @@ Order.prototype.getPrice = async function() {
   })
   return (
     orderBooks.reduce((sum, orderBook) => {
-      sum += orderBook.price
+      sum += orderBook.price * orderBook.quantity
       return sum
     }, 0) / 100
   )
-}
-
-Order.prototype.findBooks = async function() {
-  const orderBooks = await OrderBook.findAll({
-    where: {
-      orderId: this.id
-    }
-  })
-  console.log('WRITE ME! YOU CAN DO IT! :)')
-  // return orderBook.price / 100;
 }
 
 Order.prototype.isCart = function() {

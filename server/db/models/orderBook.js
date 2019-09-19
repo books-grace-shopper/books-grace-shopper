@@ -40,6 +40,14 @@ OrderBook.increaseQuantityPrice = async function(bookId, orderId) {
   })
 }
 
+OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
+  const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId)
+  await bookOrder.update({
+    quantity: --bookOrder.quantity,
+    price: bookOrder.price - book.price
+  })
+}
+
 // OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
 //   const { orderBook, book } = await OrderBook.getOrderAndBook(bookId, orderId);
 //   console.log('ORDERBOOK PRICE BEFORE UPDATE', orderBook.price);
