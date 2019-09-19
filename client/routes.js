@@ -19,6 +19,10 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
   }
+  componentDidUpdate() {
+    // PUT THE THUNK FOR FETCHING THE CART HERE
+    console.log('CURRENT DATA', this.props)
+  }
 
   render() {
     const {isLoggedIn} = this.props
