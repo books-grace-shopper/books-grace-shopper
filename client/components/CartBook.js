@@ -1,10 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'react-bootstrap/Card'
-import {requestBookOnCart, decrementBookThunk} from '../store/order'
+import {
+  requestBookOnCart,
+  decrementBookThunk,
+  removeBookThunk
+} from '../store/order'
+
+console.log('removeBookThunk...', removeBookThunk)
 
 const CartBook = props => {
-  const {book, cartId, incrementBook, decrementBook} = props
+  const {book, cartId, incrementBook, decrementBook, removeBook} = props
   return (
     <div className="cart-book-container">
       <Card>
@@ -33,7 +39,14 @@ const CartBook = props => {
           >
             decrement
           </button>
-          <button type="button">Remove from Cart</button>
+          <button
+            type="button"
+            onClick={() => {
+              removeBook(book.id, cartId)
+            }}
+          >
+            Remove from Cart
+          </button>
         </div>
       </Card>
     </div>
@@ -43,7 +56,8 @@ const mapDispatch = dispatch => ({
   incrementBook: (bookId, cartId) =>
     dispatch(requestBookOnCart(bookId, cartId)),
   decrementBook: (bookId, cartId) =>
-    dispatch(decrementBookThunk(bookId, cartId))
+    dispatch(decrementBookThunk(bookId, cartId)),
+  removeBook: (bookId, cartId) => dispatch(removeBookThunk(bookId, cartId))
 })
 
 export default connect(null, mapDispatch)(CartBook)
