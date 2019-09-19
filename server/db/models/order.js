@@ -66,7 +66,7 @@ Order.prototype.getBooksWithQuantities = async function() {
       for (let i = 0; i < orderBooks.length; i++) {
         const book = await Book.findByPk(orderBooks[i].bookId)
         book.quantity = orderBooks[i].quantity
-        books.push(orderBooks[i])
+        books.push(book)
       }
     } catch (err) {
       console.error('ERROR: GETTING BOOK ON getBooksWithQuantities FAILED')
