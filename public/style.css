@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 a {
@@ -29,35 +29,68 @@ form div {
   background-color: cadetblue;
 }
 
-.selected-book-img {
-  height: 100px;
-  width: 100px;
-}
-
 .card-img-top {
   height: 200px;
   width: 100px;
 }
 
 .cart-button-img {
-  height: 35px;
-  width: 35px;
+  height: 25px;
+  width: 25px;
 }
 
 .all-books-header {
   text-align: center;
   border-bottom: solid;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* Navbar */
 .bookazon-title {
   color: cadetblue;
   padding-left: 10px;
-}
-
-.header-container {
-  display: flex;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .login-button {
+  color: black;
+}
+
+.signup-button {
+  color: black;
+}
+
+.logout-button {
+  color: black;
+}
+
+.home-button {
+  color: black;
+}
+
+.header-container {
+  background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg');
+}
+
+/* Selected Book View */
+
+.selected-book-quote {
+  font-family: 'Times New Roman', Times, serif;
+  color: cadetblue;
+  font-style: italic;
+  text-align: center;
+}
+
+.selected-book-container {
+  text-align: center;
+}
+
+.selected-book-img-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.selected-book-img {
+  height: 200px;
+  width: 200px;
 }

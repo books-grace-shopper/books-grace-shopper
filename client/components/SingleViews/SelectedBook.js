@@ -34,7 +34,10 @@ class SelectedBook extends React.Component {
   render() {
     return (
       <>
-        <h1>Check out this book!</h1>
+        <h4 className="selected-book-quote">
+          “A reader lives a thousand lives before he dies... The man who never
+          reads lives only one." – George R.R. Martin
+        </h4>
         {this.props.selectedBook ? (
           <>
             <SelectedBookCard selectedBook={this.props.selectedBook} />
