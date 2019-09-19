@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
 import Card from 'react-bootstrap/Card'
-import Container from 'react-bootstrap/Container'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 import {Link} from 'react-router-dom'
 
 /* SINGLE BOOK CARD ON THE PAGE */
@@ -41,6 +41,14 @@ class AllBooks extends React.Component {
   render() {
     return (
       <>
+        {/* <Jumbotron>
+          <h1>Hello, world!</h1>
+          <p>
+            This is a simple hero unit, a simple jumbotron-style component for
+            calling extra attention to featured content or information.
+          </p>
+        </Jumbotron> */}
+
         <h1 className="all-books-header">Shop All Books</h1>
         <div className="all-book-cards">
           {this.props.books ? (
