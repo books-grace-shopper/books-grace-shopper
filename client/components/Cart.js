@@ -23,12 +23,28 @@ function CartOrder(props) {
   )
 }
 
-export default class Cart extends React.Component {
+function mapState(state) {
+  return {
+    cart: state.cart
+  }
+}
+
+class Cart extends React.Component {
   render() {
+    const cart = this.props.cart
+    if (!cart.books) {
+      return <div>Loading cart...</div>
+    }
     return (
-      <>
-        <div className="cart-container">Hello</div>
-      </>
+      <div>
+        {cart.books.length === 0 ? (
+          <h1>Go add things to the cart!</h1>
+        ) : (
+          <h1>Write me!</h1>
+        )}
+      </div>
     )
   }
 }
+
+export default connect(mapState)(Cart)

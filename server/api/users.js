@@ -12,6 +12,8 @@ router.get('/:id', async (req, res, next) => {
       die(404)
     }
     const cart = await user.findOrCreateCart()
+    const books = await cart.getBooksWithQuantities()
+    cart.dataValues.books = books
     user.dataValues.cart = cart
     res.json(user)
   } catch (error) {

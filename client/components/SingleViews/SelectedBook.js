@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSelectedBook} from '../../store/selectedBook'
+import {requestBookOnCart} from '../../store/order'
 import Card from 'react-bootstrap/Card'
 import BookReviews from './BookReviews'
 
@@ -19,12 +20,6 @@ function SelectedBookCard(props) {
             <p>By: {book.author}</p>
             <p>RATING</p>
             <p>${book.price}</p>
-            {props.cart ? (
-              (<button type="button">Quantity</button>,
-              <button type="button">DELETE</button>)
-            ) : (
-              <button type="button">Add to Cart</button>
-            )}
           </div>
         </Card>
       </div>
@@ -36,8 +31,10 @@ class SelectedBook extends React.Component {
   componentDidMount() {
     this.props.fetchSelectedBook(this.props.match.params.bookId)
   }
-
   render() {
+    if (!this.props.cart.books) {
+      return <h1>Loading...</h1>
+    }
     return (
       <>
         <h1>Check out this book!</h1>
@@ -45,6 +42,7 @@ class SelectedBook extends React.Component {
           <>
             <SelectedBookCard selectedBook={this.props.selectedBook} />
             <BookReviews />
+            <button type="button">Add to Cart</button>
           </>
         ) : (
           <p>Loading</p>
@@ -56,13 +54,16 @@ class SelectedBook extends React.Component {
 
 const mapState = state => {
   return {
-    selectedBook: state.selectedBook
+    selectedBook: state.selectedBook,
+    cart: state.cart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchSelectedBook: bookId => dispatch(fetchSelectedBook(bookId))
+    fetchSelectedBook: bookId => dispatch(fetchSelectedBook(bookId)),
+    requestSelectedBook: (bookId, cartId) =>
+      dispatch(requestBookOnCart(bookId, cartId))
   }
 }
 
