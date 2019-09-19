@@ -32,9 +32,6 @@ class SelectedBook extends React.Component {
     this.props.fetchSelectedBook(this.props.match.params.bookId)
   }
   render() {
-    if (!this.props.cart.books) {
-      return <h1>Loading...</h1>
-    }
     return (
       <>
         <h1>Check out this book!</h1>
@@ -42,7 +39,21 @@ class SelectedBook extends React.Component {
           <>
             <SelectedBookCard selectedBook={this.props.selectedBook} />
             <BookReviews />
-            <button type="button">Add to Cart</button>
+            {this.props.cart.books ? (
+              <button
+                onClick={() => {
+                  this.props.requestSelectedBook(
+                    this.props.selectedBook.id,
+                    this.props.cart.id
+                  )
+                }}
+                type="button"
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <h1>Loading cart...</h1>
+            )}
           </>
         ) : (
           <p>Loading</p>

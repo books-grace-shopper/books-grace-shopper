@@ -10,9 +10,9 @@ const getUsersCart = cart => ({
   cart: cart
 })
 
-const addBookToCart = book => ({
+const addBookToCart = books => ({
   type: ADD_BOOK_TO_CART,
-  book: book
+  books: books
 })
 
 export const fetchUsersCart = userId => async dispatch => {
@@ -27,8 +27,8 @@ export const fetchUsersCart = userId => async dispatch => {
 
 export const requestBookOnCart = (bookId, cartId) => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/orders/${cartId}`, bookId)
-    console.log(data)
+    const {data} = await axios.post(`/api/orders/${cartId}`, {bookId: bookId})
+    dispatch(addBookToCart(data.books))
   } catch (err) {
     console.log(`We couldn't put the book on the cart.`)
     console.error(err)
@@ -41,6 +41,8 @@ export default function orderReducer(state = initialCart, action) {
   switch (action.type) {
     case GET_USERS_CART:
       return action.cart
+    case ADD_BOOK_TO_CART:
+      return {...state, books: action.books}
     default:
       return state
   }
