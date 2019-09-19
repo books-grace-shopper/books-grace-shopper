@@ -10,6 +10,14 @@ async function guestAddsToCart() {
   }
   await newOrder.requestBook(duplicateBook)
   await newOrder.requestBook(duplicateBook)
+  const books = await newOrder.getBooksWithQuantities()
+  for (let i = 0; i < books.length; i++) {
+    let booksObj = {}
+    booksObj.quantity = books[i].quantity
+    booksObj.id = books[i].bookId
+    console.log(booksObj)
+  }
+  console.log('----')
   return newOrder
 }
 
