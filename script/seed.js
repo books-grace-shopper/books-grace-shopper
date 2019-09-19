@@ -37,7 +37,6 @@ async function seed() {
   await guestRemovesFromCart()
   await guestSignsUpWithCart()
   await userAddsToCart(7)
-  // await userBuysOrder(8)
   console.log(`seeded successfully`)
 }
 
