@@ -33,7 +33,6 @@ OrderBook.findBookAndOrder = async function(bookId, orderId) {
     return {bookOrder: curBookOrder, book: curBook}
   } catch (err) {
     console.error('METHOD findBookAndOrder BROKE')
-    console.error(err)
   }
 }
 
@@ -46,7 +45,6 @@ OrderBook.increaseQuantityPrice = async function(bookId, orderId) {
     })
   } catch (err) {
     console.error('METHOD increaseQuantityPrice BROKE')
-    console.error(err)
   }
 }
 
@@ -59,7 +57,6 @@ OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
     })
   } catch (err) {
     console.error('METHOD decreaseQuantityPrice BROKE')
-    console.error(err)
   }
 }
 
