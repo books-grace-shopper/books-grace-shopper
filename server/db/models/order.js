@@ -65,7 +65,7 @@ Order.prototype.getBooksWithQuantities = async function() {
     try {
       for (let i = 0; i < orderBooks.length; i++) {
         const book = await Book.findByPk(orderBooks[i].bookId)
-        book.quantity = orderBooks[i].quantity
+        book.dataValues.quantity = orderBooks[i].quantity
         books.push(book)
       }
     } catch (err) {
