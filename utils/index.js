@@ -7,6 +7,7 @@ const {
   makeRandomBook,
   makeRandomOrder,
   makeRandomReview,
+  pickRandomImage,
   bulkGenerate
 } = require('./randomGenerators')
 
@@ -24,6 +25,7 @@ module.exports = {
   makeRandomOrder,
   makeRandomReview,
   bulkGenerate,
+  pickRandomImage,
   ORDER_STATUSES,
   GENRES,
   AUTHORS,
