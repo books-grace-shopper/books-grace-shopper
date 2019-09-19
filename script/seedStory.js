@@ -15,22 +15,21 @@ async function guestAddsToCart() {
     let booksObj = {}
     booksObj.quantity = books[i].quantity
     booksObj.id = books[i].bookId
-    console.log(booksObj)
   }
-  console.log('----')
   return newOrder
 }
 
 async function guestRemovesFromCart() {
   const order = await guestAddsToCart()
   const initialPrice = await order.getPrice()
-  console.log('INITIAL PRICE OF ORDER', initialPrice)
   const books = await order.getBooks()
   const book = pickRandom(books)
-  console.log('PRICE OF BOOK TO REMOVE', book.price / 100)
   await order.unrequestBook(book)
   const priceAfterRemoval = await order.getPrice()
-  await console.log('PRICE AFTER REMOVAL', priceAfterRemoval)
+  const mathError = initialPrice * 100 - book.price !== priceAfterRemoval * 100
+  if (mathError) {
+    console.error('ERROR: MATH INVOLVING PRICE BROKEN')
+  }
 }
 
 async function guestSignsUpWithCart() {
