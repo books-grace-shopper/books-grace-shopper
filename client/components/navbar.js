@@ -33,6 +33,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           />
         </button>
       </Link>
+      <Link to="/checkout">
+        <button type="button">Checkout</button>
+      </Link>
     </nav>
     <hr />
   </div>
