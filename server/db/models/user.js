@@ -43,6 +43,17 @@ const User = db.define('user', {
 
 module.exports = User
 
+User.prototype.findOrCreateCart = async function() {
+  const orders = await this.getOrders()
+  const cart = await orders.find(order => order.status === 'cart')
+  if (!cart) {
+    const newCart = await Order.create()
+    await this.addOrder(newCart)
+    return newCart
+  }
+  return cart
+}
+
 User.prototype.findCart = async function() {
   const cart = await this.getOrders()
   return cart.find(order => order.status === 'cart')

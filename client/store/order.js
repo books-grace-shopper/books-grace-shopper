@@ -1,29 +1,29 @@
 import axios from 'axios'
 
-const GET_CART = 'GET_CART'
+const GET_USERS_CART = 'GET_USERS_CART'
 
-const getCart = cart => ({
-  type: GET_CART,
+const USER_ERROR_MESSAGE = `ERROR: We couldn't find or create a cart for you.`
+
+const getUsersCart = cart => ({
+  type: GET_USERS_CART,
   cart: cart
 })
 
 const initialCart = {}
 
-export const fetchCart = userId => async dispatch => {
+export const fetchUsersCart = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/user/${userId}`)
-    console.log(data)
-    // dispatch(getCart())
-    // We need a way to get the user...
-    // await axios.get('/api/')
+    const {data} = await axios.get(`/api/users/${userId}`)
+    dispatch(getUsersCart(data.cart))
   } catch (err) {
+    console.log(USER_ERROR_MESSAGE)
     console.error(err)
   }
 }
 
 export default function orderReducer(state = initialCart, action) {
   switch (action.type) {
-    case GET_CART:
+    case GET_USERS_CART:
       return action.cart
     default:
       return state
