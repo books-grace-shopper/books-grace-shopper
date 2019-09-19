@@ -19,7 +19,7 @@ router.post('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const cart = await Order.findByPk(req.params.id)
-    const book = Book.findByPk(req.body.bookId)
+    const book = await Book.findByPk(req.body.bookId)
     await cart.unrequestBook(book)
     const newBooks = await cart.getBooksWithQuantities()
     cart.dataValues.books = newBooks

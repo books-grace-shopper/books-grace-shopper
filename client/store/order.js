@@ -45,7 +45,7 @@ export const requestBookOnCart = (bookId, cartId) => async dispatch => {
 export const decrementBookThunk = (bookId, cartId) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/orders/${cartId}`, {bookId: bookId})
-    dispatch(decrementBook(data))
+    dispatch(decrementBook(data.books))
   } catch (err) {
     console.log(USER_ERROR_MESSAGE)
     console.error(err)

@@ -5,7 +5,6 @@ import {requestBookOnCart, decrementBookThunk} from '../store/order'
 
 const CartBook = props => {
   const {book, cartId, incrementBook, decrementBook} = props
-  console.log('CartBook props: ', props)
   return (
     <div className="cart-book-container">
       <Card>
@@ -26,7 +25,14 @@ const CartBook = props => {
           >
             increment
           </button>
-          <button type="button">decrement</button>
+          <button
+            type="button"
+            onClick={() => {
+              decrementBook(book.id, cartId)
+            }}
+          >
+            decrement
+          </button>
           <button type="button">Remove from Cart</button>
         </div>
       </Card>
