@@ -20,11 +20,13 @@ form div {
   display: inline-block;
 }
 
+/* All Books Component */
 .all-book-cards {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
   padding: 5rem;
+  background-color: cadetblue;
 }
 
 .selected-book-img {
@@ -40,4 +42,22 @@ form div {
 .cart-button-img {
   height: 35px;
   width: 35px;
+}
+
+.all-books-header {
+  text-align: center;
+  border-bottom: solid;
+}
+
+/* Navbar */
+.bookazon-title {
+  color: cadetblue;
+  padding-left: 10px;
+}
+
+.header-container {
+  display: flex;
+}
+
+.login-button {
 }
