@@ -21,7 +21,7 @@ class Cart extends React.Component {
           <h1>Go add things to the cart!</h1>
         ) : (
           cart.books.map(book => {
-            return <CartBook key={book.bookId} book={book} cartId={cart.id} />
+            return <CartBook key={book.title} book={book} cartId={cart.id} />
           })
         )}
       </div>

@@ -2,10 +2,10 @@ import axios from 'axios'
 
 const GET_USERS_CART = 'GET_USERS_CART'
 const ADD_BOOK_TO_CART = 'ADD_BOOK_TO_CART'
+const DECREMENT_BOOK = 'DECREMENT_BOOK'
+const REMOVE_BOOK_FROM_CART = 'REMOVE_BOOK_FROM_CART'
 
 const USER_ERROR_MESSAGE = `ERROR: We couldn't find or create a cart for you.`
-
-const DECREMENT_BOOK = 'DECREMENT_BOOK'
 
 const getUsersCart = cart => ({
   type: GET_USERS_CART,
@@ -19,6 +19,11 @@ const addBookToCart = books => ({
 
 const decrementBook = books => ({
   type: DECREMENT_BOOK,
+  books: books
+})
+
+const removeBookFromCart = books => ({
+  type: REMOVE_BOOK_FROM_CART,
   books: books
 })
 
@@ -52,6 +57,16 @@ export const decrementBookThunk = (bookId, cartId) => async dispatch => {
   }
 }
 
+export const removeBookThunk = (bookId, cartId) => async dispatch => {
+  try {
+    const {data} = await axios.delete(`api/orders/${cartId}`, {bookId: bookId})
+    dispatch(removeBookFromCart(data.books))
+  } catch (err) {
+    console.log(USER_ERROR_MESSAGE)
+    console.error(err)
+  }
+}
+
 const initialCart = {}
 
 export default function orderReducer(state = initialCart, action) {
@@ -61,6 +76,8 @@ export default function orderReducer(state = initialCart, action) {
     case ADD_BOOK_TO_CART:
       return {...state, books: action.books}
     case DECREMENT_BOOK:
+      return {...state, books: action.books}
+    case REMOVE_BOOK_FROM_CART:
       return {...state, books: action.books}
     default:
       return state
