@@ -59,7 +59,8 @@ Order.prototype.getBooksWithQuantities = async function() {
     const orderBooks = await OrderBook.findAll({
       where: {
         orderId: this.id
-      }
+      },
+      order: [['bookId', 'DESC']]
     })
     const books = []
     try {
