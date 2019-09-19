@@ -1,0 +1,41 @@
+diff a/server/db/models/order.js b/server/db/models/order.js	(rejected hunks)
+@@ -19 +19 @@ const Order = db.define('order', {
+-  },
++  }
+@@ -23,2 +23,2 @@ Order.prototype.requestBook = async function(book) {
+-  await this.addBook(book);
+-  await OrderBook.increaseQuantityPrice(book.id, this.id);
++  await this.addBook(book)
++  await OrderBook.increaseQuantityPrice(book.id, this.id)
+@@ -32 +32 @@ Order.prototype.unrequestBook = async function(book) {
+-Order.prototype.getPrice = async function(){
++Order.prototype.getPrice = async function() {
+@@ -35 +35 @@ Order.prototype.getPrice = async function(){
+-      orderId: this.id,
++      orderId: this.id
+@@ -37,5 +37,7 @@ Order.prototype.getPrice = async function(){
+-  });
+-  return orderBooks.reduce((sum, orderBook) => {
+-    sum += orderBook.price;
+-    return sum;
+-  }, 0) / 100;
++  })
++  return (
++    orderBooks.reduce((sum, orderBook) => {
++      sum += orderBook.price
++      return sum
++    }, 0) / 100
++  )
+@@ -44 +46 @@ Order.prototype.getPrice = async function(){
+-Order.prototype.findBooks = async function(){
++Order.prototype.findBooks = async function() {
+@@ -49,2 +51,2 @@ Order.prototype.findBooks = async function(){
+-  });
+-  console.log('WRITE ME! YOU CAN DO IT! :)');
++  })
++  console.log('WRITE ME! YOU CAN DO IT! :)')
+@@ -54,2 +56,2 @@ Order.prototype.findBooks = async function(){
+-Order.prototype.isCart = function(){
+-  return this.status === 'cart';
++Order.prototype.isCart = function() {
++  return this.status === 'cart'

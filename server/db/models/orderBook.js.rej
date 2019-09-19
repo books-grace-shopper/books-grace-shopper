@@ -1,0 +1,20 @@
+diff a/server/db/models/orderBook.js b/server/db/models/orderBook.js	(rejected hunks)
+@@ -24 +24 @@ const OrderBook = db.define('order_book', {
+-OrderBook.findBookAndOrder = async function(bookId, orderId){
++OrderBook.findBookAndOrder = async function(bookId, orderId) {
+@@ -28 +28 @@ OrderBook.findBookAndOrder = async function(bookId, orderId){
+-      orderId: orderId,
++      orderId: orderId
+@@ -30,3 +30,3 @@ OrderBook.findBookAndOrder = async function(bookId, orderId){
+-  });
+-  const curBook = await Book.findByPk(bookId);
+-  return {bookOrder: curBookOrder, book: curBook};
++  })
++  const curBook = await Book.findByPk(bookId)
++  return {bookOrder: curBookOrder, book: curBook}
+@@ -36 +36 @@ OrderBook.increaseQuantityPrice = async function(bookId, orderId) {
+-  const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId);
++  const {bookOrder, book} = await OrderBook.findBookAndOrder(bookId, orderId)
+@@ -40 +40 @@ OrderBook.increaseQuantityPrice = async function(bookId, orderId) {
+-  });
++  })

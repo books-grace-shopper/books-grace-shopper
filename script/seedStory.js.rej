@@ -1,51 +1,37 @@
 diff a/script/seedStory.js b/script/seedStory.js	(rejected hunks)
 @@ -1 +1 @@
--const {User, Book, Order, Review, OrderBook} = require('../server/db/models');
-+const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
-@@ -3,6 +3,6 @@ const {User, Book, Order, Review, OrderBook} = require('../server/db/models');
--async function guestAddsToCart(){
--  const newOrder = await Order.create();
--  const books = [];
--  for (let i = 1; i <= 10; i++){
--    const book = await Book.findByPk(i);
--    books.push(book);
-+async function guestAddsToCart() {
-+  const newOrder = await Order.create()
-+  const books = []
-+  for (let i = 1; i <= 10; i++) {
-+    const book = await Book.findByPk(i)
-+    books.push(book)
-@@ -10,4 +10,4 @@ async function guestAddsToCart(){
+-const { pickRandom } = require('../utils');
++const {pickRandom} = require('../utils')
+@@ -6 +6 @@ async function guestAddsToCart() {
 -  const duplicateBook = await Book.findByPk(5);
--  await newOrder.requestBook(duplicateBook);
--  await newOrder.requestBook(duplicateBook);
--  return newOrder;
 +  const duplicateBook = await Book.findByPk(5)
+@@ -9 +9 @@ async function guestAddsToCart() {
+-    await newOrder.requestBook(book);
++    await newOrder.requestBook(book)
+@@ -11,5 +11,5 @@ async function guestAddsToCart() {
+-  await newOrder.requestBook(duplicateBook);
+-  await newOrder.requestBook(duplicateBook);
+-  const price = await newOrder.getPrice();
+-  console.log('PRICE AFTER ADDITIONS', price);
+-  return newOrder;
 +  await newOrder.requestBook(duplicateBook)
 +  await newOrder.requestBook(duplicateBook)
++  const price = await newOrder.getPrice()
++  console.log('PRICE AFTER ADDITIONS', price)
 +  return newOrder
-@@ -16,2 +16,2 @@ async function guestAddsToCart(){
--async function guestSignsUpWithCart(){
+@@ -18,6 +18,6 @@ async function guestAddsToCart() {
+-async function guestRemovesFromCart(){
 -  const order = await guestAddsToCart();
-+async function guestSignsUpWithCart() {
+-  const books = await order.getBooks();
+-  const book = pickRandom(books);
+-  await order.unrequestBook(book);
+-  const priceAfterRemoval = await order.getPrice();
++async function guestRemovesFromCart() {
 +  const order = await guestAddsToCart()
-@@ -20,3 +20,3 @@ async function guestSignsUpWithCart(){
--async function userMakesOrder(){
--  const user = await User.findByPk(5);
--  const order = await Order.findByPk(3);
-+async function userMakesOrder() {
-+  const user = await User.findByPk(5)
-+  const order = await Order.findByPk(3)
-@@ -25,2 +25,2 @@ async function userMakesOrder(){
--async function userBuysOrder(){
--  const user = await User.findByPk(7);
-+async function userBuysOrder() {
-+  const user = await User.findByPk(7)
-@@ -29,2 +29,2 @@ async function userBuysOrder(){
--async function userCancelsOrder(){
--  const user = await User.findByPk(3);
-+async function userCancelsOrder() {
-+  const user = await User.findByPk(3)
-@@ -38 +38 @@ module.exports = {
--  userCancelsOrder,
-+  userCancelsOrder
++  const books = await order.getBooks()
++  const book = pickRandom(books)
++  await order.unrequestBook(book)
++  const priceAfterRemoval = await order.getPrice()
+@@ -53 +53 @@ async function userBuysOrder(id) {
+-  const user = await userAddsToCart(id);
++  const user = await userAddsToCart(id)

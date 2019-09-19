@@ -3,6 +3,7 @@ const db = require('../server/db')
 const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
 const {
   guestAddsToCart,
+  guestRemovesFromCart,
   guestSignsUpWithCart,
   userAddsToCart,
   userBuysOrder
@@ -20,20 +21,23 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  await bulkGenerate(Book, 500, makeRandomBook)
-  await bulkGenerate(User, 100, makeRandomUser)
-  await bulkGenerate(Review, 80, makeRandomReview)
-  await bulkGenerate(Order, 80, makeRandomOrder)
   await User.create({
     email: 'manualUser@test.com',
     address: '123 sunny st, glenco, IL 60025',
     name: 'Jimmy Smith',
     password: '123'
   })
+
+  await bulkGenerate(Book, 500, makeRandomBook)
+  await bulkGenerate(User, 100, makeRandomUser)
+  await bulkGenerate(Review, 80, makeRandomReview)
+  await bulkGenerate(Order, 80, makeRandomOrder)
+
   await guestAddsToCart()
+  await guestRemovesFromCart()
   await guestSignsUpWithCart()
   await userAddsToCart(7)
-  await userBuysOrder(8)
+  // await userBuysOrder(8)
   console.log(`seeded successfully`)
 }
 

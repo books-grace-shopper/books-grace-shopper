@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
  */
 export const UserHome = props => {
   const {email, name} = props
-  console.log('auth form UserHome: ', props)
   return (
     <div>
       <h3>Welcome, {name ? name : email}</h3>

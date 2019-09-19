@@ -1,0 +1,4 @@
+diff a/script/seed.js b/script/seed.js	(rejected hunks)
+@@ -36 +36 @@ async function seed() {
+-  await guestAddsToCart();
++  await guestAddsToCart()
