@@ -10,7 +10,6 @@ function SingleBook(props) {
   const book = props.book
   return (
     <>
-      <hr />
       <div key={book.id} className="single-book-card">
         <Card style={{width: '16rem'}}>
           <Link to={`/books/${book.id}`}>
