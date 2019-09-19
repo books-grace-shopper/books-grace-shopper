@@ -1,21 +1,27 @@
+const {pickRandom} = require('../utils')
 const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
 
 async function guestAddsToCart() {
   const newOrder = await Order.create()
-  const books = []
+  const duplicateBook = await Book.findByPk(5)
   for (let i = 1; i <= 10; i++) {
     const book = await Book.findByPk(i)
-    books.push(book)
+    await newOrder.requestBook(book)
   }
-  await Promise.all(books.map(book => newOrder.requestBook(book)))
-  const duplicateBook = await Book.findByPk(5)
   await newOrder.requestBook(duplicateBook)
   await newOrder.requestBook(duplicateBook)
-  /*
-   * For checking the price method:
-   * const price = await newOrder.getPrice();
-   */
+  const price = await newOrder.getPrice()
+  console.log('PRICE AFTER ADDITIONS', price)
   return newOrder
+}
+
+async function guestRemovesFromCart() {
+  const order = await guestAddsToCart()
+  const books = await order.getBooks()
+  const book = pickRandom(books)
+  await order.unrequestBook(book)
+  const priceAfterRemoval = await order.getPrice()
+  // await console.log(priceAfterRemoval);
 }
 
 async function guestSignsUpWithCart() {
@@ -51,6 +57,7 @@ async function userBuysOrder(id) {
 
 module.exports = {
   guestAddsToCart,
+  guestRemovesFromCart,
   guestSignsUpWithCart,
   userAddsToCart,
   userBuysOrder

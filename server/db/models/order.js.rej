@@ -1,0 +1,14 @@
+diff a/server/db/models/order.js b/server/db/models/order.js	(rejected hunks)
+@@ -27 +27 @@ Order.prototype.requestBook = async function(book) {
+-Order.prototype.getPrice = async function(){
++Order.prototype.getPrice = async function() {
+@@ -32,2 +32,2 @@ Order.prototype.getPrice = async function(){
+-  });
+-  return orderBook.price / 100;
++  })
++  return orderBook.price / 100
+@@ -36,2 +36,2 @@ Order.prototype.getPrice = async function(){
+-Order.prototype.isCart = function(){
+-  return this.status === 'cart';
++Order.prototype.isCart = function() {
++  return this.status === 'cart'

@@ -1,0 +1,4 @@
+diff a/script/seed.js b/script/seed.js	(rejected hunks)
+@@ -34 +34 @@ async function seed() {
+-  Order.showMagic();
++  Order.showMagic()
