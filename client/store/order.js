@@ -59,7 +59,7 @@ export const decrementBookThunk = (bookId, cartId) => async dispatch => {
 
 export const removeBookThunk = (bookId, cartId) => async dispatch => {
   try {
-    const {data} = await axios.delete(`api/orders/${cartId}`, {bookId: bookId})
+    const {data} = await axios.delete(`api/orders/${cartId}/books/${bookId}`)
     dispatch(removeBookFromCart(data.books))
   } catch (err) {
     console.log(USER_ERROR_MESSAGE)

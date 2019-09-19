@@ -29,13 +29,11 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id/books/:bookId', async (req, res, next) => {
   try {
     const cart = await Order.findByPk(req.params.id)
-    const book = await Book.findByPk(req.body.bookId)
-    console.log('BOOK ID', req.body.bookId)
-    console.log('BOOK', book)
-    await cart.removeBook(req.body.bookId)
+    const book = await Book.findByPk(req.params.bookId)
+    await cart.removeBook(book)
     const newBooks = await cart.getBooksWithQuantities()
     // console.log('newBookslenth ', newBooks.length);
     cart.dataValues.books = newBooks
