@@ -21,7 +21,29 @@ const Order = db.define('order', {
 
 Order.prototype.requestBook = async function(book) {
   await this.addBook(book)
-  await OrderBook.updateQuantityPrice(book.id, this.id)
+  await OrderBook.increaseQuantityPrice(book.id, this.id)
+}
+
+Order.prototype.unrequestBook = async function(book) {
+  await OrderBook.decreaseQuantityPrice(book.id, this.id)
+}
+
+Order.prototype.getPrice = async function() {
+  const orderBooks = await OrderBook.findAll({
+    where: {
+      orderId: this.id
+    }
+  })
+  return (
+    orderBooks.reduce((sum, orderBook) => {
+      sum += orderBook.price * orderBook.quantity
+      return sum
+    }, 0) / 100
+  )
+}
+
+Order.prototype.isCart = function() {
+  return this.status === 'cart'
 }
 
 Order.prototype.purchaseSelf = async function() {
