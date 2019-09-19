@@ -48,15 +48,4 @@ OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
   })
 }
 
-// OrderBook.decreaseQuantityPrice = async function(bookId, orderId) {
-//   const { orderBook, book } = await OrderBook.getOrderAndBook(bookId, orderId);
-//   console.log('ORDERBOOK PRICE BEFORE UPDATE', orderBook.price);
-//   console.log(book.price);
-//   await orderBook.update({
-//     quantity: --orderBook.quantity,
-//     price: orderBook.price - book.price,
-//   });
-//   console.log('ORDERBOOK PRICE AFTER UPDATE', orderBook.price);
-// }
-
 module.exports = OrderBook
