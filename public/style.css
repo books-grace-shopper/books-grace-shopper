@@ -20,22 +20,13 @@ form div {
   display: inline-block;
 }
 
-.all-books-container {
-  width: 100%;
-  background-color: red;
-  padding: 10px;
-}
+/* All Books Component */
 .all-book-cards {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  justify-content: space-around;
-
-  /* margin: 0 auto; */
-}
-.single-book-card {
-  flex: 0 0 20%;
-  padding-bottom: 25px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  padding: 5rem;
+  background-color: cadetblue;
 }
 
 .selected-book-img {
@@ -43,7 +34,30 @@ form div {
   width: 100px;
 }
 
+.card-img-top {
+  height: 200px;
+  width: 100px;
+}
+
 .cart-button-img {
   height: 35px;
   width: 35px;
+}
+
+.all-books-header {
+  text-align: center;
+  border-bottom: solid;
+}
+
+/* Navbar */
+.bookazon-title {
+  color: cadetblue;
+  padding-left: 10px;
+}
+
+.header-container {
+  display: flex;
+}
+
+.login-button {
 }

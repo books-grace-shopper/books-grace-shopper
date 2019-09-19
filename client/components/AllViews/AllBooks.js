@@ -10,7 +10,6 @@ function SingleBook(props) {
   const book = props.book
   return (
     <>
-      <hr />
       <div key={book.id} className="single-book-card">
         <Card style={{width: '16rem'}}>
           <Link to={`/books/${book.id}`}>
@@ -41,9 +40,8 @@ class AllBooks extends React.Component {
   }
   render() {
     return (
-      // <div className="all-books-container">
       <>
-        <h1>All Books</h1>
+        <h1 className="all-books-header">Shop All Books</h1>
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />
@@ -52,7 +50,6 @@ class AllBooks extends React.Component {
           )}
         </div>
       </>
-      // </div>
     )
   }
 }
