@@ -44,10 +44,4 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-// 	return {
-//    deleteReview: (reviewId, book) => dispatch(deleteReviewThunk(reviewId, book))
-// 	};
-// };
-
 export default connect(mapState)(BookReviews)
