@@ -1,21 +1,23 @@
 import React from 'react'
+import Card from 'react-bootstrap/Card'
 
 export default function BookReviews(props) {
   console.log('props.reviews ', props.reviews)
   return (
     <div className="review-container">
-      <div className="review-header">Header</div>
-      <div className="rating-add-review-container">BUTTON</div>
+      <h1 className="review-header">reviews for this book</h1>
+      {/* POST review from goes here */}
       <div className="review-list">
         {props.reviews ? (
           props.reviews.map(review => {
             return (
-              <div key={review.id}>
-                <p>title: {review.title}</p>
+              <Card key={review.id}>
+                <h2>title: {review.title}</h2>
+                <p>written by: {review.user.name}</p>
+                <h3>rating: {review.rating}</h3>
                 <p>description: {review.description}</p>
-                <p>rating: {review.rating}</p>
-                {/* include user */}
-              </div>
+                <hr />
+              </Card>
             )
           })
         ) : (

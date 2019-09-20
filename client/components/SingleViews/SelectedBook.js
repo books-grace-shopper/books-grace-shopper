@@ -38,25 +38,25 @@ class SelectedBook extends React.Component {
           “A reader lives a thousand lives before he dies... The man who never
           reads lives only one." – George R.R. Martin
         </h4>
+        {this.props.cart.books ? (
+          <button
+            onClick={() => {
+              this.props.requestSelectedBook(
+                this.props.selectedBook.id,
+                this.props.cart.id
+              )
+            }}
+            type="button"
+          >
+            Add to Cart
+          </button>
+        ) : (
+          <h1>Loading cart...</h1>
+        )}
         {this.props.selectedBook ? (
           <div>
             <SelectedBookCard selectedBook={selectedBook} />
             <BookReviews reviews={selectedBook.reviews} />
-            {this.props.cart.books ? (
-              <button
-                onClick={() => {
-                  this.props.requestSelectedBook(
-                    this.props.selectedBook.id,
-                    this.props.cart.id
-                  )
-                }}
-                type="button"
-              >
-                Add to Cart
-              </button>
-            ) : (
-              <h1>Loading cart...</h1>
-            )}
           </div>
         ) : (
           <p>Loading</p>

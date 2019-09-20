@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const book = await Book.findByPk(req.params.id)
-    book.dataValues.reviews = await book.getReviews()
+    book.dataValues.reviews = await book.getReviewsWithUser()
     book ? res.status(200).send(book) : die(404)
   } catch (error) {
     next(error)
