@@ -37,21 +37,7 @@ Order.prototype.unrequestBook = async function(book) {
 }
 
 Order.prototype.getPrice = async function() {
-  try {
-    const orderBooks = await OrderBook.findAll({
-      where: {
-        orderId: this.id
-      }
-    })
-    return (
-      orderBooks.reduce((sum, orderBook) => {
-        sum += orderBook.price * orderBook.quantity
-        return sum
-      }, 0) / 100
-    )
-  } catch (err) {
-    console.error('METHOD getPrice ON Order BROKE')
-  }
+  throw Error('WRITE ME')
 }
 
 Order.prototype.getBooksWithQuantities = async function() {

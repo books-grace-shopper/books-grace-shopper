@@ -26,16 +26,16 @@ async function guestAddsToCart() {
 async function guestRemovesFromCart() {
   try {
     const order = await guestAddsToCart()
-    const initialPrice = await order.getPrice()
+    // const initialPrice = await order.getPrice()
     const books = await order.getBooks()
     const book = pickRandom(books)
     await order.unrequestBook(book)
-    const priceAfterRemoval = await order.getPrice()
-    const mathError =
-      initialPrice * 100 - book.price !== priceAfterRemoval * 100
-    if (mathError) {
-      console.error('ERROR: MATH INVOLVING PRICE BROKEN')
-    }
+    // const priceAfterRemoval = await order.getPrice()
+    // const mathError =
+    //   initialPrice * 100 - book.price !== priceAfterRemoval * 100
+    // if (mathError) {
+    //   console.error('ERROR: MATH INVOLVING PRICE BROKEN')
+    // }
   } catch (err) {
     console.error('METHOD guestRemovesFromCart IN seedStory FAILED')
   }
