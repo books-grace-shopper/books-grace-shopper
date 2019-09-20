@@ -20,7 +20,7 @@ function BookReviews(props) {
                   <button
                     type="button"
                     onClick={() => {
-                      props.deleteReview(review.id, props.book)
+                      props.deleteReview(review.id, props.reviews)
                     }}
                   >
                     delete your review
@@ -40,8 +40,7 @@ function BookReviews(props) {
 
 const mapState = state => {
   return {
-    userId: state.user.id,
-    book: state.selectedBook
+    userId: state.user.id
   }
 }
 
