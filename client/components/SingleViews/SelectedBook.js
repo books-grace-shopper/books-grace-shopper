@@ -7,9 +7,8 @@ import BookReviews from './BookReviews'
 
 function SelectedBookCard(props) {
   const book = props.selectedBook
-
   return (
-    <>
+    <div>
       <div className="selected-book-container">
         <Card>
           <div className="selected-book-img-container">
@@ -23,7 +22,7 @@ function SelectedBookCard(props) {
           </div>
         </Card>
       </div>
-    </>
+    </div>
   )
 }
 
@@ -32,16 +31,17 @@ class SelectedBook extends React.Component {
     this.props.fetchSelectedBook(this.props.match.params.bookId)
   }
   render() {
+    const selectedBook = this.props.selectedBook
     return (
-      <>
+      <div>
         <h4 className="selected-book-quote">
           “A reader lives a thousand lives before he dies... The man who never
           reads lives only one." – George R.R. Martin
         </h4>
         {this.props.selectedBook ? (
-          <>
-            <SelectedBookCard selectedBook={this.props.selectedBook} />
-            <BookReviews />
+          <div>
+            <SelectedBookCard selectedBook={selectedBook} />
+            <BookReviews reviews={selectedBook.reviews} />
             {this.props.cart.books ? (
               <button
                 onClick={() => {
@@ -57,11 +57,11 @@ class SelectedBook extends React.Component {
             ) : (
               <h1>Loading cart...</h1>
             )}
-          </>
+          </div>
         ) : (
           <p>Loading</p>
         )}
-      </>
+      </div>
     )
   }
 }

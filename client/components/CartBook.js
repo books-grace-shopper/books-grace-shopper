@@ -7,8 +7,6 @@ import {
   removeBookThunk
 } from '../store/order'
 
-console.log('removeBookThunk...', removeBookThunk)
-
 const CartBook = props => {
   const {book, cartId, incrementBook, decrementBook, removeBook} = props
   return (
