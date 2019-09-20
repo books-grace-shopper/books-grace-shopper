@@ -12,6 +12,7 @@ function mapState(state) {
 class Cart extends React.Component {
   render() {
     const cart = this.props.cart
+    console.log('CART IN CART COMPONENT IS', this.props.cart)
     if (!cart.books) {
       return <div>Loading cart...</div>
     }
