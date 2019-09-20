@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {ShippingAddressForm, PaymentInfoForm} from './Forms'
+import {ShippingAddressForm, PaymentInfoForm} from './forms'
 
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
