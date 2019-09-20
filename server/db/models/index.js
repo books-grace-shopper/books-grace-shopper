@@ -3,6 +3,7 @@ const Book = require('./book')
 const Review = require('./review')
 const Order = require('./order')
 const OrderBook = require('./orderBook.js')
+const Session = require('./session')
 
 const {MODEL_METHODS} = require('../../../utils')
 
@@ -18,7 +19,9 @@ User.hasMany(Order)
 Review.belongsTo(User)
 Review.belongsTo(Book)
 
-const MODELS = [User, Book, Review, Order, OrderBook]
+Session.hasOne(Order)
+
+const MODELS = [User, Book, Review, Order, OrderBook, Session]
 
 MODELS.forEach(Model => {
   MODEL_METHODS.forEach(method => {
@@ -31,5 +34,6 @@ module.exports = {
   Book,
   Review,
   Order,
-  OrderBook
+  OrderBook,
+  Session
 }

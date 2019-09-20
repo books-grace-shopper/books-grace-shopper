@@ -1,11 +1,17 @@
 import axios from 'axios'
 
+const GET_GUESTS_CART = 'GET_GUESTS_CART'
 const GET_USERS_CART = 'GET_USERS_CART'
 const ADD_BOOK_TO_CART = 'ADD_BOOK_TO_CART'
 const DECREMENT_BOOK = 'DECREMENT_BOOK'
 const REMOVE_BOOK_FROM_CART = 'REMOVE_BOOK_FROM_CART'
 
 const USER_ERROR_MESSAGE = `ERROR: We couldn't find or create a cart for you.`
+
+export const getGuestsCart = cart => ({
+  type: GET_GUESTS_CART,
+  cart: cart
+})
 
 const getUsersCart = cart => ({
   type: GET_USERS_CART,
@@ -71,6 +77,8 @@ const initialCart = {}
 
 export default function orderReducer(state = initialCart, action) {
   switch (action.type) {
+    case GET_GUESTS_CART:
+      return action.cart
     case GET_USERS_CART:
       return action.cart
     case ADD_BOOK_TO_CART:
