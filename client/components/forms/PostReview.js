@@ -26,6 +26,17 @@ class PostReview extends React.Component {
             <Label>your review...</Label>
             <Control as="textarea" name="description" />
           </Group>
+          <Group>
+            <Label>rating:</Label>
+            <Control as="select" name="rating">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </Control>
+          </Group>
         </Row>
       </Form>
     )
