@@ -20,7 +20,7 @@ function BookReviews(props) {
                   <button
                     type="button"
                     onClick={() => {
-                      props.deleteReview(review.id, props.reviews)
+                      props.deleteReview(review.id)
                     }}
                   >
                     delete your review
