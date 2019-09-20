@@ -28,7 +28,7 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  await User.create({
+  const manualUser = await User.create({
     email: 'manualUser@test.com',
     address: '123 sunny st, glenco, IL 60025',
     name: 'Jimmy Smith',
@@ -39,6 +39,13 @@ async function seed() {
   await bulkGenerate(User, 100, makeRandomUser)
   await bulkGenerate(Review, 80, makeRandomReview)
   await bulkGenerate(Order, 80, makeRandomOrder)
+
+  const newOrder = await Order.create()
+
+  for (let i = 1; i <= 10; i++) {
+    await newOrder.updateBookQuantity(i, 1)
+  }
+  await manualUser.addOrder(newOrder)
 
   Order.showMagic()
 

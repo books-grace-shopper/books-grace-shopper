@@ -1,14 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'react-bootstrap/Card'
-import {
-  requestBookOnCart,
-  decrementBookThunk,
-  removeBookThunk
-} from '../store/order'
+import {removeBookThunk, updateBookQuantityThunk} from '../store/order'
 
 const CartBook = props => {
-  const {book, cartId, incrementBook, decrementBook, removeBook} = props
+  const {book, cartId, removeBook, updateBook} = props
   return (
     <div className="cart-book-container">
       <Card>
@@ -21,22 +17,22 @@ const CartBook = props => {
           <p>description: {book.description}</p>
           <p>${book.price}</p>
           <p>quantity: {book.quantity}</p>
-          <button
-            type="button"
-            onClick={() => {
-              incrementBook(book.id, cartId)
+          <select
+            onChange={() => {
+              updateBook(book.id, cartId)
             }}
           >
-            increment
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              decrementBook(book.id, cartId)
-            }}
-          >
-            decrement
-          </button>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
           <button
             type="button"
             onClick={() => {
@@ -51,10 +47,8 @@ const CartBook = props => {
   )
 }
 const mapDispatch = dispatch => ({
-  incrementBook: (bookId, cartId) =>
-    dispatch(requestBookOnCart(bookId, cartId)),
-  decrementBook: (bookId, cartId) =>
-    dispatch(decrementBookThunk(bookId, cartId)),
+  updateBook: (bookId, cartId, bookQuantity) =>
+    dispatch(updateBookQuantityThunk(bookId, cartId, bookQuantity)),
   removeBook: (bookId, cartId) => dispatch(removeBookThunk(bookId, cartId))
 })
 
