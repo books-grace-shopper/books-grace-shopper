@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchSelectedBook} from '../../store/selectedBook'
+import {fetchSelectedBook, deleteReviewThunk} from '../../store/selectedBook'
 import {requestBookOnCart} from '../../store/order'
 import Card from 'react-bootstrap/Card'
 import BookReviews from './BookReviews'
@@ -56,7 +56,10 @@ class SelectedBook extends React.Component {
         {this.props.selectedBook ? (
           <div>
             <SelectedBookCard selectedBook={selectedBook} />
-            <BookReviews reviews={selectedBook.reviews} />
+            <BookReviews
+              deleteReview={this.props.deleteReview}
+              reviews={selectedBook.reviews}
+            />
           </div>
         ) : (
           <p>Loading</p>
@@ -77,7 +80,9 @@ const mapDispatch = dispatch => {
   return {
     fetchSelectedBook: bookId => dispatch(fetchSelectedBook(bookId)),
     requestSelectedBook: (bookId, cartId) =>
-      dispatch(requestBookOnCart(bookId, cartId))
+      dispatch(requestBookOnCart(bookId, cartId)),
+    deleteReview: (reviewId, book) =>
+      dispatch(deleteReviewThunk(reviewId, book))
   }
 }
 

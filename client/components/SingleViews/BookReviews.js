@@ -1,7 +1,6 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import {connect} from 'react-redux'
-import {deleteReviewThunk} from '../../store/selectedBook'
 
 function BookReviews(props) {
   return (
@@ -20,7 +19,9 @@ function BookReviews(props) {
                 {props.userId === review.user.id && (
                   <button
                     type="button"
-                    onClick={() => props.deleteReview(review.id)}
+                    onClick={() => {
+                      props.deleteReview(review.id, props.book)
+                    }}
                   >
                     delete your review
                   </button>
@@ -39,14 +40,15 @@ function BookReviews(props) {
 
 const mapState = state => {
   return {
-    userId: state.user.id
+    userId: state.user.id,
+    book: state.selectedBook
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    deleteReview: reviewId => dispatch(deleteReviewThunk(reviewId))
-  }
-}
+// const mapDispatch = (dispatch) => {
+// 	return {
+//    deleteReview: (reviewId, book) => dispatch(deleteReviewThunk(reviewId, book))
+// 	};
+// };
 
-export default connect(mapState, mapDispatch)(BookReviews)
+export default connect(mapState)(BookReviews)
