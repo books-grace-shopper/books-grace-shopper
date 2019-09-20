@@ -49,7 +49,11 @@ Order.prototype.getBookQuantity = async function(bookId) {
 }
 
 Order.prototype.getPrice = async function() {
-  throw Error('WRITE ME')
+  const books = await this.getBooksWithQuantities
+  return books.reduce((sum, book) => {
+    sum += book.price * book.quantity
+    return sum
+  }, 0)
 }
 
 Order.prototype.getBooksWithQuantities = async function() {
@@ -64,7 +68,7 @@ Order.prototype.getBooksWithQuantities = async function() {
     try {
       for (let i = 0; i < orderBooks.length; i++) {
         const book = await Book.findByPk(orderBooks[i].bookId)
-        book.dataValues.quantity = orderBooks[i].quantity
+        book.dataValues.quantity = orderBooks[i].bookQuantity
         books.push(book)
       }
     } catch (err) {

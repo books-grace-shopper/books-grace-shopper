@@ -19,8 +19,8 @@ router.post('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const cart = await Order.findByPk(req.params.id)
-    // await cart.unrequestBook(book)
-    await cart.updateBookQuantity(req.body.bookId, req.body.quantity)
+    console.log('REQ.BODY IS', req.body)
+    await cart.updateBookQuantity(req.body.bookId, req.body.bookQuantity)
     const newBooks = await cart.getBooksWithQuantities()
     cart.dataValues.books = newBooks
     res.json(cart)
@@ -37,7 +37,6 @@ router.delete('/:id/books/:bookId', async (req, res, next) => {
     await cart.removeBook(req.params.bookId)
 
     const newBooks = await cart.getBooksWithQuantities()
-    // console.log('newBookslenth ', newBooks.length);
     cart.dataValues.books = newBooks
     res.json(cart)
   } catch (err) {
