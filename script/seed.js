@@ -38,9 +38,7 @@ async function seed() {
 
   await bulkGenerate(Book, 500, makeRandomBook)
   await bulkGenerate(User, 100, makeRandomUser)
-  // await bulkGenerate(Review, 80, makeRandomReview);
   await bulkGenerate(Order, 80, makeRandomOrder)
-
   await createUserReviews(10)
   await guestAddsToCart()
   await guestRemovesFromCart()

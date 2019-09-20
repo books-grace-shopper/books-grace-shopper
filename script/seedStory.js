@@ -7,10 +7,13 @@ async function guestAddsToCart() {
     const duplicateBook = await Book.findByPk(5)
     for (let i = 1; i <= 10; i++) {
       const book = await Book.findByPk(i)
-      await newOrder.requestBook(book)
+      // await newOrder.requestBook(book)
+      await newOrder.updateBookQuantity(book.id, 1)
     }
-    await newOrder.requestBook(duplicateBook)
-    await newOrder.requestBook(duplicateBook)
+    // await newOrder.requestBook(duplicateBook)
+    // await newOrder.requestBook(duplicateBook)
+    await newOrder.updateBookQuantity(duplicateBook.id, 5)
+
     const books = await newOrder.getBooksWithQuantities()
     for (let i = 0; i < books.length; i++) {
       let booksObj = {}
@@ -26,16 +29,16 @@ async function guestAddsToCart() {
 async function guestRemovesFromCart() {
   try {
     const order = await guestAddsToCart()
-    const initialPrice = await order.getPrice()
+    // const initialPrice = await order.getPrice()
     const books = await order.getBooks()
     const book = pickRandom(books)
-    await order.unrequestBook(book)
-    const priceAfterRemoval = await order.getPrice()
-    const mathError =
-      initialPrice * 100 - book.price !== priceAfterRemoval * 100
-    if (mathError) {
-      console.error('ERROR: MATH INVOLVING PRICE BROKEN')
-    }
+    await order.updateBookQuantity(book.id, 0)
+    // const priceAfterRemoval = await order.getPrice()
+    // const mathError =
+    //   initialPrice * 100 - book.price !== priceAfterRemoval * 100
+    // if (mathError) {
+    //   console.error('ERROR: MATH INVOLVING PRICE BROKEN')
+    // }
   } catch (err) {
     console.error('METHOD guestRemovesFromCart IN seedStory FAILED')
   }
@@ -49,7 +52,7 @@ async function guestSignsUpWithCart() {
     name: 'Jim',
     password: '1234'
   }
-  await order.createUserWithCart(testUser)
+
   return order
 }
 
@@ -58,7 +61,7 @@ async function userAddsToCart(id) {
   const order = await user.findOrCreateCart()
   for (let i = id; i <= id + 10; i++) {
     const book = await Book.findByPk(i)
-    await order.requestBook(book)
+    await order.updateBookQuantity(book.id, 1)
   }
   return user
 }

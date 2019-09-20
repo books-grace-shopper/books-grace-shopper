@@ -6,8 +6,8 @@ module.exports = router
 router.post('/:id', async (req, res, next) => {
   try {
     const cart = await Order.findByPk(req.params.id)
-    const book = await Book.findByPk(req.body.bookId)
-    await cart.requestBook(book)
+    // const book = await Book.findByPk(req.body.bookId)
+    await cart.updateBookQuantity(req.body.bookId, req.body.quantity)
     const newBooks = await cart.getBooksWithQuantities()
     cart.dataValues.books = newBooks
     res.json(cart)
@@ -19,8 +19,8 @@ router.post('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const cart = await Order.findByPk(req.params.id)
-    const book = await Book.findByPk(req.body.bookId)
-    await cart.unrequestBook(book)
+    console.log('REQ.BODY IS', req.body)
+    await cart.updateBookQuantity(req.body.bookId, req.body.bookQuantity)
     const newBooks = await cart.getBooksWithQuantities()
     cart.dataValues.books = newBooks
     res.json(cart)
@@ -31,11 +31,12 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id/books/:bookId', async (req, res, next) => {
   try {
+    console.log('req.body.bookId: ', req.body.bookId)
     const cart = await Order.findByPk(req.params.id)
-    const book = await Book.findByPk(req.params.bookId)
-    await cart.removeBook(book)
+
+    await cart.removeBook(req.params.bookId)
+
     const newBooks = await cart.getBooksWithQuantities()
-    // console.log('newBookslenth ', newBooks.length);
     cart.dataValues.books = newBooks
     res.json(cart)
   } catch (err) {

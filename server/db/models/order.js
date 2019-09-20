@@ -19,39 +19,41 @@ const Order = db.define('order', {
   }
 })
 
-Order.prototype.requestBook = async function(book) {
-  try {
-    await this.addBook(book)
-    await OrderBook.increaseQuantityPrice(book.id, this.id)
-  } catch (err) {
-    console.error('METHOD requestBook ON Order BROKE')
+Order.prototype.updateBookQuantity = async function(bookId, newQuantity) {
+  if (newQuantity === 0) {
+    await this.removeBook(bookId)
+    return this.getBooksWithQuantities()
+  } else {
+    const [orderBook] = await OrderBook.findOrCreate({
+      where: {
+        orderId: this.id,
+        bookId: bookId
+      }
+    })
+    await orderBook.update({
+      bookQuantity: newQuantity
+    })
+
+    return this.getBooksWithQuantities()
   }
 }
 
-Order.prototype.unrequestBook = async function(book) {
-  try {
-    await OrderBook.decreaseQuantityPrice(book.id, this.id)
-  } catch (err) {
-    console.error('METHOD unrequestBook ON Order BROKE')
-  }
+Order.prototype.getBookQuantity = async function(bookId) {
+  const orderBook = await OrderBook.findOne({
+    where: {
+      bookId: bookId,
+      orderId: this.id
+    }
+  })
+  return orderBook.bookQuantity
 }
 
 Order.prototype.getPrice = async function() {
-  try {
-    const orderBooks = await OrderBook.findAll({
-      where: {
-        orderId: this.id
-      }
-    })
-    return (
-      orderBooks.reduce((sum, orderBook) => {
-        sum += orderBook.price * orderBook.quantity
-        return sum
-      }, 0) / 100
-    )
-  } catch (err) {
-    console.error('METHOD getPrice ON Order BROKE')
-  }
+  const books = await this.getBooksWithQuantities
+  return books.reduce((sum, book) => {
+    sum += book.price * book.quantity
+    return sum
+  }, 0)
 }
 
 Order.prototype.getBooksWithQuantities = async function() {
@@ -66,7 +68,7 @@ Order.prototype.getBooksWithQuantities = async function() {
     try {
       for (let i = 0; i < orderBooks.length; i++) {
         const book = await Book.findByPk(orderBooks[i].bookId)
-        book.dataValues.quantity = orderBooks[i].quantity
+        book.dataValues.quantity = orderBooks[i].bookQuantity
         books.push(book)
       }
     } catch (err) {
