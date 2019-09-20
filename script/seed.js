@@ -1,6 +1,13 @@
 'use strict'
 const db = require('../server/db')
-const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
+const {
+  User,
+  Book,
+  Order,
+  Review,
+  OrderBook,
+  Session
+} = require('../server/db/models')
 const {
   guestAddsToCart,
   guestRemovesFromCart,

@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import {connect} from 'react-redux'
+import {deleteReviewThunk} from '../../store/selectedBook'
 
 function BookReviews(props) {
   return (
@@ -44,7 +45,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteReview: reviewId => dispatch(console.log('reviewId', reviewId))
+    deleteReview: reviewId => dispatch(deleteReviewThunk(reviewId))
   }
 }
 

@@ -1,12 +1,15 @@
 const router = require('express').Router()
 const {Review, Book} = require('../db/models')
 
-router.get('/:bookId', async (req, res, next) => {
+router.delete('/:reviewId', async (req, res, next) => {
   try {
-    const reviews = await Review.findAll({
-      where: {bookId: req.params.bookId}
-    })
-    res.send(reviews)
+    const review = await Review.findByPk(req.params.reviewId)
+    if (!review) {
+      res.sendStatus(404)
+    } else {
+      await review.destroy()
+      res.end()
+    }
   } catch (err) {
     next(err)
   }
