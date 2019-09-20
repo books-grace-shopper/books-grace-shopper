@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSelectedBook, deleteReviewThunk} from '../../store/selectedBook'
 import {requestBookOnCart} from '../../store/order'
+import {PostReview} from '../forms'
 import Card from 'react-bootstrap/Card'
 import BookReviews from './BookReviews'
 
@@ -21,6 +22,7 @@ function SelectedBookCard(props) {
             <p>${book.price}</p>
           </div>
         </Card>
+        {props.userId && <PostReview />}
       </div>
     </div>
   )
@@ -55,7 +57,10 @@ class SelectedBook extends React.Component {
         )}
         {this.props.selectedBook ? (
           <div>
-            <SelectedBookCard selectedBook={selectedBook} />
+            <SelectedBookCard
+              userId={this.props.userId}
+              selectedBook={selectedBook}
+            />
             <BookReviews
               // book={this.props.selectedBook}
               deleteReview={this.props.deleteReview}
@@ -73,7 +78,8 @@ class SelectedBook extends React.Component {
 const mapState = state => {
   return {
     selectedBook: state.selectedBook,
-    cart: state.cart
+    cart: state.cart,
+    userId: state.user.id
   }
 }
 
