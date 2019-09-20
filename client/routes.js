@@ -22,7 +22,6 @@ class Routes extends Component {
   }
   componentDidUpdate() {
     if (this.props.isLoggedIn) {
-      console.log('USERID:', this.props.userId)
       this.props.fetchUsersCart(this.props.userId)
     }
   }

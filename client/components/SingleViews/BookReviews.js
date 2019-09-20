@@ -1,8 +1,8 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
+import {connect} from 'react-redux'
 
-export default function BookReviews(props) {
-  console.log('props.reviews ', props.reviews)
+function BookReviews(props) {
   return (
     <div className="review-container">
       <h1 className="review-header">reviews for this book</h1>
@@ -11,13 +11,21 @@ export default function BookReviews(props) {
         {props.reviews ? (
           props.reviews.map(review => {
             return (
-              <Card key={review.id}>
+              <div key={review.id} className="review-card">
                 <h2>title: {review.title}</h2>
                 <p>written by: {review.user.name}</p>
                 <h3>rating: {review.rating}</h3>
                 <p>description: {review.description}</p>
+                {props.userId === review.user.id && (
+                  <button
+                    type="button"
+                    onClick={() => props.deleteReview(review.id)}
+                  >
+                    delete your review
+                  </button>
+                )}
                 <hr />
-              </Card>
+              </div>
             )
           })
         ) : (
@@ -27,3 +35,17 @@ export default function BookReviews(props) {
     </div>
   )
 }
+
+const mapState = state => {
+  return {
+    userId: state.user.id
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    deleteReview: reviewId => dispatch(console.log('reviewId', reviewId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(BookReviews)
