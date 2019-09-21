@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
 import {fetchBookTotal} from '../../store/allBookInfo.js'
 import Card from 'react-bootstrap/Card'
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import queryString from 'query-string'
 import {Link} from 'react-router-dom'
 
@@ -26,6 +25,32 @@ function SingleBook(props) {
         </Card>
       </div>
     </>
+  )
+}
+
+function Navbar(props) {
+  return (
+    <div>
+      {props.currentPage > 1 && (
+        <button
+          type="button"
+          onClick={() => {
+            props.changePage(props.currentPage - 1 || 1)
+          }}
+        >
+          Previous
+        </button>
+      )}
+      {Math.ceil(props.bookTotal / 10) < props.currentPage && (
+        <button
+          onClick={() => {
+            props.changePage(props.currentPage + 1)
+          }}
+        >
+          Next
+        </button>
+      )}
+    </div>
   )
 }
 
@@ -62,34 +87,12 @@ class AllBooks extends React.Component {
   render() {
     return (
       <>
-        {/* <Jumbotron>
-            <h1>Hello, world!</h1>
-            <p>
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
-            </p>
-            </Jumbotron> */}
-
         <h1 className="all-books-header">Shop All Books</h1>
-        {this.getCurrentPage() > 1 && (
-          <button
-            type="button"
-            onClick={() => {
-              this.changePage(this.getCurrentPage() - 1 || 1)
-            }}
-          >
-            Previous
-          </button>
-        )}
-        {Math.ceil(this.props.bookTotal / 10) < this.getCurrentPage() && (
-          <button
-            onClick={() => {
-              this.changePage(this.getCurrentPage() + 1)
-            }}
-          >
-            Next
-          </button>
-        )}
+        <Navbar
+          currentPage={this.getCurrentPage()}
+          changePage={this.changePage}
+          bookTotal={this.props.bookTotal}
+        />
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />
