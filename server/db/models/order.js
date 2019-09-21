@@ -80,6 +80,14 @@ Order.prototype.getBooksWithQuantities = async function() {
   }
 }
 
+// Order.prototype.getUserAndAllBooks = async function(){
+//   try{
+
+//   }catch(err){
+//     console.error('ERROR: method getUserAndAllBooks ON Order BROKE')
+//   }
+// }
+
 Order.prototype.purchaseSelf = function() {
   throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMENTED')
 }

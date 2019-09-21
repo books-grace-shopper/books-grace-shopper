@@ -29,7 +29,7 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  await User.create({
+  const manualUser = await User.create({
     email: 'manualUser@test.com',
     address: '123 sunny st, glenco, IL 60025',
     name: 'Jimmy Smith',
@@ -44,6 +44,14 @@ async function seed() {
   await guestRemovesFromCart()
   await guestSignsUpWithCart()
   await userAddsToCart(7)
+
+  const newOrder = await Order.create()
+  for (let i = 1; i <= 10; i++) {
+    const book = await Book.findByPk(i)
+    // await newOrder.requestBook(book)
+    await newOrder.updateBookQuantity(book.id, 1)
+  }
+  await manualUser.addOrder(newOrder)
   console.log(`seeded successfully`)
 }
 

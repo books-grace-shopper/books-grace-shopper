@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Book} = require('../db/models')
+const {Order, Book, User} = require('../db/models')
 const {die} = require('../../utils')
 module.exports = router
 
@@ -39,6 +39,26 @@ router.delete('/:id/books/:bookId', async (req, res, next) => {
     const newBooks = await cart.getBooksWithQuantities()
     cart.dataValues.books = newBooks
     res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// get all orders for admin
+router.get('/admin/', async (req, res, next) => {
+  try {
+    if (req.user.isAdmin) {
+      const orders = await Order.findAll()
+      const ordersWithUsers = await Promise.all(
+        orders.map(async order => {
+          order.dataValues.user = await order.getUser()
+          return order
+        })
+      )
+      ordersWithUsers ? res.status(200).send(ordersWithUsers) : die(404)
+    } else {
+      throw Error('You do not have admin privileges!!!')
+    }
   } catch (err) {
     next(err)
   }
