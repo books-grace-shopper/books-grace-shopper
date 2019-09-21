@@ -1,57 +1,25 @@
 'use strict'
 const db = require('../server/db')
-const {
-  User,
-  Book,
-  Order,
-  Review,
-  OrderBook,
-  Session
-} = require('../server/db/models')
-const {
-  guestAddsToCart,
-  guestRemovesFromCart,
-  guestSignsUpWithCart,
-  userAddsToCart,
-  userBuysOrder
-} = require('./seedStory')
+const {User, Book, Order} = require('../server/db/models')
+const {makeManualUser, makeUsersWithOrders} = require('./seedStory')
 const createUserReviews = require('./reviewsStory')
 
 const {
   makeRandomUser,
   makeRandomBook,
   makeRandomOrder,
-  makeRandomReview,
   bulkGenerate
 } = require('../utils')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
-
-  const manualUser = await User.create({
-    email: 'manualUser@test.com',
-    address: '123 sunny st, glenco, IL 60025',
-    name: 'Jimmy Smith',
-    password: '123'
-  })
-
+  await makeManualUser()
   await bulkGenerate(Book, 500, makeRandomBook)
   await bulkGenerate(User, 100, makeRandomUser)
   await bulkGenerate(Order, 80, makeRandomOrder)
   await createUserReviews(10)
-  await guestAddsToCart()
-  await guestRemovesFromCart()
-  await guestSignsUpWithCart()
-  await userAddsToCart(7)
-
-  const newOrder = await Order.create()
-  for (let i = 1; i <= 10; i++) {
-    const book = await Book.findByPk(i)
-    // await newOrder.requestBook(book)
-    await newOrder.updateBookQuantity(book.id, 1)
-  }
-  await manualUser.addOrder(newOrder)
+  await makeUsersWithOrders(50)
   console.log(`seeded successfully`)
 }
 

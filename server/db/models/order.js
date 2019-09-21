@@ -57,26 +57,22 @@ Order.prototype.getPrice = async function() {
 }
 
 Order.prototype.getBooksWithQuantities = async function() {
+  const orderBooks = await OrderBook.findAll({
+    where: {
+      orderId: this.id
+    },
+    order: [['bookId', 'DESC']]
+  })
+  const books = []
   try {
-    const orderBooks = await OrderBook.findAll({
-      where: {
-        orderId: this.id
-      },
-      order: [['bookId', 'DESC']]
-    })
-    const books = []
-    try {
-      for (let i = 0; i < orderBooks.length; i++) {
-        const book = await Book.findByPk(orderBooks[i].bookId)
-        book.dataValues.quantity = orderBooks[i].bookQuantity
-        books.push(book)
-      }
-    } catch (err) {
-      console.error('ERROR: GETTING BOOK ON getBooksWithQuantities FAILED')
+    for (let i = 0; i < orderBooks.length; i++) {
+      const book = await Book.findByPk(orderBooks[i].bookId)
+      book.dataValues.quantity = orderBooks[i].bookQuantity
+      books.push(book)
     }
-    return books
   } catch (err) {
-    console.error('METHOD getBooksWithQuantities ON Order BROKE')
+    console.error('ERROR: GETTING BOOK ON getBooksWithQuantities FAILED')
+    throw err
   }
 }
 
@@ -90,14 +86,6 @@ Order.prototype.getAllInfo = async function() {
     console.error('ERROR: method getAllInfo ON Order BROKE')
     throw err
   }
-}
-
-Order.prototype.purchaseSelf = function() {
-  throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMENTED')
-}
-
-Book.prototype.updateInventorySold = function(orderId) {
-  throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMEMENTED')
 }
 
 module.exports = Order

@@ -1,6 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
+import {postReviewThunk} from '../../store/selectedBook'
+import enableButtons from 'enable-buttons'
+enableButtons({className: 'no-empty-fields'})
 
 class PostReview extends React.Component {
   constructor(props) {
@@ -8,9 +11,9 @@ class PostReview extends React.Component {
     this.state = {
       title: '',
       description: '',
-      rating: 1
-      // bookId: this.props.selectedBookId,
-      // userId: this.props.userId
+      rating: 1,
+      userId: this.props.userId,
+      bookId: this.props.selectedBookId
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -19,13 +22,25 @@ class PostReview extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
 
   render() {
     return (
-      <Form onSubmit={() => this.props.submitReview(this.state)}>
-        <h3>review this book</h3>
+      <Form
+        className="no-empty-fields"
+        onSubmit={event => {
+          event.preventDefault()
+          this.props.postReview(this.state)
+          this.setState({
+            title: '',
+            description: '',
+            rating: 5,
+            userId: this.props.userId,
+            bookId: this.props.selectedBookId
+          })
+        }}
+      >
+        <h3 id="review-title">review this book</h3>
         <Row>
           <Group>
             <Label>title</Label>
@@ -34,6 +49,7 @@ class PostReview extends React.Component {
               onChange={this.handleChange}
               type="text"
               name="title"
+              required
             />
           </Group>
           <Group>
@@ -43,6 +59,7 @@ class PostReview extends React.Component {
               onChange={this.handleChange}
               as="textarea"
               name="description"
+              required
             />
           </Group>
           <Group>
@@ -61,7 +78,9 @@ class PostReview extends React.Component {
               <option>5</option>
             </Control>
           </Group>
-          <button type="submit">submit review</button>
+          <button type="submit" id="submit-review-button">
+            submit review
+          </button>
         </Row>
       </Form>
     )
@@ -75,10 +94,13 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-// return {
-// submitReview: (review) => {SOME THUNK HERE}
-// };
-// };
+const mapDispatch = dispatch => {
+  return {
+    postReview: review => {
+      // if (!review.title.length || !review.description.length)
+      return dispatch(postReviewThunk(review))
+    }
+  }
+}
 
-export default connect(mapState)(PostReview)
+export default connect(mapState, mapDispatch)(PostReview)

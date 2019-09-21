@@ -3,15 +3,22 @@ import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import {connect} from 'react-redux'
+import Cart from './Cart'
 
 toast.configure()
 
-export default function Checkout() {
-  //dummy data:
+function Checkout(props) {
+  console.log('props.cart', props.cart) //I added this
+  let cart = props.cart
+  let books = props.cart.books
+  console.log('props.cart.books', books) //I added this
+
   const [product] = React.useState({
-    name: 'Tesla Roadster',
-    price: 64998.67,
-    description: 'Cool car'
+    //unsure how to update this
+    title: '',
+    author: '',
+    price: 1
   })
 
   async function handleToken(token, addresses) {
@@ -37,19 +44,32 @@ export default function Checkout() {
     }
   }
   return (
-    <div className="container">
-      <div className="product">
-        <h1>{product.name}</h1>
-        <h3>${product.price}</h3>
-      </div>
+    <>
+      <h2>Your Order</h2> {/*I added all of this here */}
+      <Cart />
+      {/* // <div className="container">
+    //   <div className="product">
+    //     <h1>{product.name}</h1>
+    //     <h3>${product.price}</h3>
+    //   </div> */}
       <StripeCheckout
+        name="Bookazon"
         stripeKey="pk_test_I8ksxTCz5FRqZTny6zk5KTmi00y9ARKB0B"
         token={handleToken}
         shippingAddress
         billingAddress
-        amount={product.price}
-        name={product.name}
+        // amount={}
+        // name={product.name}
       />
-    </div>
+      {/* </div> */}
+    </>
   )
 }
+
+const mapState = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapState)(Checkout)

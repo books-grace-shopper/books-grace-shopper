@@ -47,6 +47,12 @@ function makeRandomOrder() {
   }
 }
 
+function makeNonCartOrder() {
+  return {
+    status: pickRandom(ORDER_STATUSES.filter(status => status !== 'cart'))
+  }
+}
+
 function makeRandomReview() {
   const chance = new Chance()
   return {
@@ -70,5 +76,6 @@ module.exports = {
   makeRandomBook,
   makeRandomOrder,
   makeRandomReview,
+  makeNonCartOrder,
   bulkGenerate
 }

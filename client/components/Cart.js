@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import CartBook from './CartBook'
+import Checkout from './Checkout'
 
 function mapState(state) {
   return {
@@ -31,7 +32,9 @@ class Cart extends React.Component {
               return sum
             }, 0) / 100}
           </h1>
-          <button>Checkout</button>
+          <Link to="/checkout" component={Checkout}>
+            <button type="button">Checkout</button>
+          </Link>
         </div>
       </div>
     )

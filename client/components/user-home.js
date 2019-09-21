@@ -8,13 +8,17 @@ import {Link} from 'react-router-dom'
  */
 export const UserHome = props => {
   const {email, name, isAdmin} = props
-  console.log('isAdmin: ', isAdmin)
-  return (
-    <div>
-      <h3>Welcome, {name ? name : email}</h3>
-      {isAdmin && <Link to="/admin/orders">View All Orders</Link>}
-    </div>
-  )
+  if (!email) {
+    props.history.push('/login')
+    return <h1>Redirecting...</h1>
+  } else {
+    return (
+      <div>
+        <h3>Welcome, {name ? name : email}</h3>
+        {isAdmin && <Link to="/admin/orders">View All Orders</Link>}
+      </div>
+    )
+  }
 }
 
 /**
