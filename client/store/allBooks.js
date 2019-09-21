@@ -13,8 +13,7 @@ export const fetchBooks = pageNumber => async dispatch => {
     const {data} = await axios.get(queryString)
     dispatch(getBooks(data))
   } catch (err) {
-    console.error(err)
-    dispatch(err)
+    console.log('ERR IN FETCH BOOKS')
   }
 }
 

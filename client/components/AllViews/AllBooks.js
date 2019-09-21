@@ -43,8 +43,10 @@ class AllBooks extends React.Component {
     this.getCurrentPage = this.getCurrentPage.bind(this)
   }
   getCurrentPage() {
-    const query = queryString.parse(this.props.location.search)
-    return Number(query.pageNumber) || 1
+    const pageNumber = Number(
+      queryString.parse(this.props.location.search).pageNumber
+    )
+    return pageNumber || 1
   }
   changePage(newPageNumber) {
     this.props.location.search = `?${queryString.stringify({
@@ -55,7 +57,7 @@ class AllBooks extends React.Component {
   }
   componentDidMount() {
     this.props.fetchBooks(this.getCurrentPage())
-    this.props.fetchBooks()
+    this.props.fetchBookTotal()
   }
   render() {
     return (

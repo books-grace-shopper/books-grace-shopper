@@ -16,10 +16,10 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/limit', async (_, res, next) => {
+router.get('/count', async (req, res, next) => {
   try {
     const count = await Book.count()
-    res.status(200).send(count)
+    res.status(200).send(count.toString())
   } catch (err) {
     next(err)
   }
