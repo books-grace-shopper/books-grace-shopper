@@ -3,11 +3,29 @@ import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
 import {fetchBookTotal} from '../../store/allBookInfo.js'
 import Card from 'react-bootstrap/Card'
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import queryString from 'query-string'
 import {Link} from 'react-router-dom'
 
-/* SINGLE BOOK CARD ON THE PAGE */
+function Navbar(props) {
+  const previousPage = () => props.changePage(props.currentPage - 1 || 1)
+  const nextPage = () => props.changePage(props.currentPage + 1)
+  return (
+    <div>
+      <button type="button" onClick={previousPage}>
+        Previous
+      </button>
+      <button type="button" onClick={nextPage}>
+        Next
+      </button>
+      <select>
+        <option selected>Filter by...</option>
+        <option value="genre">Genre</option>
+        <option value="author">Author</option>
+      </select>
+    </div>
+  )
+}
+
 function SingleBook(props) {
   const book = props.book
   return (
@@ -56,35 +74,31 @@ class AllBooks extends React.Component {
   componentDidMount() {
     this.props.fetchBooks(this.getCurrentPage())
   }
+  // <h1 className="all-books-header">Shop All Books</h1>
+  // {this.getCurrentPage() > 1 && (
+  //   <button
+  //     type="button"
+  //     onClick={() => {
+  //       this.changePage(this.getCurrentPage() - 1 || 1)
+  //     }}
+  //   >
+  //     Previous
+  //   </button>
+  // )}
+  // <button
+  //   onClick={() => {
+  //     this.changePage(this.getCurrentPage() + 1)
+  //   }}
+  // >
+  //   Next
+  // </button>
   render() {
     return (
       <>
-        {/* <Jumbotron>
-            <h1>Hello, world!</h1>
-            <p>
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
-            </p>
-            </Jumbotron> */}
-
-        <h1 className="all-books-header">Shop All Books</h1>
-        {this.getCurrentPage() > 1 && (
-          <button
-            type="button"
-            onClick={() => {
-              this.changePage(this.getCurrentPage() - 1 || 1)
-            }}
-          >
-            Previous
-          </button>
-        )}
-        <button
-          onClick={() => {
-            this.changePage(this.getCurrentPage() + 1)
-          }}
-        >
-          Next
-        </button>
+        <Navbar
+          changePage={this.changePage}
+          currentPage={this.getCurrentPage()}
+        />
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />
