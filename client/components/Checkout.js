@@ -4,18 +4,21 @@ import axios from 'axios'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {connect} from 'react-redux'
+import Cart from './Cart'
 
 toast.configure()
 
 function Checkout(props) {
-  console.log('props.books', props.books) //I added this
   console.log('props.cart', props.cart) //I added this
-  props.cart.books = product //I added this
+  let cart = props.cart
+  let books = props.cart.books
+  console.log('props.cart.books', books) //I added this
+
   const [product] = React.useState({
     //unsure how to update this
-    name: 'Tesla Roadster',
-    price: 64998.67,
-    description: 'Cool car'
+    title: '',
+    author: '',
+    price: 1
   })
 
   async function handleToken(token, addresses) {
@@ -43,14 +46,7 @@ function Checkout(props) {
   return (
     <>
       <h2>Your Order</h2> {/*I added all of this here */}
-      {props.books.map(book => (
-        <div key={book.id}>
-          <img src={book.imageUrl} />
-          <h4>{book.title}</h4>
-          <h5>{book.author}</h5>
-          <h4>{book.price}</h4>
-        </div>
-      ))}
+      <Cart />
       {/* // <div className="container">
     //   <div className="product">
     //     <h1>{product.name}</h1>
@@ -62,12 +58,7 @@ function Checkout(props) {
         token={handleToken}
         shippingAddress
         billingAddress
-        amount={
-          props.cart.books.reduce((sum, book) => {
-            sum += book.quantity * book.price
-            return sum
-          }, 0) / 100
-        }
+        // amount={}
         // name={product.name}
       />
       {/* </div> */}
@@ -76,9 +67,7 @@ function Checkout(props) {
 }
 
 const mapState = state => {
-  // I added this
   return {
-    books: state.books,
     cart: state.cart
   }
 }
