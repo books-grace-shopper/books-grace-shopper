@@ -5,7 +5,6 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('QUERY PARAMS IN ROUTE', req.query)
     const books = await Book.findAll({
       order: ['id'],
       offset: req.query.pageNumber * 10,
@@ -14,6 +13,15 @@ router.get('/', async (req, res, next) => {
     books ? res.status(200).send(books) : die(404)
   } catch (error) {
     next(error)
+  }
+})
+
+router.get('/limit', async (_, res, next) => {
+  try {
+    const count = await Book.count()
+    res.status(200).send(count)
+  } catch (err) {
+    next(err)
   }
 })
 

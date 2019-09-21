@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
+import {fetchBookTotal} from '../../store/allBookInfo.js'
 import Card from 'react-bootstrap/Card'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import queryString from 'query-string'
@@ -36,26 +37,55 @@ function MapBooks(props) {
 }
 
 class AllBooks extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
+    this.changePage = this.changePage.bind(this)
+    this.getCurrentPage = this.getCurrentPage.bind(this)
+  }
+  getCurrentPage() {
     const query = queryString.parse(this.props.location.search)
-    const pageNumber = query.pageNumber || 1
-    console.log('THE PAGE NUMBER IS', pageNumber)
-    this.props.fetchBooks(pageNumber)
+    return Number(query.pageNumber) || 1
+  }
+  changePage(newPageNumber) {
+    this.props.location.search = `?${queryString.stringify({
+      pageNumber: newPageNumber
+    })}`
+    this.props.history.push(this.props.location.search)
+    this.props.fetchBooks(this.getCurrentPage())
+  }
+  componentDidMount() {
+    this.props.fetchBooks(this.getCurrentPage())
+    this.props.fetchBooks()
   }
   render() {
     return (
       <>
         {/* <Jumbotron>
-          <h1>Hello, world!</h1>
-          <p>
+            <h1>Hello, world!</h1>
+            <p>
             This is a simple hero unit, a simple jumbotron-style component for
             calling extra attention to featured content or information.
-          </p>
-        </Jumbotron> */}
+            </p>
+            </Jumbotron> */}
 
         <h1 className="all-books-header">Shop All Books</h1>
-        <button>Previous</button>
-        <button>Next</button>
+        {this.getCurrentPage() > 1 && (
+          <button
+            type="button"
+            onClick={() => {
+              this.changePage(this.getCurrentPage() - 1 || 1)
+            }}
+          >
+            Previous
+          </button>
+        )}
+        <button
+          onClick={() => {
+            this.changePage(this.getCurrentPage() + 1)
+          }}
+        >
+          Next
+        </button>
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />
@@ -70,7 +100,8 @@ class AllBooks extends React.Component {
 
 function mapState(state) {
   return {
-    books: state.books
+    books: state.books,
+    bookTotal: state.allBookInfo.totalBooks
   }
 }
 
@@ -78,6 +109,9 @@ function mapDispatch(dispatch) {
   return {
     fetchBooks: function(pageNumber) {
       dispatch(fetchBooks(pageNumber))
+    },
+    fetchBookTotal: function() {
+      dispatch(fetchBookTotal())
     }
   }
 }
