@@ -1,0 +1,4 @@
+diff a/client/store/allBookInfo.js b/client/store/allBookInfo.js	(rejected hunks)
+@@ -15 +15 @@ export const fetchBookTotal = () => async dispatch => {
+-    console.log('ERROR IN FETCH BOOK');
++    console.log('ERROR IN FETCH BOOK')
