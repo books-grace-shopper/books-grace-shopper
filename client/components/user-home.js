@@ -1,15 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, name} = props
+  const {email, name, isAdmin} = props
+  console.log('isAdmin: ', isAdmin)
   return (
     <div>
       <h3>Welcome, {name ? name : email}</h3>
+      {isAdmin && <Link to="/admin/orders">View All Orders</Link>}
     </div>
   )
 }
@@ -20,7 +23,8 @@ export const UserHome = props => {
 const mapState = state => {
   return {
     email: state.user.email,
-    name: state.user.name
+    name: state.user.name,
+    isAdmin: !!state.user.isAdmin
   }
 }
 
