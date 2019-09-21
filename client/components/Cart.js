@@ -19,7 +19,7 @@ class Cart extends React.Component {
     return (
       <div>
         {cart.books.length === 0 ? (
-          <h1>Go add things to the cart!</h1>
+          <h1>Your cart is empty!</h1>
         ) : (
           cart.books.map(book => {
             return <CartBook key={book.title} book={book} cartId={cart.id} />

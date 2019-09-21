@@ -9,13 +9,18 @@ import CartForCheckout from './CartForCheckout'
 toast.configure()
 
 function Checkout(props) {
-  console.log('props.cart', props.cart) //I added this
   let cart = props.cart
   let books = props.cart.books
-  console.log('props.cart.books', books) //I added this
+  // let totalPrice =
+  //   props.cart.books &&
+  //   props.cart.books.reduce((sum, book) => {
+  //     sum += book.quantity * book.price
+  //     return sum
+  //   }, 0) / 100
+  // console.log('totalPrice', totalPrice)
 
   const [product] = React.useState({
-    //unsure how to update this
+    //unsure how to update price
     title: '',
     author: '',
     price: 1
@@ -45,18 +50,30 @@ function Checkout(props) {
   }
   return (
     <>
-      <h2>Your Order</h2> {/*I added all of this here */}
-      <CartForCheckout key={product.title} cart={cart} books={books} />
+      <h2>Your Order</h2>
+      <CartForCheckout />
+      <h2>
+        Order Total: $
+        {props.cart.books &&
+          props.cart.books.reduce((sum, book) => {
+            sum += book.quantity * book.price
+            return sum
+          }, 0) / 100}
+      </h2>
       <StripeCheckout
         name="Bookazon"
         stripeKey="pk_test_I8ksxTCz5FRqZTny6zk5KTmi00y9ARKB0B"
         token={handleToken}
         shippingAddress
         billingAddress
-        // amount={}
-        // name={product.name}
+        amount={
+          props.cart.books &&
+          props.cart.books.reduce((sum, book) => {
+            sum += book.quantity * book.price
+            return sum
+          }, 0)
+        }
       />
-      {/* </div> */}
     </>
   )
 }
