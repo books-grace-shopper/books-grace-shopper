@@ -49,7 +49,7 @@ Order.prototype.getBookQuantity = async function(bookId) {
 }
 
 Order.prototype.getPrice = async function() {
-  const books = await this.getBooksWithQuantities
+  const books = await this.getBooksWithQuantities()
   return books.reduce((sum, book) => {
     sum += book.price * book.quantity
     return sum
@@ -77,6 +77,17 @@ Order.prototype.getBooksWithQuantities = async function() {
     return books
   } catch (err) {
     console.error('METHOD getBooksWithQuantities ON Order BROKE')
+  }
+}
+Order.prototype.getAllInfo = async function() {
+  try {
+    this.dataValues.user = await this.getUser()
+    this.dataValues.books = await this.getBooksWithQuantities()
+    this.dataValues.price = await this.getPrice()
+    return this
+  } catch (err) {
+    console.error('ERROR: method getAllInfo ON Order BROKE')
+    throw err
   }
 }
 
