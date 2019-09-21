@@ -25,8 +25,15 @@ form div {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
-  padding: 5rem;
+  padding: 3rem;
   background-color: cadetblue;
+}
+
+.all-orders-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  padding: 5rem;
 }
 
 .card-img-top {

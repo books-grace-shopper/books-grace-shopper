@@ -49,13 +49,15 @@ router.get('/admin/', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
       const orders = await Order.findAll()
-      const ordersWithUsers = await Promise.all(
+      const ordersWithEverything = await Promise.all(
         orders.map(async order => {
-          order.dataValues.user = await order.getUser()
+          await order.getAllInfo()
           return order
         })
       )
-      ordersWithUsers ? res.status(200).send(ordersWithUsers) : die(404)
+      ordersWithEverything
+        ? res.status(200).send(ordersWithEverything)
+        : die(404)
     } else {
       throw Error('You do not have admin privileges!!!')
     }
