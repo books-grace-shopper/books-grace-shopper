@@ -36,7 +36,8 @@ function MapBooks(props) {
 
 class AllBooks extends React.Component {
   componentDidMount() {
-    this.props.fetchBooks()
+    console.log('PROPS BEFORE MOUNT', this.props)
+    this.props.fetchBooks(0)
   }
   render() {
     return (
@@ -50,6 +51,8 @@ class AllBooks extends React.Component {
         </Jumbotron> */}
 
         <h1 className="all-books-header">Shop All Books</h1>
+        <button>Previous</button>
+        <button>Next</button>
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />
@@ -70,8 +73,8 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    fetchBooks: function() {
-      dispatch(fetchBooks())
+    fetchBooks: function(pageNumber) {
+      dispatch(fetchBooks(pageNumber))
     }
   }
 }
