@@ -81,13 +81,15 @@ class AllBooks extends React.Component {
             Previous
           </button>
         )}
-        <button
-          onClick={() => {
-            this.changePage(this.getCurrentPage() + 1)
-          }}
-        >
-          Next
-        </button>
+        {Math.ceil(this.props.bookTotal / 10) < this.getCurrentPage() && (
+          <button
+            onClick={() => {
+              this.changePage(this.getCurrentPage() + 1)
+            }}
+          >
+            Next
+          </button>
+        )}
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />

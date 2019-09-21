@@ -12,7 +12,7 @@ export const fetchBookTotal = () => async dispatch => {
     const {data} = await axios.get('/api/books/count')
     dispatch(getTotalBooks(data))
   } catch (err) {
-    console.log('ERROR IN FETCH BOOK')
+    console.log('ERROR IN FETCH BOOK', err)
     console.error(err)
   }
 }
