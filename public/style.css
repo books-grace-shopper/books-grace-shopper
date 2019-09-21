@@ -94,3 +94,12 @@ form div {
   height: 200px;
   width: 200px;
 }
+
+.review-card {
+  padding: 0 10% 0 3%;
+  background-color: rgb(161, 241, 241);
+}
+
+/* .review-header {
+  padding: 0
+} */

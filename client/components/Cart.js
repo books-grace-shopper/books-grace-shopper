@@ -24,6 +24,15 @@ class Cart extends React.Component {
             return <CartBook key={book.title} book={book} cartId={cart.id} />
           })
         )}
+        <div>
+          <h1>
+            Price: ${cart.books.reduce((sum, book) => {
+              sum += book.quantity * book.price
+              return sum
+            }, 0) / 100}
+          </h1>
+          <button>Checkout</button>
+        </div>
       </div>
     )
   }

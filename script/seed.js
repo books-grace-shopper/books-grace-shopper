@@ -1,6 +1,13 @@
 'use strict'
 const db = require('../server/db')
-const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
+const {
+  User,
+  Book,
+  Order,
+  Review,
+  OrderBook,
+  Session
+} = require('../server/db/models')
 const {
   guestAddsToCart,
   guestRemovesFromCart,
@@ -8,6 +15,7 @@ const {
   userAddsToCart,
   userBuysOrder
 } = require('./seedStory')
+const createUserReviews = require('./reviewsStory')
 
 const {
   makeRandomUser,
@@ -30,9 +38,8 @@ async function seed() {
 
   await bulkGenerate(Book, 500, makeRandomBook)
   await bulkGenerate(User, 100, makeRandomUser)
-  await bulkGenerate(Review, 80, makeRandomReview)
   await bulkGenerate(Order, 80, makeRandomOrder)
-
+  await createUserReviews(10)
   await guestAddsToCart()
   await guestRemovesFromCart()
   await guestSignsUpWithCart()

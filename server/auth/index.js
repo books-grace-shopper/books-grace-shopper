@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const User = require('../db/models/user')
+const {User, Session} = require('../db/models')
+
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -38,8 +39,18 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
-  res.json(req.user)
+router.get('/me', async (req, res, next) => {
+  try {
+    if (req.user) {
+      res.json(req.user)
+    } else {
+      const session = await Session.findOrCreateByPk(req.session.id)
+      const order = await session.findOrCreateOrder()
+      res.json(order)
+    }
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 router.use('/google', require('./google'))

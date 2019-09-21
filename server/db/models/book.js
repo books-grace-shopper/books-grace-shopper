@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const OrderBook = require('./orderBook.js')
+const Review = require('./review')
 const db = require('../db')
 const {pickRandomImage} = require('../../../utils')
 
@@ -59,5 +60,20 @@ const Book = db.define('book', {
     }
   }
 })
+
+Book.prototype.getReviewsWithUser = async function() {
+  try {
+    const reviews = await this.getReviews()
+    const reviewsWithUser = await Promise.all(
+      reviews.map(async review => {
+        review.dataValues.user = await review.getUser()
+        return review
+      })
+    )
+    return reviewsWithUser
+  } catch (err) {
+    console.log('failed to getReviewsWithUser... ', err)
+  }
+}
 
 module.exports = Book
