@@ -4,7 +4,7 @@ import axios from 'axios'
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {connect} from 'react-redux'
-import Cart from './Cart'
+import CartForCheckout from './CartForCheckout'
 
 toast.configure()
 
@@ -46,12 +46,7 @@ function Checkout(props) {
   return (
     <>
       <h2>Your Order</h2> {/*I added all of this here */}
-      <Cart />
-      {/* // <div className="container">
-    //   <div className="product">
-    //     <h1>{product.name}</h1>
-    //     <h3>${product.price}</h3>
-    //   </div> */}
+      <CartForCheckout key={product.title} cart={cart} books={books} />
       <StripeCheckout
         name="Bookazon"
         stripeKey="pk_test_I8ksxTCz5FRqZTny6zk5KTmi00y9ARKB0B"
