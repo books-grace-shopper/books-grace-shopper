@@ -103,3 +103,8 @@ form div {
 /* .review-header {
   padding: 0
 } */
+
+.book-img-cart-checkout {
+  height: 150px;
+  width: 175px;
+}

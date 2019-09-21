@@ -34,6 +34,7 @@ class CartBook extends React.Component {
             <img className="cart-book-img" />
           </div>
           <div className="cart-book-info">
+            <img src={book.imageUrl} className="book-img-cart-checkout" />
             <h2>{book.title}</h2>
             <p>By: {book.author}</p>
             <p>Description: {book.description}</p>

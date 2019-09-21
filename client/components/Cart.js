@@ -27,7 +27,7 @@ class Cart extends React.Component {
         )}
         <div>
           <h1>
-            Price: ${cart.books.reduce((sum, book) => {
+            Total: ${cart.books.reduce((sum, book) => {
               sum += book.quantity * book.price
               return sum
             }, 0) / 100}
