@@ -7,12 +7,13 @@ import 'react-toastify/dist/ReactToastify.css'
 toast.configure()
 
 export default function Checkout() {
+  //dummy data:
   const [product] = React.useState({
     name: 'Tesla Roadster',
     price: 64998.67,
     description: 'Cool car'
   })
-  console.log('product', product)
+
   async function handleToken(token, addresses) {
     try {
       const response = await axios.post(
@@ -39,7 +40,7 @@ export default function Checkout() {
     <div className="container">
       <div className="product">
         <h1>{product.name}</h1>
-        <h3>On Sale · ${product.price}</h3>
+        <h3>${product.price}</h3>
       </div>
       <StripeCheckout
         stripeKey="pk_test_I8ksxTCz5FRqZTny6zk5KTmi00y9ARKB0B"
