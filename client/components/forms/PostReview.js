@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
+import {postReviewThunk} from '../../store/selectedBook'
 
 class PostReview extends React.Component {
   constructor(props) {
@@ -8,9 +9,9 @@ class PostReview extends React.Component {
     this.state = {
       title: '',
       description: '',
-      rating: 1
-      // bookId: this.props.selectedBookId,
-      // userId: this.props.userId
+      rating: 1,
+      userId: this.props.userId,
+      bookId: this.props.selectedBookId
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -19,13 +20,24 @@ class PostReview extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log(this.state)
   }
 
   render() {
     return (
-      <Form onSubmit={() => this.props.submitReview(this.state)}>
-        <h3>review this book</h3>
+      <Form
+        onSubmit={event => {
+          event.preventDefault()
+          this.props.postReview(this.state)
+          this.setState({
+            title: '',
+            description: '',
+            rating: 5,
+            userId: this.props.userId,
+            bookId: this.props.selectedBookId
+          })
+        }}
+      >
+        <h3 id="review-title">review this book</h3>
         <Row>
           <Group>
             <Label>title</Label>
@@ -75,10 +87,10 @@ const mapState = state => {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-// return {
-// submitReview: (review) => {SOME THUNK HERE}
-// };
-// };
+const mapDispatch = dispatch => {
+  return {
+    postReview: review => dispatch(postReviewThunk(review))
+  }
+}
 
-export default connect(mapState)(PostReview)
+export default connect(mapState, mapDispatch)(PostReview)

@@ -6,7 +6,6 @@ function BookReviews(props) {
   return (
     <div className="review-container">
       <h1 className="review-header">reviews for this book</h1>
-      {/* POST review from goes here */}
       <div className="review-list">
         {props.reviews ? (
           props.reviews.map(review => {

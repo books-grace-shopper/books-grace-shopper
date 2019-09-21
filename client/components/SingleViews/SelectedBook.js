@@ -17,6 +17,7 @@ function SelectedBookInfo(props) {
         deleteReview={props.deleteReview}
         reviews={props.selectedBook.reviews}
       />
+      {props.userId && <PostReview />}
     </div>
   )
 }
@@ -42,7 +43,6 @@ function SelectedBookCard(props) {
             )}
           </div>
         </Card>
-        {props.userId && <PostReview />}
       </div>
     </div>
   )
