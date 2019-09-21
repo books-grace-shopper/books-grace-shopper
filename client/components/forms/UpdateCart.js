@@ -9,7 +9,8 @@ class UpdateCart extends React.Component {
       book => book.id === this.props.selectedBook.id
     )
     this.state = {
-      selectedBookQuantity: bookInCart ? bookInCart.quantity : 0
+      selectedBookQuantity: bookInCart ? bookInCart.quantity : 1,
+      bookInCart: bookInCart
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -21,6 +22,7 @@ class UpdateCart extends React.Component {
       this.props.cart.id,
       this.state.selectedBookQuantity
     )
+    this.setState({bookInCart: true})
   }
   handleChange(event) {
     this.setState({
@@ -34,7 +36,7 @@ class UpdateCart extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <button type="submit">
-          {this.state.selectedBookQuantity ? 'Modify Cart' : 'Add to Cart'}
+          {this.state.bookInCart ? 'Modify Cart' : 'Add to Cart'}
         </button>
         <select
           defaultValue={this.state.selectedBookQuantity}

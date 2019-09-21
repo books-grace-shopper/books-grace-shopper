@@ -34,11 +34,11 @@ class CartBook extends React.Component {
             <img className="cart-book-img" />
           </div>
           <div className="cart-book-info">
-            <h2>title: {book.title}</h2>
+            <h2>{book.title}</h2>
             <p>By: {book.author}</p>
-            <p>description: {book.description}</p>
+            <p>Description: {book.description}</p>
             <p>${this.state.currentPrice}</p>
-            <p>quantity: {book.quantity}</p>
+            <p>Quantity: {book.quantity}</p>
             <select
               value={this.state.currentQuantity}
               onChange={this.handleEvent}
