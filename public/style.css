@@ -101,6 +101,11 @@ form div {
   padding: 0 10% 0 3%;
 }
 
+#submit-review-button {
+  height: 70px;
+  width: 150px;
+}
+
 .review-card {
   padding: 0 10% 0 3%;
   background-color: rgb(161, 241, 241);
