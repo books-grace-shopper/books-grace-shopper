@@ -4,8 +4,12 @@ const {Review, Book} = require('../db/models')
 router.post('/', async (req, res, next) => {
   try {
     const review = await Review.create(req.body)
-    review.dataValues.user = await review.getUser()
-    res.send(review)
+    if (!review) {
+      res.sendStatus(404)
+    } else {
+      review.dataValues.user = await review.getUser()
+      res.send(review)
+    }
   } catch (err) {
     next(err)
   }

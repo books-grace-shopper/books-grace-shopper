@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
 import {postReviewThunk} from '../../store/selectedBook'
+import enableButtons from 'enable-buttons'
+enableButtons({className: 'no-empty-fields'})
 
 class PostReview extends React.Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class PostReview extends React.Component {
   render() {
     return (
       <Form
+        className="no-empty-fields"
         onSubmit={event => {
           event.preventDefault()
           this.props.postReview(this.state)
@@ -46,6 +49,7 @@ class PostReview extends React.Component {
               onChange={this.handleChange}
               type="text"
               name="title"
+              required
             />
           </Group>
           <Group>
@@ -55,6 +59,7 @@ class PostReview extends React.Component {
               onChange={this.handleChange}
               as="textarea"
               name="description"
+              required
             />
           </Group>
           <Group>
@@ -73,7 +78,9 @@ class PostReview extends React.Component {
               <option>5</option>
             </Control>
           </Group>
-          <button type="submit">submit review</button>
+          <button type="submit" id="submit-review-button">
+            submit review
+          </button>
         </Row>
       </Form>
     )
@@ -89,7 +96,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    postReview: review => dispatch(postReviewThunk(review))
+    postReview: review => {
+      // if (!review.title.length || !review.description.length)
+      return dispatch(postReviewThunk(review))
+    }
   }
 }
 
