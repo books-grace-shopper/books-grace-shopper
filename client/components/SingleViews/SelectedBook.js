@@ -62,7 +62,6 @@ class SelectedBook extends React.Component {
               selectedBook={selectedBook}
             />
             <BookReviews
-              // book={this.props.selectedBook}
               deleteReview={this.props.deleteReview}
               reviews={selectedBook.reviews}
             />
