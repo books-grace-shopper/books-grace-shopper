@@ -1,10 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSelectedBook, deleteReviewThunk} from '../../store/selectedBook'
-import {requestBookOnCart} from '../../store/order'
-import {PostReview} from '../forms'
+import {PostReview, UpdateCart} from '../forms'
 import Card from 'react-bootstrap/Card'
 import BookReviews from './BookReviews'
+
+function SelectedBookInfo(props) {
+  return (
+    <div>
+      <SelectedBookCard
+        cart={props.cart}
+        userId={props.userId}
+        selectedBook={props.selectedBook}
+      />
+      <BookReviews
+        deleteReview={props.deleteReview}
+        reviews={props.selectedBook.reviews}
+      />
+    </div>
+  )
+}
 
 function SelectedBookCard(props) {
   const book = props.selectedBook
@@ -20,6 +35,11 @@ function SelectedBookCard(props) {
             <p>By: {book.author}</p>
             <p>RATING</p>
             <p>${book.price}</p>
+            {props.cart.books ? (
+              <UpdateCart selectedBook={book} cart={props.cart} />
+            ) : (
+              <p>Loading cart...</p>
+            )}
           </div>
         </Card>
         {props.userId && <PostReview />}
@@ -33,39 +53,20 @@ class SelectedBook extends React.Component {
     this.props.fetchSelectedBook(this.props.match.params.bookId)
   }
   render() {
-    const selectedBook = this.props.selectedBook
     return (
       <div>
         <h4 className="selected-book-quote">
           “A reader lives a thousand lives before he dies... The man who never
           reads lives only one." – George R.R. Martin
         </h4>
-        {this.props.cart.books ? (
-          <button
-            onClick={() => {
-              this.props.requestSelectedBook(
-                this.props.selectedBook.id,
-                this.props.cart.id
-              )
-            }}
-            type="button"
-          >
-            Add to Cart
-          </button>
-        ) : (
-          <h1>Loading cart...</h1>
-        )}
         {this.props.selectedBook ? (
-          <div>
-            <SelectedBookCard
-              userId={this.props.userId}
-              selectedBook={selectedBook}
-            />
-            <BookReviews
-              deleteReview={this.props.deleteReview}
-              reviews={selectedBook.reviews}
-            />
-          </div>
+          <SelectedBookInfo
+            cart={this.props.cart}
+            userId={this.props.userId}
+            selectedBook={this.props.selectedBook}
+            deleteReview={this.props.deleteReview}
+            reviews={this.props.selectedBook.reviews}
+          />
         ) : (
           <p>Loading</p>
         )}
@@ -85,8 +86,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchSelectedBook: bookId => dispatch(fetchSelectedBook(bookId)),
-    requestSelectedBook: (bookId, cartId) =>
-      dispatch(requestBookOnCart(bookId, cartId)),
     deleteReview: (reviewId, book) =>
       dispatch(deleteReviewThunk(reviewId, book))
   }
