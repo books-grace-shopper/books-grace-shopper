@@ -46,6 +46,7 @@
     "chance": "^1.1.0",
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
+    "enable-buttons": "^1.1.0",
     "express": "^4.16.4",
     "express-session": "^1.15.1",
     "history": "^4.9.0",

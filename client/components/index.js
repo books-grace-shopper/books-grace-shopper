@@ -6,7 +6,7 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
-export {AllBooks} from './AllViews'
+export {AllBooks, AllOrders} from './AllViews'
 export {SelectedBook} from './SingleViews'
 export {default as Cart} from './Cart'
 export {default as Checkout} from './Checkout'

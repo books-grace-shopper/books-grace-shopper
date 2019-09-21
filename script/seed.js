@@ -33,7 +33,8 @@ async function seed() {
     email: 'manualUser@test.com',
     address: '123 sunny st, glenco, IL 60025',
     name: 'Jimmy Smith',
-    password: '123'
+    password: '123',
+    isAdmin: true
   })
 
   await bulkGenerate(Book, 500, makeRandomBook)

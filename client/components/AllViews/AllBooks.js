@@ -55,7 +55,6 @@ class AllBooks extends React.Component {
   }
   componentDidMount() {
     this.props.fetchBooks(this.getCurrentPage())
-    this.props.fetchBooks()
   }
   render() {
     return (
