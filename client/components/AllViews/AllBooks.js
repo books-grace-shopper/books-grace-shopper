@@ -50,6 +50,9 @@ function Navbar(props) {
           Next
         </button>
       )}
+      <select>
+        <option />
+      </select>
     </div>
   )
 }

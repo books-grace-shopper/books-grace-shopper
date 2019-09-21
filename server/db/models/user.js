@@ -53,23 +53,9 @@ User.prototype.findOrCreateCart = async function() {
     }
     return cart
   } catch (err) {
-    console.error('METHOD findOrCreateCart ON User BROKE')
+    throw err
   }
 }
-
-User.prototype.purchaseCart = async function() {
-  throw new Error('THIS METHOD IS BROKEN RIGHT NOW AND NEEDS TO BE FIXED')
-}
-
-// Order.prototype.createUserWithCart = async function(user) {
-//   try {
-//     const newUser = await User.create(user)
-//     newUser.addOrder(this)
-//     return this
-//   } catch (err) {
-//     console.error('METHOD createUserWithCart ON Order FAILED')
-//   }
-// }
 
 /**
  * instanceMethods
