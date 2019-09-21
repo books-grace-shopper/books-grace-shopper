@@ -73,6 +73,7 @@ Book.prototype.getReviewsWithUser = async function() {
     return reviewsWithUser
   } catch (err) {
     console.log('failed to getReviewsWithUser... ', err)
+    throw err
   }
 }
 
