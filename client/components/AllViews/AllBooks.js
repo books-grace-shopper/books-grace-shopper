@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
 import Card from 'react-bootstrap/Card'
 import Jumbotron from 'react-bootstrap/Jumbotron'
+import queryString from 'query-string'
 import {Link} from 'react-router-dom'
 
 /* SINGLE BOOK CARD ON THE PAGE */
@@ -36,8 +37,10 @@ function MapBooks(props) {
 
 class AllBooks extends React.Component {
   componentDidMount() {
-    console.log('PROPS BEFORE MOUNT', this.props)
-    this.props.fetchBooks(0)
+    const query = queryString.parse(this.props.location.search)
+    const pageNumber = query.pageNumber || 1
+    console.log('THE PAGE NUMBER IS', pageNumber)
+    this.props.fetchBooks(pageNumber)
   }
   render() {
     return (

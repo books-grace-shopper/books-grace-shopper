@@ -10,7 +10,6 @@ const getBooks = books => ({
 export const fetchBooks = pageNumber => async dispatch => {
   try {
     const queryString = `/api/books?pageNumber=${pageNumber}`
-    console.log('QUERY STRING IS', queryString)
     const {data} = await axios.get(queryString)
     dispatch(getBooks(data))
   } catch (err) {
