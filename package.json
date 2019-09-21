@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "autogit": "git checkout -b production && git pull origin production",
+    "autogit": "git checkout production && git pull origin production",
     "resetdb": "dropdb graceshopper && createdb graceshopper && npm run seed",
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
