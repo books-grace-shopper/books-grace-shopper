@@ -6,12 +6,14 @@ import user from './user'
 import {default as books} from './allBooks'
 import {default as selectedBook} from './selectedBook'
 import {default as cart} from './order.js'
+import {default as allBookInfo} from './allBookInfo.js'
 
 const reducer = combineReducers({
   user,
   books,
   cart,
-  selectedBook
+  selectedBook,
+  allBookInfo
 })
 
 const middleware = composeWithDevTools(
