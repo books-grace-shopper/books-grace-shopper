@@ -5,6 +5,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
+    console.log('ROUTE QUERY PARAMATERS', req.query)
     const books = await Book.findAll({
       order: ['id'],
       offset: req.query.pageNumber * 10,

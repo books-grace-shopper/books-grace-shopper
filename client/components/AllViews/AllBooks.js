@@ -5,26 +5,7 @@ import {fetchBookTotal} from '../../store/allBookInfo.js'
 import Card from 'react-bootstrap/Card'
 import queryString from 'query-string'
 import {Link} from 'react-router-dom'
-
-function Navbar(props) {
-  const previousPage = () => props.changePage(props.currentPage - 1 || 1)
-  const nextPage = () => props.changePage(props.currentPage + 1)
-  return (
-    <div>
-      <button type="button" onClick={previousPage}>
-        Previous
-      </button>
-      <button type="button" onClick={nextPage}>
-        Next
-      </button>
-      <select>
-        <option selected>Filter by...</option>
-        <option value="genre">Genre</option>
-        <option value="author">Author</option>
-      </select>
-    </div>
-  )
-}
+import {default as Navbar} from './AllBooksNavbar.js'
 
 function SingleBook(props) {
   const book = props.book
@@ -59,44 +40,33 @@ class AllBooks extends React.Component {
     super(props)
     this.changePage = this.changePage.bind(this)
     this.getCurrentPage = this.getCurrentPage.bind(this)
+    this.getCurrentFilter = this.getCurrentFilter.bind(this)
   }
   getCurrentPage() {
     const query = queryString.parse(this.props.location.search)
     return Number(query.pageNumber) || 1
   }
-  changePage(newPageNumber) {
+  getCurrentFilter() {
+    const query = queryString.parse(this.props.location.search)
+    return query.pageFilter || 'none'
+  }
+  changePage(newPageNumber, newPageFilter) {
     this.props.location.search = `?${queryString.stringify({
-      pageNumber: newPageNumber
+      pageNumber: newPageNumber,
+      pageFilter: newPageFilter
     })}`
     this.props.history.push(this.props.location.search)
-    this.props.fetchBooks(this.getCurrentPage())
+    this.props.fetchBooks(this.getCurrentPage(), this.getCurrentFilter())
   }
   componentDidMount() {
-    this.props.fetchBooks(this.getCurrentPage())
+    this.props.fetchBooks(this.getCurrentPage(), this.getCurrentFilter())
   }
-  // <h1 className="all-books-header">Shop All Books</h1>
-  // {this.getCurrentPage() > 1 && (
-  //   <button
-  //     type="button"
-  //     onClick={() => {
-  //       this.changePage(this.getCurrentPage() - 1 || 1)
-  //     }}
-  //   >
-  //     Previous
-  //   </button>
-  // )}
-  // <button
-  //   onClick={() => {
-  //     this.changePage(this.getCurrentPage() + 1)
-  //   }}
-  // >
-  //   Next
-  // </button>
   render() {
     return (
       <>
         <Navbar
           changePage={this.changePage}
+          currentFilter={this.getCurrentFilter()}
           currentPage={this.getCurrentPage()}
         />
         <div className="all-book-cards">
@@ -120,8 +90,8 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    fetchBooks: function(pageNumber) {
-      dispatch(fetchBooks(pageNumber))
+    fetchBooks: function(pageNumber, pageFilter) {
+      dispatch(fetchBooks(pageNumber, pageFilter))
     },
     fetchBookTotal: function() {
       dispatch(fetchBookTotal())
