@@ -8,15 +8,16 @@ const getBooks = books => ({
   books: books
 })
 
-export const fetchBooks = (pageNumber, pageFilter) => async dispatch => {
+export const fetchBooks = urlParams => async dispatch => {
   try {
+    urlParams.pageNumber = urlParams.pageNumber || 1
+    console.log('QUERY STRING', queryString.stringify(urlParams))
     const {data} = await axios.get(
-      `/api/books?${queryString.stringify({pageNumber, pageFilter})}`
+      `/api/books?${queryString.stringify(urlParams)}`
     )
     dispatch(getBooks(data))
   } catch (err) {
     console.error(err)
-    dispatch(err)
   }
 }
 

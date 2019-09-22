@@ -39,35 +39,25 @@ class AllBooks extends React.Component {
   constructor(props) {
     super(props)
     this.changePage = this.changePage.bind(this)
-    this.getCurrentPage = this.getCurrentPage.bind(this)
-    this.getCurrentFilter = this.getCurrentFilter.bind(this)
+    this.getCurrentParams = this.getCurrentParams.bind(this)
   }
-  getCurrentPage() {
-    const query = queryString.parse(this.props.location.search)
-    return Number(query.pageNumber) || 1
+  getCurrentParams() {
+    return queryString.parse(this.props.location.search)
   }
-  getCurrentFilter() {
-    const query = queryString.parse(this.props.location.search)
-    return query.pageFilter || 'none'
-  }
-  changePage(newPageNumber, newPageFilter) {
-    this.props.location.search = `?${queryString.stringify({
-      pageNumber: newPageNumber,
-      pageFilter: newPageFilter
-    })}`
+  changePage(newParams) {
+    this.props.location.search = `?${queryString.stringify(newParams)}`
     this.props.history.push(this.props.location.search)
-    this.props.fetchBooks(this.getCurrentPage(), this.getCurrentFilter())
+    this.props.fetchBooks(newParams)
   }
   componentDidMount() {
-    this.props.fetchBooks(this.getCurrentPage(), this.getCurrentFilter())
+    this.props.fetchBooks(this.getCurrentParams())
   }
   render() {
     return (
       <>
         <Navbar
           changePage={this.changePage}
-          currentFilter={this.getCurrentFilter()}
-          currentPage={this.getCurrentPage()}
+          currentParams={this.getCurrentParams()}
         />
         <div className="all-book-cards">
           {this.props.books ? (

@@ -4,7 +4,8 @@ export default class Navbar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedFilter: 'none'
+      genre: 'none',
+      author: 'none'
     }
     this.handleChange = this.handleChange.bind(this)
   }
@@ -15,15 +16,15 @@ export default class Navbar extends React.Component {
   }
   render() {
     const previousPage = () =>
-      this.props.changePage(
-        this.props.currentPage - 1 || 1,
-        this.state.selectedFilter
-      )
+      this.props.changePage({
+        ...this.props.currentParams,
+        pageNumber: Number(this.props.currentParams.pageNumber) - 1 || 1
+      })
     const nextPage = () =>
-      this.props.changePage(
-        this.props.currentPage + 1,
-        this.state.selectedFilter
-      )
+      this.props.changePage({
+        ...this.props.currentParams,
+        pageNumber: Number(this.props.currentParams.pageNumber) + 1 || 1
+      })
     return (
       <div>
         <button type="button" onClick={previousPage}>
@@ -32,14 +33,15 @@ export default class Navbar extends React.Component {
         <button type="button" onClick={nextPage}>
           Next
         </button>
-        <select
-          name="selectedFilter"
-          value={this.state.selectedFilter}
-          onChange={this.handleChange}
-        >
-          <option defaultValue="none">Filter by...</option>
-          <option value="genre">Genre</option>
-          <option value="author">Author</option>
+        <select>
+          <option value={this.state.author} defaultValue="none">
+            Author
+          </option>
+        </select>
+        <select>
+          <option value={this.state.genre} defaultValue="none">
+            Genre
+          </option>
         </select>
       </div>
     )
