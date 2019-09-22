@@ -48,14 +48,42 @@ router.delete('/:id/books/:bookId', async (req, res, next) => {
 router.get('/admin/', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
-      const orders = await Order.findAll()
-      const ordersWithUsers = await Promise.all(
+      const orders = await Order.findAll({
+        order: [['id', 'ASC']]
+      })
+      const ordersWithInfo = await Promise.all(
         orders.map(async order => {
           await order.getAllInfo()
           return order
         })
       )
-      ordersWithUsers ? res.status(200).send(ordersWithUsers) : die(404)
+      ordersWithInfo ? res.status(200).send(ordersWithInfo) : die(404)
+    } else {
+      throw Error('You do not have admin privileges!!!')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/admin/:id', async (req, res, next) => {
+  try {
+    if (req.user.isAdmin) {
+      const orderToUpdate = await Order.findByPk(req.params.id)
+
+      console.log('req.body ', req.body)
+      await orderToUpdate.update(req.body)
+
+      const orders = await Order.findAll({
+        order: [['id', 'ASC']]
+      })
+      const ordersWithInfo = await Promise.all(
+        orders.map(async order => {
+          await order.getAllInfo()
+          return order
+        })
+      )
+      orderToUpdate ? res.status(200).send(ordersWithInfo) : die(404)
     } else {
       throw Error('You do not have admin privileges!!!')
     }

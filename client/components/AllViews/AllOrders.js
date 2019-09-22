@@ -2,35 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders} from '../../store/allOrders'
 import Card from 'react-bootstrap/Card'
-
-const SingleOrder = props => {
-  const order = props.order
-  const name = order.user ? order.user.name : 'Customer Name'
-
-  return (
-    <>
-      <div key={order.id} className="single-order-card">
-        <Card style={{width: '16rem'}}>
-          <Card.Body>
-            <Card.Title>Order: {order.id}</Card.Title>
-            <Card.Text>Date Ordered: {order.createdAt.slice(0, 10)}</Card.Text>
-            <Card.Text>Customer Name: {name}</Card.Text>
-            <Card.Text />
-            <Card.Text>Total price: ${order.price}</Card.Text>
-            <Card.Text>
-              Status:{' '}
-              {
-                <select>
-                  <option />
-                </select>
-              }
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
-    </>
-  )
-}
+import SingleOrderInfo from '../SingleOrderInfo'
 
 class AllOrders extends React.Component {
   // constructor(props) {
@@ -49,7 +21,7 @@ class AllOrders extends React.Component {
           {orders ? (
             <div className="all-orders-container">
               {orders.map(order => {
-                return <SingleOrder order={order} />
+                return <SingleOrderInfo order={order} />
               })}
             </div>
           ) : (
