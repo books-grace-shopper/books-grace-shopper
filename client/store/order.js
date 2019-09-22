@@ -32,6 +32,7 @@ const removeBookFromCart = books => ({
 export const fetchUsersCart = userId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/users/${userId}`)
+    console.log('data from fetch user cart', data)
     dispatch(getUsersCart(data.cart))
   } catch (err) {
     console.log(USER_ERROR_MESSAGE)
