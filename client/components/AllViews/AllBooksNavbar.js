@@ -14,7 +14,6 @@ export default class Navbar extends React.Component {
     })
   }
   render() {
-    console.log('SELECTED FILTER AT RENDER', this.state.selectedFilter)
     const previousPage = () =>
       this.props.changePage(
         this.props.currentPage - 1 || 1,

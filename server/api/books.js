@@ -5,12 +5,17 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('ROUTE QUERY PARAMATERS', req.query)
-    const books = await Book.findAll({
+    const query = {
       order: ['id'],
       offset: req.query.pageNumber * 10,
       limit: 10
-    })
+    }
+    console.log('REQ.QUERY IS', req.query)
+    if (req.query.pageFilter && req.query.pageFilter !== 'none') {
+      let where = {[req.query.pageFilter]: req.query.pageFilter}
+      console.log('WHERE IS', where)
+    }
+    const books = await Book.findAll(query)
     books ? res.status(200).send(books) : die(404)
   } catch (error) {
     next(error)
