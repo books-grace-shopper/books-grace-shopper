@@ -9,24 +9,19 @@ import CartForCheckout from './CartForCheckout'
 toast.configure()
 
 function Checkout(props) {
-  let cart = props.cart
-  let books = props.cart.books
-  // let totalPrice =
-  //   props.cart.books &&
-  //   props.cart.books.reduce((sum, book) => {
-  //     sum += book.quantity * book.price
-  //     return sum
-  //   }, 0) / 100
-  // console.log('totalPrice', totalPrice)
+  let totalPrice =
+    props.cart.books &&
+    props.cart.books.reduce((sum, book) => {
+      sum += book.quantity * book.price
+      return sum
+    }, 0) / 100
 
-  const [product] = React.useState({
-    //unsure how to update price
-    title: '',
-    author: '',
-    price: 1
-  })
+  const product = {
+    description: 'Bookazon Order',
+    price: totalPrice
+  }
 
-  async function handleToken(token, addresses) {
+  async function handleToken(token) {
     try {
       const response = await axios.post(
         'http://localhost:8080/stripe/checkout',
