@@ -17,6 +17,15 @@ function die(status) {
   throw error
 }
 
+function parseDate(date) {
+  const idx = date.indexOf('T')
+  const year = date.slice(0, 4)
+  const day = date.slice(5, 7)
+  const month = date.slice(8, 10)
+  const time = date.slice(idx + 1, idx + 6)
+  return `${day}/${month}/${year} at ${time}`
+}
+
 module.exports = {
   pickRandom,
   makeRandomizedArray,
@@ -30,5 +39,6 @@ module.exports = {
   GENRES,
   AUTHORS,
   MODEL_METHODS,
-  die
+  die,
+  parseDate
 }
