@@ -5,9 +5,7 @@ const uuid = require('uuid/v4')
 router.post('/checkout', async (req, res, next) => {
   let status
   try {
-    console.log('Hello in try block')
     const {product, token} = req.body
-
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id

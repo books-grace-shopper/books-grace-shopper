@@ -9,21 +9,20 @@ import CartForCheckout from './CartForCheckout'
 toast.configure()
 
 function Checkout(props) {
-  let cart = props.cart
-  let books = props.cart.books
-  // let totalPrice =
-  //   props.cart.books &&
-  //   props.cart.books.reduce((sum, book) => {
-  //     sum += book.quantity * book.price
-  //     return sum
-  //   }, 0) / 100
-  // console.log('totalPrice', totalPrice)
+  console.log(props)
+  let totalPrice =
+    props.cart.books &&
+    props.cart.books.reduce((sum, book) => {
+      sum += book.quantity * book.price
+      return sum
+    }, 0) / 100
+  console.log('totalPrice', totalPrice)
 
   const [product] = React.useState({
     //unsure how to update price
     title: '',
     author: '',
-    price: 1
+    price: 5
   })
 
   async function handleToken(token, addresses) {
