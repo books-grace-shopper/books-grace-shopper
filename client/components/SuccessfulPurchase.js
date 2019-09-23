@@ -10,7 +10,7 @@ export default function SuccessfulPurchase() {
       <h6>2704 Main Street</h6>
       <h6>Chicago, IL 60601</h6>
       <h6>T: (312) 555-BOOK</h6>
-      <h6>E: lovetoread@bookzaon.com</h6>
+      <h6>E: lovetoread@bookazon.com</h6>
     </div>
   )
 }
