@@ -12,6 +12,7 @@ export const UserHome = props => {
     <div>
       <h3>Welcome, {name ? name : email}</h3>
       {isAdmin && <Link to="/admin/orders">View All Orders</Link>}
+      <Link to="/user/orders">view your order history</Link>
     </div>
   )
 }
