@@ -43,31 +43,6 @@ router.get('/orders/status', async (req, res, next) => {
   }
 })
 
-// '/users/billy/tasks?status=active'
-// router.get('/users/:name/tasks', (req, res, next) => {
-//   const name = req.params.name;
-//   const query = req.query.status;
-//   const users = todos.listPeople();
-//   const tasks = todos.list(name);
-//   const complete = query === 'complete';
-
-//   try {
-//     if (!users.includes(name)) {
-//       res.status(404).send('Not found');
-//     }
-//     if (query) {
-//       const queriedTasks = tasks.filter(task => {
-//         return task.complete === complete;
-//       });
-//       res.status(200).json(queriedTasks);
-//     } else {
-//       res.status(200).json(tasks);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
 router.put('/orders/:id', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {

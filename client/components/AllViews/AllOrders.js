@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {fetchOrders, fetchOrdersByStatus} from '../../store/allOrders'
 import Card from 'react-bootstrap/Card'
 import SingleOrderInfo from '../SingleOrderInfo'
-import orderReducer from '../../store/order'
 
 const initialState = {
   filter: ''

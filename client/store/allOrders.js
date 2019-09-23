@@ -65,7 +65,6 @@ export default function ordersReducer(state = initialState, action) {
     case GET_ORDERS:
       return action.orders
     case GET_ORDERS_BY_STATUS:
-      // return state.filter(order => order.status === action.status)
       return action.statusOrders
     case UPDATE_ORDER_STATUS:
       const ordersWithoutUpdatedOrder = state.filter(
