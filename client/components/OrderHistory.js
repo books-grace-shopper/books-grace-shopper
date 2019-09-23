@@ -2,10 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const VIEW_ALL = 'VIEW_ALL'
-const VIEW_CANCELLED = 'VIEW_CANCELLED'
-const VIEW_SHIPPED = 'VIEW_SHIPPED'
-const VIEW_ORDERED = 'VIEW_ORDERED'
-const VIEW_DELIVERED = 'VIEW_DELIVERED'
+const VIEW_CANCELLED = 'cancelled'
+const VIEW_SHIPPED = 'shipped'
+const VIEW_ORDERED = 'ordered'
+const VIEW_DELIVERED = 'delivered'
 
 function parseDate(date) {
   const idx = date.indexOf('T')
@@ -18,6 +18,15 @@ class OrderHistory extends React.Component {
     this.state = {
       visFilter: VIEW_ALL
     }
+    this.filterView = this.filterView.bind(this)
+  }
+
+  shouldComponentUpdate() {
+    return true
+  }
+
+  filterView(event) {
+    this.setState({visFilter: event.target.value})
   }
 
   render() {
@@ -29,15 +38,30 @@ class OrderHistory extends React.Component {
           <div>
             Hello,
             <div>
-              {orders.map(order => {
-                return (
-                  <div key={order.id}>
-                    <p>Order placed: {parseDate(order.createdAt)}</p>
-                    <p>status: {order.status}</p>
-                    <p>subtotal: ${order.subtotal}</p>
-                  </div>
-                )
-              })}
+              <select onChange={this.filterView}>
+                <option value={VIEW_ALL}>all</option>
+                <option value={VIEW_ORDERED}>ordered</option>
+                <option value={VIEW_SHIPPED}>shipped</option>
+                <option value={VIEW_DELIVERED}>delivered</option>
+                <option value={VIEW_CANCELLED}>cancelled</option>
+              </select>
+              {orders
+                .filter(order => {
+                  if (this.state.visFilter === VIEW_ALL) {
+                    return order
+                  } else if (order.status === this.state.visFilter) {
+                    return order
+                  }
+                })
+                .map(order => {
+                  return (
+                    <div key={order.id}>
+                      <p>Order placed: {parseDate(order.createdAt)}</p>
+                      <p>status: {order.status}</p>
+                      <p>subtotal: ${order.subtotal}</p>
+                    </div>
+                  )
+                })}
             </div>
           </div>
         ) : (
@@ -49,10 +73,17 @@ class OrderHistory extends React.Component {
 }
 
 const mapState = state => {
+  console.log('mapState runs')
   return {
     user: state.user,
     isLoggedIn: !!state.user.id
   }
 }
 
-export default connect(mapState)(OrderHistory)
+const mapDispatch = dispatch => {
+  return {
+    // filterOrderHistory: (event) => dispatch(this.setState({ visFilter: event.target.value }))
+  }
+}
+
+export default connect(mapState, mapDispatch)(OrderHistory)
