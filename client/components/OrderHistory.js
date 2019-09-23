@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import { me } from '../store';
 
 const VIEW_ALL = 'VIEW_ALL'
 const VIEW_CANCELLED = 'VIEW_CANCELLED'
@@ -15,10 +14,6 @@ class OrderHistory extends React.Component {
       visFilter: VIEW_ALL
     }
   }
-
-  // componentDidMount() {
-  // 	fetchUsersOrders(this.props.user.id);
-  // }
 
   render() {
     const {isLoggedIn, user} = this.props
@@ -48,11 +43,5 @@ const mapState = state => {
     isLoggedIn: !!state.user.id
   }
 }
-
-// const mapDispatch = (dispatch) => {
-// 	return {
-// 		// fetchUsersOrders: (userId) => dispatch(fetchUsersOrders(userId))
-// 	};
-// };
 
 export default connect(mapState)(OrderHistory)

@@ -13,11 +13,8 @@ router.get('/:id', async (req, res, next) => {
     }
     const cart = await user.findOrCreateCart()
     const books = await cart.getBooksWithQuantities()
-    // const orders = await user.getOrders();
     cart.dataValues.books = books
     user.dataValues.cart = cart
-    // user.dataValues.orderHistory = orders.filter((order) => order.dataValues.status !== 'cart');
-    // console.log('data from user...', user.dataValues);
     res.json(user)
   } catch (error) {
     next(error)

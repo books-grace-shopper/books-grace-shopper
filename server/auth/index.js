@@ -42,6 +42,10 @@ router.post('/logout', (req, res) => {
 router.get('/me', async (req, res, next) => {
   try {
     if (req.user) {
+      const orderHistory = await req.user.getOrders()
+      req.user.dataValues.orderHistory = orderHistory.filter(
+        order => order.status !== 'cart'
+      )
       res.json(req.user)
     } else {
       const session = await Session.findOrCreateByPk(req.session.id)
