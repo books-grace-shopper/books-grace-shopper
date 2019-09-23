@@ -23,7 +23,7 @@ function generateWhere(query) {
       switch (key) {
         case 'search':
           where.title = {
-            [Sequelize.Op.contains]: query[key].split(' ')
+            [Sequelize.Op.like]: `%${query[key]}%`
           }
           return where
         default:
