@@ -21,8 +21,8 @@ set -e
 # Whether the deploy succeeds or fails, we'll clean up the deploy branch.
 
 function cleanup_at_exit {
-  # return to your production branch
-  git checkout production
+  # return to your master branch
+  git checkout master
   
   # remove the deploy branch
   git branch -D deploy
@@ -33,7 +33,7 @@ trap cleanup_at_exit EXIT
 # but it needs to match the name of the branch we specify when we push to our heroku remote.
 git checkout -b deploy
 
-# webpack will run in "production mode"
+# webpack will run in "master mode"
 webpack -p
 
 # "force" add the otherwise gitignored build files
@@ -42,5 +42,5 @@ git add -f public/bundle.js public/bundle.js.map
 # create a commit, even if nothing changed
 git commit --allow-empty -m 'Deploying'
 
-# push your local "deploy" branch to the "production" branch on heroku
-git push --force heroku deploy:production
+# push your local "deploy" branch to the "master" branch on heroku
+git push --force heroku deploy:master
