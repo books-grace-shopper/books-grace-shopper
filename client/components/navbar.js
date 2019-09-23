@@ -19,7 +19,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick} className="logout-button">
             Logout
           </a>
-          <Link to="/user/orders" className="signup-button">
+          <Link to="/user/order-history" className="signup-button">
             Order History
           </Link>
         </div>

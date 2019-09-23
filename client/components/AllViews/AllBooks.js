@@ -1,13 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
-import {fetchBookTotal} from '../../store/allBookInfo.js'
 import Card from 'react-bootstrap/Card'
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import queryString from 'query-string'
 import {Link} from 'react-router-dom'
+import {default as Navbar} from './AllBooksNavbar.js'
 
-/* SINGLE BOOK CARD ON THE PAGE */
 function SingleBook(props) {
   const book = props.book
   return (
@@ -31,6 +29,9 @@ function SingleBook(props) {
 
 /* MAP THROUGH ALL THE BOOKS AND GET SINGLE BOOK CARDS */
 function MapBooks(props) {
+  if (props.books.length === 0) {
+    return <h1>No books match those filters </h1>
+  }
   return props.books.map(book => {
     return <SingleBook key={book.id} book={book} />
   })
@@ -40,51 +41,26 @@ class AllBooks extends React.Component {
   constructor(props) {
     super(props)
     this.changePage = this.changePage.bind(this)
-    this.getCurrentPage = this.getCurrentPage.bind(this)
+    this.getCurrentParams = this.getCurrentParams.bind(this)
   }
-  getCurrentPage() {
-    const query = queryString.parse(this.props.location.search)
-    return Number(query.pageNumber) || 1
+  getCurrentParams() {
+    return queryString.parse(this.props.location.search)
   }
-  changePage(newPageNumber) {
-    this.props.location.search = `?${queryString.stringify({
-      pageNumber: newPageNumber
-    })}`
+  changePage(newParams) {
+    this.props.location.search = `?${queryString.stringify(newParams)}`
     this.props.history.push(this.props.location.search)
-    this.props.fetchBooks(this.getCurrentPage())
+    this.props.fetchBooks(newParams)
   }
   componentDidMount() {
-    this.props.fetchBooks(this.getCurrentPage())
+    this.props.fetchBooks(this.getCurrentParams())
   }
   render() {
     return (
       <>
-        {/* <Jumbotron>
-            <h1>Hello, world!</h1>
-            <p>
-            This is a simple hero unit, a simple jumbotron-style component for
-            calling extra attention to featured content or information.
-            </p>
-            </Jumbotron> */}
-
-        <h1 className="all-books-header">Shop All Books</h1>
-        {this.getCurrentPage() > 1 && (
-          <button
-            type="button"
-            onClick={() => {
-              this.changePage(this.getCurrentPage() - 1 || 1)
-            }}
-          >
-            Previous
-          </button>
-        )}
-        <button
-          onClick={() => {
-            this.changePage(this.getCurrentPage() + 1)
-          }}
-        >
-          Next
-        </button>
+        <Navbar
+          changePage={this.changePage}
+          currentParams={this.getCurrentParams()}
+        />
         <div className="all-book-cards">
           {this.props.books ? (
             <MapBooks books={this.props.books} />
@@ -99,18 +75,14 @@ class AllBooks extends React.Component {
 
 function mapState(state) {
   return {
-    books: state.books,
-    bookTotal: state.allBookInfo.totalBooks
+    books: state.books
   }
 }
 
 function mapDispatch(dispatch) {
   return {
-    fetchBooks: function(pageNumber) {
-      dispatch(fetchBooks(pageNumber))
-    },
-    fetchBookTotal: function() {
-      dispatch(fetchBookTotal())
+    fetchBooks: function(pageNumber, pageFilter) {
+      dispatch(fetchBooks(pageNumber, pageFilter))
     }
   }
 }

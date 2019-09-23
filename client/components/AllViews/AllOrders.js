@@ -1,44 +1,40 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchOrders} from '../../store/allOrders'
-import Card from 'react-bootstrap/Card'
+import {fetchOrders, fetchOrdersByStatus} from '../../store/allOrders'
+import SingleOrderInfo from '../SingleOrderInfo'
 
-const SingleOrder = props => {
-  const order = props.order
-  const name = order.user ? order.user.name : 'Customer Name'
-
-  return (
-    <>
-      <div key={order.id} className="single-order-card">
-        <Card style={{width: '16rem'}}>
-          <Card.Body>
-            <Card.Title>Order: {order.id}</Card.Title>
-            <Card.Text>Date Ordered: {order.createdAt.slice(0, 10)}</Card.Text>
-            <Card.Text>Customer Name: {name}</Card.Text>
-            <Card.Text />
-            <Card.Text>Total price: ${order.price}</Card.Text>
-            <Card.Text>
-              Status:{' '}
-              {
-                <select>
-                  <option />
-                </select>
-              }
-            </Card.Text>
-          </Card.Body>
-        </Card>
-      </div>
-    </>
-  )
+const initialState = {
+  filter: '',
+  isFiltered: false
 }
 
 class AllOrders extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.state = initialState
+  }
   componentDidMount() {
     this.props.fetchOrders()
   }
+
+  handleChange(event) {
+    this.setState(
+      {
+        filter: event.target.value
+      },
+      () => {
+        if (this.state.filter) {
+          this.props.fetchOrdersByStatus(this.state.filter)
+          this.setState({isFiltered: true})
+        } else {
+          this.props.fetchOrders()
+          this.setState({isFiltered: false})
+        }
+      }
+    )
+  }
+
   render() {
     const orders = this.props.orders
 
@@ -46,11 +42,27 @@ class AllOrders extends React.Component {
       <>
         <div className="all-orders-header">
           <h1>All Orders</h1>
+          <label htmlFor="status">Status:</label>
+          <select onChange={this.handleChange}>
+            <option value="">All</option>
+            <option value="cart">Cart</option>
+            <option value="ordered">Ordered</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+
           {orders ? (
             <div className="all-orders-container">
-              {orders.map(order => {
-                return <SingleOrder order={order} />
-              })}
+              {this.state.isFiltered
+                ? orders.map(order => {
+                    if (order.status === this.state.filter) {
+                      return <SingleOrderInfo key={order.id} order={order} />
+                    }
+                  })
+                : orders.map(order => {
+                    return <SingleOrderInfo key={order.id} order={order} />
+                  })}
             </div>
           ) : (
             <p>Loading</p>
@@ -69,7 +81,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchOrders: () => dispatch(fetchOrders())
+    fetchOrders: () => dispatch(fetchOrders()),
+    fetchOrdersByStatus: status => dispatch(fetchOrdersByStatus(status))
   }
 }
 

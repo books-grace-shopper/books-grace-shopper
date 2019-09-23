@@ -1,27 +1,61 @@
+const Sequelize = require('sequelize')
 const router = require('express').Router()
 const {Book} = require('../db/models')
 const {die} = require('../../utils')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/metadata', async (_, res, next) => {
   try {
-    const books = await Book.findAll({
-      order: ['id'],
-      offset: req.query.pageNumber * 10,
-      limit: 10
-    })
-    books ? res.status(200).send(books) : die(404)
-  } catch (error) {
-    next(error)
+    const books = await Book.findAll()
+    const authors = Array.from(new Set(books.map(book => book.author)))
+    const genres = Array.from(new Set(books.map(book => book.genre)))
+    res.status(200).send({authors: authors, genres: genres})
+  } catch (err) {
+    next(err)
   }
 })
 
-router.get('/limit', async (_, res, next) => {
+function generateWhere(query) {
+  delete query.pageNumber
+  const finalWhere = Object.keys(query)
+    .filter(key => query[key] && query[key] !== 'none')
+    .reduce((where, key) => {
+      switch (key) {
+        case 'search':
+          where.title = {
+            [Sequelize.Op.like]: `%${query[key]}%`
+          }
+          return where
+        default:
+          where[key] = query[key]
+          return where
+      }
+    }, {})
+  if (Object.keys(finalWhere).length > 0) {
+    return finalWhere
+  } else {
+    return false
+  }
+}
+
+router.get('/', async (req, res, next) => {
   try {
-    const count = await Book.count()
-    res.status(200).send(count)
-  } catch (err) {
-    next(err)
+    const query = {
+      order: ['id'],
+      offset: (req.query.pageNumber - 1) * 10,
+      limit: 10
+    }
+    const where = generateWhere(req.query)
+    if (where) {
+      query.where = where
+    }
+    console.log('WHERE AFTER GENERATION', where)
+    console.log('QUERY IS', query)
+    const books = await Book.findAll(query)
+    console.log('THE BOOKS ARE', books.map(book => book.author))
+    books ? res.status(200).send(books) : die(404)
+  } catch (error) {
+    next(error)
   }
 })
 

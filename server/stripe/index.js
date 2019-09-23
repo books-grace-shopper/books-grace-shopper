@@ -5,21 +5,20 @@ const uuid = require('uuid/v4')
 router.post('/checkout', async (req, res, next) => {
   let status
   try {
-    console.log('Hello in try block')
     const {product, token} = req.body
-
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id
     })
 
     const idempotencyKey = uuid()
+
     const charge = await stripe.charges.create({
       amount: product.price * 100,
       currency: 'usd',
       customer: customer.id,
       receipt_email: token.email,
-      description: `Purchased ${product.name}`,
+      description: `Purchased ${product.description}`,
       shipping: {
         name: token.card.name,
         address: {
@@ -31,6 +30,7 @@ router.post('/checkout', async (req, res, next) => {
         }
       }
     })
+
     console.log('Charge:', {charge})
     status = 'success'
     res.json({status})
