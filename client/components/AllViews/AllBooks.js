@@ -29,6 +29,9 @@ function SingleBook(props) {
 
 /* MAP THROUGH ALL THE BOOKS AND GET SINGLE BOOK CARDS */
 function MapBooks(props) {
+  if (props.books.length === 0) {
+    return <h1>No books match those filters </h1>
+  }
   return props.books.map(book => {
     return <SingleBook key={book.id} book={book} />
   })

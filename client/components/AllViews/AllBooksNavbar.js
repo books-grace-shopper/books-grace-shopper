@@ -26,17 +26,12 @@ class Navbar extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
-  componentDidMount() {
-    this.setState({
+  async componentDidMount() {
+    await this.props.fetchMetadata()
+    await this.setState({
       genre: this.props.currentParams.genre || 'none',
       author: this.props.currentParams.genre || 'none',
       search: this.props.currentParams.search || ''
-    })
-    this.props.fetchMetadata()
-  }
-  changeSearch(event) {
-    this.setState({
-      search: event.target.value
     })
   }
   async handleChange(event) {
@@ -50,7 +45,8 @@ class Navbar extends React.Component {
       ...this.props.currentParams,
       genre: this.state.genre,
       author: this.state.author,
-      search: this.state.search
+      search: this.state.search,
+      pageNumber: 1
     })
   }
   render() {
