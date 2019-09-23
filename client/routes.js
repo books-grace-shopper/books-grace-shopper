@@ -11,7 +11,8 @@ import {
   Cart,
   Checkout,
   AllOrders,
-  OrderHistory
+  OrderHistory,
+  SuccessfulPurchase
 } from './components'
 import {me, fetchUsersCart} from './store'
 
@@ -54,6 +55,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/success" component={SuccessfulPurchase} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
