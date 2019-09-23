@@ -36,7 +36,6 @@ export const fetchOrdersByStatus = orderStatus => async dispatch => {
     const {data} = await axios.get(
       `/api/admin/orders/status?status=${orderStatus}`
     )
-    console.log('data: ', data)
     dispatch(getOrdersByStatus(data))
   } catch (err) {
     console.error(err)
@@ -46,7 +45,6 @@ export const fetchOrdersByStatus = orderStatus => async dispatch => {
 
 export const updateOrderThunk = updatedOrder => async dispatch => {
   try {
-    console.log('updatedOrder: ', updatedOrder)
     const {data} = await axios.put(
       `/api/admin/orders/${updatedOrder.id}`,
       updatedOrder

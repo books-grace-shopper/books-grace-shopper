@@ -31,10 +31,17 @@ router.get('/orders/status', async (req, res, next) => {
       const orders = await Order.findAll({
         where: {
           status: req.query.status
-        }
+        },
+        order: [['id', 'ASC']]
       })
 
-      orders ? res.status(200).send(orders) : die(404)
+      const ordersWithInfo = await Promise.all(
+        orders.map(async order => {
+          await order.getAllInfo()
+          return order
+        })
+      )
+      ordersWithInfo ? res.status(200).send(ordersWithInfo) : die(404)
     } else {
       throw Error('You do not have admin privileges!!!')
     }
