@@ -3,32 +3,30 @@ import {connect} from 'react-redux'
 import {fetchOrders, fetchOrdersByStatus} from '../../store/allOrders'
 import Card from 'react-bootstrap/Card'
 import SingleOrderInfo from '../SingleOrderInfo'
-import orderReducer from '../../store/order'
-
-const initialState = {
-  filter: ''
-}
 
 class AllOrders extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.state = initialState
+
+    this.filter = ''
   }
   componentDidMount() {
     this.props.fetchOrders()
   }
 
   handleChange(event) {
-    this.setState({
-      filter: event.target.value
-    })
+    this.filter = event.target.value
   }
   handleSubmit(event) {
     event.preventDefault()
-    const filter = this.state.filter
-    filter ? this.props.fetchOrdersByStatus(filter) : this.props.fetchOrders()
+
+    if (this.filter) {
+      this.props.fetchOrdersByStatus(this.filter)
+    } else {
+      this.props.fetchOrders()
+    }
   }
   render() {
     const orders = this.props.orders
@@ -51,13 +49,14 @@ class AllOrders extends React.Component {
           </form>
           {orders ? (
             <div className="all-orders-container">
-              {!this.state.filter
+              {this.filter
                 ? orders.map(order => {
-                    return <SingleOrderInfo order={order} />
+                    if (order.status === this.filter) {
+                      return <SingleOrderInfo order={order} />
+                    }
                   })
                 : orders.map(order => {
-                    if (order.status === this.state.filter)
-                      return <SingleOrderInfo order={order} />
+                    return <SingleOrderInfo order={order} />
                   })}
             </div>
           ) : (
