@@ -51,7 +51,7 @@ Order.prototype.getBookQuantity = async function(bookId) {
 Order.prototype.getPrice = async function() {
   const books = await this.getBooksWithQuantities()
   return books.reduce((sum, book) => {
-    sum += book.price * book.quantity
+    sum += book.dataValues.price * book.dataValues.quantity
     return sum
   }, 0)
 }

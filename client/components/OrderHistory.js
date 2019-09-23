@@ -17,20 +17,25 @@ class OrderHistory extends React.Component {
 
   render() {
     const {isLoggedIn, user} = this.props
-    const orders = user.orders
+    const orders = user.orderHistory
     return (
       <div>
-        {isLoggedIn ? (
+        {isLoggedIn && user.orderHistory ? (
           <div>
             Hello,
-            {/* <div>
-							{orders.map((order) => {
-								return <p key={order.id}>{order.status}</p>;
-							})}
-						</div> */}
+            <div>
+              {orders.map(order => {
+                return (
+                  <div key={order.id}>
+                    <p>Order status: {order.status}</p>
+                    <p>subtotal: ${order.subtotal}</p>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         ) : (
-          <div>log in to view your order history</div>
+          <div>no order history</div>
         )}
       </div>
     )

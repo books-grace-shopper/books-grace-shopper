@@ -43,7 +43,17 @@ router.get('/me', async (req, res, next) => {
   try {
     if (req.user) {
       const orderHistory = await req.user.getOrders()
-      req.user.dataValues.orderHistory = orderHistory.filter(
+      req.user.dataValues.orderHistory = await Promise.all(
+        orderHistory.map(async order => {
+          const books = await order.getBooksWithQuantities()
+          const subtotal = await order.getPrice()
+          // console.log('')
+          order.dataValues.books = books
+          order.dataValues.subtotal = subtotal
+          return order
+        })
+      )
+      req.user.dataValues.orderHistory = req.user.dataValues.orderHistory.filter(
         order => order.status !== 'cart'
       )
       res.json(req.user)

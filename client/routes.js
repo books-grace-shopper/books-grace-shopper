@@ -39,7 +39,7 @@ class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/books/:bookId" component={SelectedBook} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/user/orders" component={OrderHistory} />
+        <Route exact path="/user/order-history" component={OrderHistory} />
         {isAdmin && (
           <Switch>
             <Route exact path="/home" component={UserHome} />
