@@ -12,12 +12,13 @@ router.post('/checkout', async (req, res, next) => {
     })
 
     const idempotencyKey = uuid()
+
     const charge = await stripe.charges.create({
       amount: product.price * 100,
       currency: 'usd',
       customer: customer.id,
       receipt_email: token.email,
-      description: `Purchased ${product.name}`,
+      description: `Purchased ${product.description}`,
       shipping: {
         name: token.card.name,
         address: {
@@ -29,6 +30,7 @@ router.post('/checkout', async (req, res, next) => {
         }
       }
     })
+
     console.log('Charge:', {charge})
     status = 'success'
     res.json({status})
