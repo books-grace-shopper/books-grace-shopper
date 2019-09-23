@@ -47,7 +47,6 @@ router.get('/me', async (req, res, next) => {
         orderHistory.map(async order => {
           const books = await order.getBooksWithQuantities()
           const subtotal = await order.getPrice()
-          // console.log('')
           order.dataValues.books = books
           order.dataValues.subtotal = subtotal
           return order

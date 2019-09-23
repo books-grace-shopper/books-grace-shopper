@@ -7,6 +7,11 @@ const VIEW_SHIPPED = 'VIEW_SHIPPED'
 const VIEW_ORDERED = 'VIEW_ORDERED'
 const VIEW_DELIVERED = 'VIEW_DELIVERED'
 
+function parseDate(date) {
+  const idx = date.indexOf('T')
+  return date.slice(0, idx)
+}
+
 class OrderHistory extends React.Component {
   constructor(props) {
     super(props)
@@ -27,7 +32,8 @@ class OrderHistory extends React.Component {
               {orders.map(order => {
                 return (
                   <div key={order.id}>
-                    <p>Order status: {order.status}</p>
+                    <p>Order placed: {parseDate(order.createdAt)}</p>
+                    <p>status: {order.status}</p>
                     <p>subtotal: ${order.subtotal}</p>
                   </div>
                 )
