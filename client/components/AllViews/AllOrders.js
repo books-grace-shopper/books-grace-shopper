@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchOrders, fetchOrdersByStatus} from '../../store/allOrders'
-import Card from 'react-bootstrap/Card'
 import SingleOrderInfo from '../SingleOrderInfo'
 
 const initialState = {
@@ -9,15 +8,10 @@ const initialState = {
   isFiltered: false
 }
 
-// const query = {
-//   filter: ''
-// }
-
 class AllOrders extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.state = initialState
   }
   componentDidMount() {
@@ -25,59 +19,50 @@ class AllOrders extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      filter: event.target.value
-    })
+    this.setState(
+      {
+        filter: event.target.value
+      },
+      () => {
+        if (this.state.filter) {
+          this.props.fetchOrdersByStatus(this.state.filter)
+          this.setState({isFiltered: true})
+        } else {
+          this.props.fetchOrders()
+          this.setState({isFiltered: false})
+        }
+      }
+    )
   }
-  handleSubmit(event) {
-    event.preventDefault()
-    // const filter = this.state.filter
-    if (this.state.filter) {
-      this.props.fetchOrdersByStatus(this.state.filter)
-      this.setState({isFiltered: true})
-    } else {
-      this.props.fetchOrders()
-      this.setState({isFiltered: false})
-    }
-  }
+
   render() {
     const orders = this.props.orders
 
     return (
       <>
         <div className="all-orders-header">
-          <form onSubmit={this.handleSubmit}>
-            <h1>All Orders</h1>
-            <label htmlFor="status">Status:</label>
-            <select onChange={this.handleChange}>
-              <option value="">All</option>
-              <option value="cart">Cart</option>
-              <option value="ordered">Ordered</option>
-              <option value="shipped">Shipped</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-            <button type="submit">Filter By Status</button>
-          </form>
+          <h1>All Orders</h1>
+          <label htmlFor="status">Status:</label>
+          <select onChange={this.handleChange}>
+            <option value="">All</option>
+            <option value="cart">Cart</option>
+            <option value="ordered">Ordered</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+
           {orders ? (
             <div className="all-orders-container">
               {this.state.isFiltered
                 ? orders.map(order => {
                     if (order.status === this.state.filter) {
-                      return <SingleOrderInfo order={order} />
+                      return <SingleOrderInfo key={order.id} order={order} />
                     }
                   })
                 : orders.map(order => {
-                    return <SingleOrderInfo order={order} />
+                    return <SingleOrderInfo key={order.id} order={order} />
                   })}
-              {/* {!this.state.filter
-                ? orders.map(order => {
-                    return <SingleOrderInfo order={order} />
-                  })
-                : orders.map(order => {
-                    if (order.status === this.state.filter)
-                      return <SingleOrderInfo order={order} />
-                  })} */}
             </div>
           ) : (
             <p>Loading</p>

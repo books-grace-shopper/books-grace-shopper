@@ -18,9 +18,6 @@ class SingleOrderInfo extends React.Component {
     const order = this.props.order
     order.status = this.state.status
     this.props.updateOrderStatus(order)
-
-    // this.setState({status: updatedOrder.status})
-    // this.props.fetchOrders()
   }
 
   handleChange(event) {
