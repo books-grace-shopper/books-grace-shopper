@@ -6,7 +6,7 @@ import user from './user'
 import {default as books} from './allBooks'
 import {default as selectedBook} from './selectedBook'
 import {default as cart} from './order.js'
-import {default as allBookInfo} from './allBookInfo.js'
+import {default as bookMetadata} from './allBookInfo.js'
 import {default as orders} from './allOrders'
 
 const reducer = combineReducers({
@@ -14,7 +14,7 @@ const reducer = combineReducers({
   books,
   cart,
   selectedBook,
-  allBookInfo,
+  bookMetadata,
   orders
 })
 

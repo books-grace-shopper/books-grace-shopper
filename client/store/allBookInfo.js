@@ -1,29 +1,28 @@
 import axios from 'axios'
 
-const GET_TOTAL_BOOKS = 'GET_TOTAL_BOOKS'
+const GET_METADATA = 'GET_METADATA'
 
-const getTotalBooks = count => ({
-  type: GET_TOTAL_BOOKS,
-  count: count
+const getMetadata = metaData => ({
+  type: GET_METADATA,
+  info: metaData
 })
 
-export const fetchBookTotal = () => async dispatch => {
+export const fetchMetadata = () => async dispatch => {
   try {
-    const {data} = await axios.get('/api/books/count')
-    dispatch(getTotalBooks(data))
+    const {data} = await axios.get(`/api/books/metadata`)
+    dispatch(getMetadata(data))
   } catch (err) {
+    console.error('We could not fetch the genres and authors')
     console.error(err)
   }
 }
 
-const initialInfo = {
-  totalBooks: 0
-}
+const initialMetadata = {genres: [], authors: []}
 
-export default function(state = initialInfo, action) {
+export default function bookInfoReducer(state = initialMetadata, action) {
   switch (action.type) {
-    case GET_TOTAL_BOOKS:
-      return {...initialInfo, totalBooks: 0}
+    case GET_METADATA:
+      return action.info
     default:
       return state
   }
