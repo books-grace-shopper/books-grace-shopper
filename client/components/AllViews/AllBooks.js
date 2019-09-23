@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchBooks} from '../../store/allBooks.js'
-import {fetchBookTotal} from '../../store/allBookInfo.js'
 import Card from 'react-bootstrap/Card'
 import queryString from 'query-string'
 import {Link} from 'react-router-dom'
@@ -73,8 +72,7 @@ class AllBooks extends React.Component {
 
 function mapState(state) {
   return {
-    books: state.books,
-    bookTotal: state.allBookInfo.totalBooks
+    books: state.books
   }
 }
 
@@ -82,9 +80,6 @@ function mapDispatch(dispatch) {
   return {
     fetchBooks: function(pageNumber, pageFilter) {
       dispatch(fetchBooks(pageNumber, pageFilter))
-    },
-    fetchBookTotal: function() {
-      dispatch(fetchBookTotal())
     }
   }
 }
