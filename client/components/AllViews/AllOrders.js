@@ -4,28 +4,40 @@ import {fetchOrders, fetchOrdersByStatus} from '../../store/allOrders'
 import Card from 'react-bootstrap/Card'
 import SingleOrderInfo from '../SingleOrderInfo'
 
+const initialState = {
+  filter: '',
+  isFiltered: false
+}
+
+// const query = {
+//   filter: ''
+// }
+
 class AllOrders extends React.Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-
-    this.filter = ''
+    this.state = initialState
   }
   componentDidMount() {
     this.props.fetchOrders()
   }
 
   handleChange(event) {
-    this.filter = event.target.value
+    this.setState({
+      filter: event.target.value
+    })
   }
   handleSubmit(event) {
     event.preventDefault()
-
-    if (this.filter) {
-      this.props.fetchOrdersByStatus(this.filter)
+    // const filter = this.state.filter
+    if (this.state.filter) {
+      this.props.fetchOrdersByStatus(this.state.filter)
+      this.setState({isFiltered: true})
     } else {
       this.props.fetchOrders()
+      this.setState({isFiltered: false})
     }
   }
   render() {
@@ -49,15 +61,23 @@ class AllOrders extends React.Component {
           </form>
           {orders ? (
             <div className="all-orders-container">
-              {this.filter
+              {this.state.isFiltered
                 ? orders.map(order => {
-                    if (order.status === this.filter) {
+                    if (order.status === this.state.filter) {
                       return <SingleOrderInfo order={order} />
                     }
                   })
                 : orders.map(order => {
                     return <SingleOrderInfo order={order} />
                   })}
+              {/* {!this.state.filter
+                ? orders.map(order => {
+                    return <SingleOrderInfo order={order} />
+                  })
+                : orders.map(order => {
+                    if (order.status === this.state.filter)
+                      return <SingleOrderInfo order={order} />
+                  })} */}
             </div>
           ) : (
             <p>Loading</p>

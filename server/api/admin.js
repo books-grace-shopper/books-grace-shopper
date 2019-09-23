@@ -31,7 +31,8 @@ router.get('/orders/status', async (req, res, next) => {
       const orders = await Order.findAll({
         where: {
           status: req.query.status
-        }
+        },
+        order: [['id', 'ASC']]
       })
 
       orders ? res.status(200).send(orders) : die(404)
