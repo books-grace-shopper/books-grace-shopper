@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const GET_GUESTS_CART = 'GET_GUESTS_CART'
 const GET_USERS_CART = 'GET_USERS_CART'
+const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY'
 
 const UPDATE_BOOK_QUANTITY = 'UPDATE_BOOK_QUANTITY'
 
@@ -18,6 +19,13 @@ const getUsersCart = cart => ({
   type: GET_USERS_CART,
   cart: cart
 })
+
+const getOrderHistory = orderHistory => {
+  return {
+    type: GET_ORDER_HISTORY,
+    orderHistory: orderHistory
+  }
+}
 
 const updateBookQuantity = books => ({
   type: UPDATE_BOOK_QUANTITY,

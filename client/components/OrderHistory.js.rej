@@ -1,0 +1,54 @@
+diff a/client/components/OrderHistory.js b/client/components/OrderHistory.js	(rejected hunks)
+@@ -23,26 +23,26 @@ class OrderHistory extends React.Component {
+-	render() {
+-		const { isLoggedIn, user } = this.props;
+-		const orders = user.orderHistory;
+-		return (
+-			<div>
+-				{isLoggedIn && user.orderHistory ? (
+-					<div>
+-						Hello,
+-						<div>
+-							{orders.map((order) => {
+-								return (
+-									<div key={order.id}>
+-										<p>Order placed: {parseDate(order.createdAt)}</p>
+-										<p>status: {order.status}</p>
+-										<p>subtotal: ${order.subtotal}</p>
+-									</div>
+-								);
+-							})}
+-						</div>
+-					</div>
+-				) : (
+-					<div>no order history</div>
+-				)}
+-			</div>
+-		);
+-	}
++  render() {
++    const {isLoggedIn, user} = this.props
++    const orders = user.orderHistory
++    return (
++      <div>
++        {isLoggedIn && user.orderHistory ? (
++          <div>
++            Hello,
++            <div>
++              {orders.map(order => {
++                return (
++                  <div key={order.id}>
++                    <p>Order placed: {parseDate(order.createdAt)}</p>
++                    <p>status: {order.status}</p>
++                    <p>subtotal: ${order.subtotal}</p>
++                  </div>
++                )
++              })}
++            </div>
++          </div>
++        ) : (
++          <div>no order history</div>
++        )}
++      </div>
++    )
++  }

@@ -15,8 +15,6 @@ function Checkout(props) {
       sum += book.quantity * book.price
       return sum
     }, 0) / 100
-  console.log('totalPrice', totalPrice)
-  console.log(typeof totalPrice)
 
   const product = {
     description: 'Bookazon Order',
