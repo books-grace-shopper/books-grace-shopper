@@ -10,8 +10,10 @@ export const UserHome = props => {
   const {email, name} = props
   return (
     <div>
-      <h3>Welcome, {name ? name : email}</h3>
-      <Link to="/user/order-history">view your order history</Link>
+      <h3 className="welcome-user">Welcome, {name ? name : email}</h3>
+      <div id="order-history-link">
+        <Link to="/user/order-history">view your order history</Link>
+      </div>
     </div>
   )
 }

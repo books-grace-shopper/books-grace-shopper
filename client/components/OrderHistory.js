@@ -19,15 +19,12 @@ class OrderHistory extends React.Component {
     }
     this.filterView = this.filterView.bind(this)
   }
-
   componentDidMount() {
     this.props.loadOrderHistory()
   }
-
   shouldComponentUpdate() {
     return true
   }
-
   filterView(event) {
     this.setState({visFilter: event.target.value})
   }
@@ -38,19 +35,19 @@ class OrderHistory extends React.Component {
     return (
       <div>
         {isLoggedIn && user.orderHistory ? (
-          <div className="order-history-greeting">
-            Hello, {user.name || user.email}
-            <div>
-              <select
-                onChange={this.filterView}
-                className="filter-order-history"
-              >
-                <option value={VIEW_ALL}>all</option>
-                <option value={VIEW_ORDERED}>ordered</option>
-                <option value={VIEW_SHIPPED}>shipped</option>
-                <option value={VIEW_DELIVERED}>delivered</option>
-                <option value={VIEW_CANCELLED}>cancelled</option>
-              </select>
+          <div className="order-history-background">
+            <h2 className="order-history-greeting">Order History</h2>
+            <select
+              onChange={this.filterView}
+              className="filter-order-history filter"
+            >
+              <option value={VIEW_ALL}>all</option>
+              <option value={VIEW_ORDERED}>ordered</option>
+              <option value={VIEW_SHIPPED}>shipped</option>
+              <option value={VIEW_DELIVERED}>delivered</option>
+              <option value={VIEW_CANCELLED}>cancelled</option>
+            </select>
+            <div className="order-history-contains-all">
               {orders
                 .filter(order => {
                   if (this.state.visFilter === VIEW_ALL) {
@@ -79,30 +76,31 @@ class OrderHistory extends React.Component {
 const PastOrder = props => {
   const order = props.order
   return (
-    <Card style={{width: '90%'}}>
+    <Card style={{width: '100rem'}}>
       <Body>
         <div className="past-order-details">
-          <Title>status: {order.status}</Title>
-          <Text>Order placed: {parseDate(order.createdAt)}</Text>
+          <Title>Order status: {order.status}</Title>
+          <Text>placed: {parseDate(order.createdAt)}</Text>
           <Text>subtotal: ${(order.subtotal / 100).toFixed(2)}</Text>
         </div>
         <div className="past-order-books-list">
-          <p>books included in this order:</p>
+          <Title>items on this order:</Title>
           {order.books.map(book => {
             return (
-              <Link
-                key={book.id}
-                to={`/books/${book.id}`}
-                className="past-order-book"
-              >
-                <Card style={{width: '50%'}}>
-                  <Text>
-                    {book.title} by {book.author}
-                  </Text>
-                  <Text>price: ${(book.price / 100).toFixed(2)}</Text>
-                  <img src={book.imageUrl} className="past-order-book-img" />
-                </Card>
-              </Link>
+              <div key={book.id} className="past-order-book">
+                <Link to={`/books/${book.id}`}>
+                  <ul id="hail-mary">
+                    <li className="past-order-item">
+                      <div className="item-list-title">
+                        {book.title} by {book.author}
+                      </div>
+                      <div className="item-list-price">
+                        price: ${(book.price / 100).toFixed(2)}
+                      </div>
+                    </li>
+                  </ul>
+                </Link>
+              </div>
             )
           })}
         </div>
