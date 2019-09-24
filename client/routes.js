@@ -51,7 +51,7 @@ class Routes extends Component {
             <Route exact path="/admin/home" component={AdminHome} />
             <Route exact path="/admin/orders" component={AllOrders} />
             <Route exact path="/admin/add-book" component={AddBook} />
-
+            <Route exact path="/home" component={UserHome} />
             <Route exact path="/admin/users" />
           </Switch>
         )}

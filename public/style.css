@@ -25,8 +25,11 @@ form div {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
-  padding: 5rem;
-  background-color: cadetblue;
+  padding-right: 5rem;
+  padding-left: 5rem;
+  padding-top: 1rem;
+  background-color: #a7c6da;
+  padding-bottom: 1rem;
 }
 
 .card-img-top {
@@ -48,7 +51,9 @@ form div {
 /* Navbar */
 .bookazon-title {
   color: cadetblue;
-  padding-left: 10px;
+  padding-top: 20px;
+  display: flex;
+  padding-left: 50px;
   font-family: 'Times New Roman', Times, serif;
 }
 
@@ -69,7 +74,8 @@ form div {
 }
 
 .header-container {
-  background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg');
+  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg'); */
+  background-color: #fcdebe;
 }
 
 /* Selected Book View */
@@ -138,4 +144,72 @@ form div {
 .past-order-books-list {
   display: flex;
   flex: 3;
+}
+.header-container {
+  display: grid;
+  grid-template-columns: 0.6fr 0.4fr;
+}
+
+.all-books-navbar {
+  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg'); */
+  background-color: #fcdebe;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 40px;
+}
+
+.all-books-navbar * {
+  display: flex;
+  margin: 5px;
+}
+
+#search-bar {
+  width: 300px;
+}
+
+.search-buttons {
+  display: flex;
+  justify-content: center;
+  background-color: #a7c6da;
+  padding-top: 20px;
+}
+.search-buttons * {
+  margin: 8px;
+}
+
+.header-buttons {
+  display: flex;
+  width: 100%;
+  justify-content: start;
+}
+
+.header-buttons * {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.header-container-right {
+  padding-top: 20px;
+  display: flex;
+}
+.header-container-right * {
+  margin-bottom: 0px;
+}
+
+.filter {
+  background-color: #ada8b6;
+  color: #fffbfe;
+  border-radius: 5px;
+  border: 0px;
+}
+
+.filter:focus {
+  outline: none !important;
+  background-color: #19297c;
+}
+
+.filter * {
+  background-color: #ada8b6;
+  color: white;
+  border: 0px;
 }

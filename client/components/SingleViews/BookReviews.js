@@ -5,17 +5,17 @@ import {connect} from 'react-redux'
 function BookReviews(props) {
   return (
     <div className="review-container">
-      <h1 className="review-header">reviews for this book</h1>
-      {/* POST review from goes here */}
+      <h1 className="review-header">Reviews For This Book:</h1>
+      {/* POST review form goes here */}
       <div className="review-list">
         {props.reviews ? (
           props.reviews.map(review => {
             return (
               <div key={review.id} className="review-card">
-                <h2>title: {review.title}</h2>
-                <p>written by: {review.user.name}</p>
-                <h3>rating: {review.rating}</h3>
-                <p>description: {review.description}</p>
+                <h2>Review Title: {review.title}</h2>
+                <p>Written by: {review.user.name}</p>
+                <h3>Rating: {review.rating}</h3>
+                <p>Description: {review.description}</p>
                 {props.userId === review.user.id && (
                   <button
                     type="button"
@@ -23,7 +23,7 @@ function BookReviews(props) {
                       props.deleteReview(review.id)
                     }}
                   >
-                    delete your review
+                    Delete Your Review
                   </button>
                 )}
                 <hr />
@@ -31,7 +31,7 @@ function BookReviews(props) {
             )
           })
         ) : (
-          <h3>loading reviews...</h3>
+          <h3>Loading Reviews...</h3>
         )}
       </div>
     </div>

@@ -18,13 +18,37 @@ function die(status) {
   throw error
 }
 
+const parseTime = someTime => {
+  let hr = someTime.slice(0, 2)
+  let output
+  if (hr > 12) {
+    hr = hr - 12
+    output = hr.toString() + ':' + someTime.slice(0, 2) + 'pm'
+    return output
+  } else {
+    output = someTime + 'am'
+    return output
+  }
+}
+
 function parseDate(date) {
   const idx = date.indexOf('T')
   const year = date.slice(0, 4)
   const day = date.slice(5, 7)
   const month = date.slice(8, 10)
-  const time = date.slice(idx + 1, idx + 6)
+  let time = date.slice(idx + 1, idx + 6)
+  time = parseTime(time)
   return `${day}/${month}/${year} at ${time}`
+}
+
+function getRating(reviews) {
+  let avg = (
+    reviews.reduce((accum, review) => {
+      accum += review.rating
+      return accum
+    }, 0) / reviews.length
+  ).toFixed(2)
+  return avg
 }
 
 module.exports = {
@@ -42,5 +66,6 @@ module.exports = {
   MODEL_METHODS,
   die,
   parseDate,
-  randomNum
+  randomNum,
+  getRating
 }

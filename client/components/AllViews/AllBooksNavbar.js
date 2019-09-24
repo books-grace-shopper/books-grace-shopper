@@ -2,14 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchMetadata} from '../../store/allBookInfo.js'
 import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 function listToOptions(list) {
   if (!list) {
-    return <option>Loading...</option>
+    return <option className="filter-option">Loading...</option>
   }
   return list.map(item => {
     return (
-      <option key={item} value={item}>
+      <option className="filter-option" key={item} value={item}>
         {item}
       </option>
     )
@@ -65,30 +66,47 @@ class Navbar extends React.Component {
       })
     return (
       <>
-        <div>
-          <button type="button" onClick={previousPage}>
-            Previous
-          </button>
-          <button type="button" onClick={nextPage}>
-            Next
-          </button>
-          <form onSubmit={this.handleSubmit}>
-            <select name="author" onChange={this.handleChange}>
-              <option value="none">Author</option>
+        <div className="all-books-navbar">
+          <form onSubmit={this.handleSubmit} className="site-form">
+            <select
+              className="filter"
+              name="author"
+              onChange={this.handleChange}
+            >
+              <option className="filter-option" value="none">
+                Author
+              </option>
               {authors}
             </select>
-            <select name="genre" onChange={this.handleChange}>
-              <option value="none">Genre</option>
+            <select
+              className="filter"
+              name="genre"
+              onChange={this.handleChange}
+            >
+              <option className="filter-option" value="none">
+                Genre
+              </option>
               {genres}
             </select>
             <input
+              id="search-bar"
               onChange={this.handleChange}
               name="search"
               type="text"
               value={this.state.search || ''}
             />
-            <button type="submit">Search</button>
+            <Button type="submit" variant="success">
+              Search
+            </Button>
           </form>
+        </div>
+        <div className="search-buttons">
+          <Button type="button" variant="secondary" onClick={previousPage}>
+            Previous
+          </Button>
+          <Button type="button" variant="secondary" onClick={nextPage}>
+            Next
+          </Button>
         </div>
       </>
     )
