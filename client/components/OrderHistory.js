@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Card, {Body, Title, Text} from 'react-bootstrap/Card'
 import {parseDate} from '../../utils'
+import {me} from '../store'
 
 const VIEW_ALL = 'VIEW_ALL'
 const VIEW_CANCELLED = 'cancelled'
@@ -17,6 +18,10 @@ class OrderHistory extends React.Component {
       visFilter: VIEW_ALL
     }
     this.filterView = this.filterView.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.loadOrderHistory()
   }
 
   shouldComponentUpdate() {
@@ -113,4 +118,12 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(OrderHistory)
+const mapDispatch = dispatch => {
+  return {
+    loadOrderHistory() {
+      dispatch(me())
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(OrderHistory)
