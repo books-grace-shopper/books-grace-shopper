@@ -25,7 +25,7 @@ describe('Review tests', () => {
       expect(review.description).to.equal('This is a test')
       expect(review.rating).to.equal(3)
     })
-    it('Prototype method on session', async () => {
+    it('Prototype method on session should work', async () => {
       const session = await Session.findOrCreateByPk('cake')
       const newSession = await Session.findOrCreateByPk('cake')
       expect(session.sid).to.equal('cake')
