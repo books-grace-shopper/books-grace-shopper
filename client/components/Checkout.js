@@ -23,6 +23,7 @@ function Checkout(props) {
 
   async function handleToken(token) {
     try {
+      console.log('props inside handleToken', props)
       const response = await axios.post(
         'http://localhost:8080/stripe/checkout',
         {
@@ -34,6 +35,7 @@ function Checkout(props) {
       console.log(error, status)
       if (status === 'success') {
         toast('Success! Check email for details!', {type: 'success'})
+        props.history.push('/success')
       } else {
         toast('Oops! Something went wrong!', {
           type: 'error'
