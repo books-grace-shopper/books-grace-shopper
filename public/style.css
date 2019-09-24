@@ -100,10 +100,6 @@ form div {
   background-color: rgb(161, 241, 241);
 }
 
-/* .review-header {
-  padding: 0
-} */
-
 .book-img-cart-checkout {
   height: 150px;
   width: 175px;
@@ -113,4 +109,33 @@ form div {
   text-align: center;
   font-family: 'Times New Roman', Times, serif;
   background-color: cadetblue;
+}
+
+.order-history-greeting {
+  margin-left: 5%;
+}
+
+.filter-order-history {
+  margin-left: 5%;
+}
+
+.past-order-container .card .card-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.past-order-book-img {
+  max-width: 100px;
+  max-height: 100px;
+  width: auto;
+  height: auto;
+}
+
+.past-order-details {
+  flex: 2;
+}
+
+.past-order-books-list {
+  display: flex;
+  flex: 3;
 }

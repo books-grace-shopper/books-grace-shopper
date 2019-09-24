@@ -1,4 +1,4 @@
-const {pickRandom} = require('../utils')
+const {pickRandom, randomNum} = require('../utils')
 const {User, Book, Order, Review, OrderBook} = require('../server/db/models')
 
 async function guestAddsToCart() {
@@ -56,10 +56,33 @@ async function guestSignsUpWithCart() {
   return order
 }
 
-async function userAddsToCart(id) {
-  const user = await User.findByPk(id)
+////////////////////////////////////////////////////////////
+
+async function createUserOrders(userId, numOfOrders) {
+  await User.findByPk(userId)
+  const bookCount = await Book.count()
+  for (let i = 0; i < numOfOrders; ++i) {
+    const order = await Order.create({
+      userId: userId,
+      status: ['ordered', 'shipped', 'delivered', 'cancelled'][randomNum(0, 3)]
+    })
+    const randomBookId = randomNum(1, bookCount)
+    const randomQty = randomNum(1, 5)
+    await OrderBook.findOrCreate({
+      where: {
+        orderId: order.id,
+        bookId: randomBookId
+      }
+    })
+    await order.updateBookQuantity(randomBookId, randomQty)
+  }
+}
+////////////////////////////////////////////////////////////
+
+async function userAddsToCart(userId) {
+  const user = await User.findByPk(userId)
   const order = await user.findOrCreateCart()
-  for (let i = id; i <= id + 10; i++) {
+  for (let i = userId; i <= userId + 10; i++) {
     const book = await Book.findByPk(i)
     await order.updateBookQuantity(book.id, 1)
   }
@@ -76,5 +99,7 @@ module.exports = {
   guestRemovesFromCart,
   guestSignsUpWithCart,
   userAddsToCart,
-  userBuysOrder
+  userBuysOrder,
+  createUserOrders,
+  randomNum
 }

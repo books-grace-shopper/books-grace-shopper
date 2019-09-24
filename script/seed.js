@@ -13,7 +13,8 @@ const {
   guestRemovesFromCart,
   guestSignsUpWithCart,
   userAddsToCart,
-  userBuysOrder
+  userBuysOrder,
+  createUserOrders
 } = require('./seedStory')
 const createUserReviews = require('./reviewsStory')
 
@@ -30,21 +31,76 @@ async function seed() {
   console.log('db synced!')
 
   await User.create({
-    email: 'manualUser@test.com',
+    email: 'Jimmy@test.com',
     address: '123 sunny st, glenco, IL 60025',
     name: 'Jimmy Smith',
     password: '123',
     isAdmin: true
   })
 
+  await User.create({
+    email: 'Dan@test.com',
+    address: '123 fake st, Oak Park, IL 60025',
+    name: 'Dan Fontana',
+    password: '123',
+    isAdmin: true
+  })
+
+  await User.create({
+    email: 'Josh@test.com',
+    address: '123 fake st, Oak Park, IL 60025',
+    name: 'Josh Hoeflich',
+    password: '123',
+    isAdmin: true
+  })
+
+  await User.create({
+    email: 'Christine@test.com',
+    address: '123 main st, Glenview, IL, 60068',
+    name: 'Christine Vargas',
+    password: '123',
+    isAdmin: false
+  })
+
+  await User.create({
+    email: 'Jake@test.com',
+    address: '123 main st, Glenview, IL, 60068',
+    name: 'Jake Loew',
+    password: '123',
+    isAdmin: false
+  })
+
+  await User.create({
+    email: 'Russel@test.com',
+    address: '123 Diversy, Chicago, IL, 60068',
+    name: 'Russel Kerns',
+    password: '123',
+    isAdmin: false
+  })
+
+  await User.create({
+    email: 'Madison@test.com',
+    address: '123 Diversy, Chicago, IL, 60068',
+    name: 'Madison Carr',
+    password: '123',
+    isAdmin: false
+  })
+
   await bulkGenerate(Book, 500, makeRandomBook)
-  await bulkGenerate(User, 100, makeRandomUser)
-  await bulkGenerate(Order, 80, makeRandomOrder)
-  await createUserReviews(10)
+  await createUserOrders(1, 12)
+  await createUserOrders(2, 7)
+  await createUserOrders(3, 13)
+  await createUserOrders(4, 10)
+  await createUserOrders(5, 5)
+  await createUserOrders(6, 3)
+  await createUserReviews(300)
   await guestAddsToCart()
   await guestRemovesFromCart()
   await guestSignsUpWithCart()
-  await userAddsToCart(7)
+
+  // await bulkGenerate(User, 50, makeRandomUser);
+  // await bulkGenerate(Order, 80, makeRandomOrder);
+  // await userAddsToCart(3);
   console.log(`seeded successfully`)
 }
 

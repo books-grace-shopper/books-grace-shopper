@@ -1,16 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import Card, {Body, Title, Text} from 'react-bootstrap/Card'
+import {parseDate} from '../../utils'
 
 const VIEW_ALL = 'VIEW_ALL'
 const VIEW_CANCELLED = 'cancelled'
 const VIEW_SHIPPED = 'shipped'
 const VIEW_ORDERED = 'ordered'
 const VIEW_DELIVERED = 'delivered'
-
-function parseDate(date) {
-  const idx = date.indexOf('T')
-  return date.slice(0, idx)
-}
 
 class OrderHistory extends React.Component {
   constructor(props) {
@@ -35,10 +33,13 @@ class OrderHistory extends React.Component {
     return (
       <div>
         {isLoggedIn && user.orderHistory ? (
-          <div>
-            Hello,
+          <div className="order-history-greeting">
+            Hello, {user.name || user.email}
             <div>
-              <select onChange={this.filterView}>
+              <select
+                onChange={this.filterView}
+                className="filter-order-history"
+              >
                 <option value={VIEW_ALL}>all</option>
                 <option value={VIEW_ORDERED}>ordered</option>
                 <option value={VIEW_SHIPPED}>shipped</option>
@@ -55,10 +56,8 @@ class OrderHistory extends React.Component {
                 })
                 .map(order => {
                   return (
-                    <div key={order.id}>
-                      <p>Order placed: {parseDate(order.createdAt)}</p>
-                      <p>status: {order.status}</p>
-                      <p>subtotal: ${order.subtotal}</p>
+                    <div key={order.id} className="past-order-container">
+                      <PastOrder order={order} />
                     </div>
                   )
                 })}
@@ -72,18 +71,46 @@ class OrderHistory extends React.Component {
   }
 }
 
+const PastOrder = props => {
+  const order = props.order
+  return (
+    <Card style={{width: '90%'}}>
+      <Body>
+        <div className="past-order-details">
+          <Title>status: {order.status}</Title>
+          <Text>Order placed: {parseDate(order.createdAt)}</Text>
+          <Text>subtotal: ${order.subtotal / 100}</Text>
+        </div>
+        <div className="past-order-books-list">
+          <p>books included in this order:</p>
+          {order.books.map(book => {
+            return (
+              <Link
+                key={book.id}
+                to={`/books/${book.id}`}
+                className="past-order-book"
+              >
+                <Card style={{width: '50%'}}>
+                  <Text>
+                    {book.title} by {book.author}
+                  </Text>
+                  <Text>price: ${book.price / 100}</Text>
+                  <img src={book.imageUrl} className="past-order-book-img" />
+                </Card>
+              </Link>
+            )
+          })}
+        </div>
+      </Body>
+    </Card>
+  )
+}
+
 const mapState = state => {
-  console.log('mapState runs')
   return {
     user: state.user,
     isLoggedIn: !!state.user.id
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    // filterOrderHistory: (event) => dispatch(this.setState({ visFilter: event.target.value }))
-  }
-}
-
-export default connect(mapState, mapDispatch)(OrderHistory)
+export default connect(mapState)(OrderHistory)
