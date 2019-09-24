@@ -84,7 +84,7 @@ const PastOrder = props => {
         <div className="past-order-details">
           <Title>status: {order.status}</Title>
           <Text>Order placed: {parseDate(order.createdAt)}</Text>
-          <Text>subtotal: ${order.subtotal / 100}</Text>
+          <Text>subtotal: ${(order.subtotal / 100).toFixed(2)}</Text>
         </div>
         <div className="past-order-books-list">
           <p>books included in this order:</p>
@@ -99,7 +99,7 @@ const PastOrder = props => {
                   <Text>
                     {book.title} by {book.author}
                   </Text>
-                  <Text>price: ${book.price / 100}</Text>
+                  <Text>price: ${(book.price / 100).toFixed(2)}</Text>
                   <img src={book.imageUrl} className="past-order-book-img" />
                 </Card>
               </Link>

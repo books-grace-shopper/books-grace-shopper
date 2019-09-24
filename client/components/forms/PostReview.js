@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {postReviewThunk} from '../../store/selectedBook'
-// import enableButtons from 'enable-buttons';
 import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
 
 class PostReview extends React.Component {
@@ -39,10 +38,10 @@ class PostReview extends React.Component {
           })
         }}
       >
-        <h3 id="review-title">review this book</h3>
+        <h3 id="review-title">Review This Book</h3>
         <Row>
           <Group>
-            <Label>title</Label>
+            <Label>Review Title</Label>
             <Control
               value={this.state.title}
               onChange={this.handleChange}
@@ -52,7 +51,7 @@ class PostReview extends React.Component {
             />
           </Group>
           <Group>
-            <Label>your review...</Label>
+            <Label>Your Review...</Label>
             <Control
               value={this.state.description}
               onChange={this.handleChange}
@@ -62,7 +61,7 @@ class PostReview extends React.Component {
             />
           </Group>
           <Group>
-            <Label>rating:</Label>
+            <Label>Rating:</Label>
             <Control
               value={this.state.rating}
               onChange={this.handleChange}
@@ -78,7 +77,7 @@ class PostReview extends React.Component {
             </Control>
           </Group>
           <button type="submit" id="submit-review-button">
-            submit review
+            Submit Review
           </button>
         </Row>
       </Form>
