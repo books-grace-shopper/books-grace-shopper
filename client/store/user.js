@@ -27,11 +27,11 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    if (res.data) {
-      dispatch(getUser(res.data))
-    } else {
+    if (res.data.status === 'cart') {
       dispatch(getGuestsCart(res.data))
       dispatch(getUser(defaultUser))
+    } else {
+      dispatch(getUser(res.data))
     }
   } catch (err) {
     console.error(err)

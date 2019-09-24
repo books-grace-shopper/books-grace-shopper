@@ -91,12 +91,18 @@ Order.prototype.getAllInfo = async function() {
   }
 }
 
-Order.prototype.purchaseSelf = function() {
-  throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMENTED')
-}
-
-Book.prototype.updateInventorySold = function(orderId) {
-  throw new Error('THIS METHOD IS BROKEN AND NEEDS TO BE IMPLEMEMENTED')
+Order.prototype.purchaseSelf = async function() {
+  const books = await this.getBooksWithQuantities()
+  for (let i = 0; i < books.length; i++) {
+    const newInventorySold =
+      books[i].dataValues.inventorySold + books[i].dataValues.quantity
+    await books[i].update({
+      inventorySold: newInventorySold
+    })
+  }
+  await this.update({
+    status: 'ordered'
+  })
 }
 
 module.exports = Order

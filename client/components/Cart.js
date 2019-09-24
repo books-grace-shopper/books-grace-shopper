@@ -15,29 +15,28 @@ class Cart extends React.Component {
     const cart = this.props.cart
     if (!cart.books) {
       return <div>Loading cart...</div>
-    }
-    return (
-      <div>
-        {cart.books.length === 0 ? (
-          <h1>Your cart is empty!</h1>
-        ) : (
-          cart.books.map(book => {
-            return <CartBook key={book.title} book={book} cartId={cart.id} />
-          })
-        )}
+    } else if (cart.books.length === 0) {
+      return <h1>Go add things to the cart!</h1>
+    } else {
+      return (
         <div>
-          <h1>
-            Total: ${cart.books.reduce((sum, book) => {
-              sum += book.quantity * book.price
-              return sum
-            }, 0) / 100}
-          </h1>
-          <Link to="/checkout" component={Checkout}>
-            <button type="button">Checkout</button>
-          </Link>
+          {cart.books.map(book => (
+            <CartBook key={book.title} book={book} cartId={cart.id} />
+          ))}
+          <div>
+            <h1>
+              Total: ${cart.books.reduce((sum, book) => {
+                sum += book.quantity * book.price
+                return sum
+              }, 0) / 100}
+            </h1>
+            <Link to="/checkout" component={Checkout}>
+              <button type="button">Checkout</button>
+            </Link>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 

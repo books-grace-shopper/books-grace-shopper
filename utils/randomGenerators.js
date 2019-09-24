@@ -5,6 +5,10 @@ function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
+function randomNum(min, max) {
+  return Math.floor(Math.random() * (max + 1 - min) + min)
+}
+
 function pickRandomImage() {
   return pickRandom(IMAGES)
 }
@@ -70,5 +74,6 @@ module.exports = {
   makeRandomBook,
   makeRandomOrder,
   makeRandomReview,
-  bulkGenerate
+  bulkGenerate,
+  randomNum
 }

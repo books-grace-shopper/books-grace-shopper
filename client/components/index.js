@@ -5,6 +5,7 @@
  */
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
+export {default as AdminHome} from './AdminHome'
 export {Login, Signup} from './auth-form'
 export {AllBooks, AllOrders} from './AllViews'
 export {SelectedBook} from './SingleViews'
@@ -13,3 +14,4 @@ export {default as Checkout} from './Checkout'
 export {default as OrderHistory} from './OrderHistory'
 export {default as SingleOrderInfo} from './SingleOrderInfo'
 export {default as SuccessfulPurchase} from './SuccessfulPurchase'
+export {AddBook} from './forms/'
