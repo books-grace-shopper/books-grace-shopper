@@ -48,7 +48,9 @@ form div {
 /* Navbar */
 .bookazon-title {
   color: cadetblue;
-  padding-left: 400px;
+  padding-top: 20px;
+  display: flex;
+  padding-left: 50px;
   font-family: 'Times New Roman', Times, serif;
 }
 
@@ -142,7 +144,7 @@ form div {
 }
 .header-container {
   display: grid;
-  grid-template-columns: 0.75fr 0.25fr;
+  grid-template-columns: 0.6fr 0.4fr;
 }
 
 .all-books-navbar {
@@ -150,17 +152,16 @@ form div {
   background-color: #fcdebe;
   display: flex;
   flex-wrap: wrap;
+  padding-left: 40px;
 }
 
 .all-books-navbar * {
+  display: flex;
   margin: 5px;
 }
 
 #search-bar {
   width: 300px;
-}
-.site-form {
-  margin: 0px;
 }
 
 .search-buttons {
@@ -175,8 +176,8 @@ form div {
 
 .header-buttons {
   display: flex;
-  width: 28%;
-  justify-content: center;
+  width: 100%;
+  justify-content: start;
 }
 
 .header-buttons * {
@@ -185,6 +186,8 @@ form div {
 }
 
 .header-container-right {
+  padding-top: 20px;
+  display: flex;
 }
 .header-container-right * {
   margin-bottom: 0px;

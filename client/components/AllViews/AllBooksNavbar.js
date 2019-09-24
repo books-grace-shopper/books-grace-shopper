@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {fetchMetadata} from '../../store/allBookInfo.js'
 import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Dropdown from 'react-bootstrap/Dropdown'
 
 function listToOptions(list) {
   if (!list) {

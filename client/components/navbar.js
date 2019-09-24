@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Button from 'react-bootstrap/Button'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <div className="header-container">
@@ -16,45 +17,41 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
         <div>
           {/* The navbar will show these links after you log in */}
           <Link to="/home" className="home-button">
-            Home
+            <Button>Home</Button>
           </Link>
           <a href="#" onClick={handleClick} className="logout-button">
-            Logout
+            <Button>Logout</Button>
           </a>
           <Link to="/user/order-history" className="signup-button">
-            Order History
+            <Button>Order History</Button>
           </Link>
         </div>
       ) : (
         <div className="header-buttons">
           {/* The navbar will show these links before you log in */}
           <Link to="/login" className="login-button">
-            Login
+            <Button>Login</Button>
           </Link>
           <Link to="/signup" className="signup-button">
-            Sign Up
+            <Button>Sign Up</Button>
           </Link>
         </div>
       )}
-      <Link to="/cart">
-        <button type="button">
-          <img
-            className="cart-button-img"
-            src="https://image.flaticon.com/icons/png/512/34/34627.png"
-          />
-        </button>
-      </Link>
-      <Link to="/checkout">
-        <button type="button">Checkout</button>
-      </Link>
-
       {isAdmin ? (
         <Link to="/admin/home">
-          <button type="button">Admin</button>
+          <Button type="button">Admin</Button>
         </Link>
       ) : (
         ''
       )}
+      <Link to="/cart">
+        <Button variant="light" type="button">
+          <img
+            className="cart-button-img"
+            src="https://image.flaticon.com/icons/png/512/34/34627.png"
+          />
+        </Button>
+      </Link>
     </nav>
   </div>
 )
