@@ -3,6 +3,9 @@ const {Order, Book} = require('../db/models')
 const {die} = require('../../utils')
 module.exports = router
 
+/* Admin ORDER Routes */
+
+// Get all orders
 router.get('/orders/', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
@@ -24,6 +27,7 @@ router.get('/orders/', async (req, res, next) => {
   }
 })
 
+// Get orders by status
 router.get('/orders/status', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
@@ -50,6 +54,7 @@ router.get('/orders/status', async (req, res, next) => {
   }
 })
 
+// Update order status
 router.put('/orders/:id', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
@@ -68,6 +73,22 @@ router.put('/orders/:id', async (req, res, next) => {
         })
       )
       orderToUpdate ? res.status(200).send(ordersWithInfo) : die(404)
+    } else {
+      throw Error('You do not have admin privileges!!!')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
+/* Admin BOOK Routes */
+
+// Add new book
+router.post('/books', async (req, res, next) => {
+  try {
+    if (req.user.isAdmin) {
+      const newBook = await Book.create(req.body)
+      newBook ? res.status(200).send(newBook) : die(404)
     } else {
       throw Error('You do not have admin privileges!!!')
     }

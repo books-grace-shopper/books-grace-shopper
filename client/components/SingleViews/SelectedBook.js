@@ -21,7 +21,7 @@ function SelectedBookInfo(props) {
   )
 }
 
-function SelectedBookCard(props) {
+export function SelectedBookCard(props) {
   const book = props.selectedBook
   return (
     <div>

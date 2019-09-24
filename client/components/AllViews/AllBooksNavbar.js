@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchMetadata} from '../../store/allBookInfo.js'
+import {Link} from 'react-router-dom'
 
 function listToOptions(list) {
   if (!list) {
@@ -63,38 +64,41 @@ class Navbar extends React.Component {
         pageNumber: Number(this.props.currentParams.pageNumber) + 1 || 2
       })
     return (
-      <div>
-        <button type="button" onClick={previousPage}>
-          Previous
-        </button>
-        <button type="button" onClick={nextPage}>
-          Next
-        </button>
-        <form onSubmit={this.handleSubmit}>
-          <select name="author" onChange={this.handleChange}>
-            <option value="none">Author</option>
-            {authors}
-          </select>
-          <select name="genre" onChange={this.handleChange}>
-            <option value="none">Genre</option>
-            {genres}
-          </select>
-          <input
-            onChange={this.handleChange}
-            name="search"
-            type="text"
-            value={this.state.search || ''}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
+      <>
+        <div>
+          <button type="button" onClick={previousPage}>
+            Previous
+          </button>
+          <button type="button" onClick={nextPage}>
+            Next
+          </button>
+          <form onSubmit={this.handleSubmit}>
+            <select name="author" onChange={this.handleChange}>
+              <option value="none">Author</option>
+              {authors}
+            </select>
+            <select name="genre" onChange={this.handleChange}>
+              <option value="none">Genre</option>
+              {genres}
+            </select>
+            <input
+              onChange={this.handleChange}
+              name="search"
+              type="text"
+              value={this.state.search || ''}
+            />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </>
     )
   }
 }
 
 function mapProps(state) {
   return {
-    metadata: state.bookMetadata
+    metadata: state.bookMetadata,
+    isAdmin: !!state.user.isAdmin
   }
 }
 
