@@ -7,11 +7,11 @@ import {Link} from 'react-router-dom'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, name, isAdmin} = props
+  const {email, name} = props
   return (
     <div>
       <h3>Welcome, {name ? name : email}</h3>
-      {isAdmin && <Link to="/admin/orders">View All Orders</Link>}
+
       <Link to="/user/orders">view your order history</Link>
     </div>
   )
@@ -23,8 +23,7 @@ export const UserHome = props => {
 const mapState = state => {
   return {
     email: state.user.email,
-    name: state.user.name,
-    isAdmin: !!state.user.isAdmin
+    name: state.user.name
   }
 }
 

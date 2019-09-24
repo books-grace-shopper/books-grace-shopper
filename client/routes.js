@@ -13,7 +13,8 @@ import {
   Checkout,
   AllOrders,
   OrderHistory,
-  AddBook
+  AddBook,
+  AdminHome
 } from './components'
 import {me, fetchUsersCart} from './store'
 
@@ -44,11 +45,9 @@ class Routes extends Component {
         <Route exact path="/user/order-history" component={OrderHistory} />
         {isAdmin && (
           <Switch>
-            <Route exact path="/admin/addbook" component={AddBook} />
-            <Route exact path="/home" component={UserHome} />
-            <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/admin/home" component={AdminHome} />
             <Route exact path="/admin/orders" component={AllOrders} />
-            <Route exact path="/admin/books" />
+            <Route exact path="/admin/add-book" component={AddBook} />
 
             <Route exact path="/admin/users" />
           </Switch>

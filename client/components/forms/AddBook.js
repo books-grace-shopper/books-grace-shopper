@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {addBookThunk} from '../../store/allBooks'
+import Button from 'react-bootstrap/Button'
 
 import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
 
@@ -9,7 +10,7 @@ const initialState = {
   description: '',
   price: '',
   inventoryTotal: '',
-  inventorySold: '',
+  inventorySold: 0,
   genre: '',
   author: ''
 }
@@ -22,6 +23,7 @@ class AddBook extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleNumberInput = this.handleNumberInput.bind(this)
   }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -38,88 +40,115 @@ class AddBook extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-
-    // }
   }
+
   handleSubmit(event) {
     event.preventDefault()
-    console.log('state: ', this.state)
     this.props.addBook(this.state)
     this.setState(initialState)
   }
+
   render() {
     return (
       <>
         <div>
           <h2>ADD NEW BOOK</h2>
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="title">Title: </label>
-            <input
-              name="title"
-              value={this.state.title}
-              onChange={this.handleChange}
-            />
+          <Form onSubmit={this.handleSubmit}>
+            <Group>
+              <Label htmlFor="title">Title</Label>
+              <Control
+                placeholder="Enter title"
+                onChange={this.handleChange}
+                value={this.state.title}
+                name="title"
+                required
+              />
+            </Group>
             <br />
-            <label htmlFor="description">Description: </label>
-            <input
-              name="description"
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
+            <Group>
+              <Label htmlFor="description">Description</Label>
+              <Control
+                placeholder="Enter description"
+                as="textarea"
+                onChange={this.handleChange}
+                name="description"
+                required
+              />
+            </Group>
+
             <br />
-            <label htmlFor="price">Price: </label>
-            <input
-              name="price"
-              value={this.state.price}
-              onChange={this.handleNumberInput}
-            />
+            <Group>
+              <Label htmlFor="price">Price</Label>
+              <Control
+                placeholder="Enter price"
+                onChange={this.handleNumberInput}
+                name="price"
+                required
+              />
+            </Group>
             <br />
-            <label htmlFor="inventoryTotal">Inventory Total: </label>
-            <input
-              name="inventoryTotal"
-              value={this.state.inventoryTotal}
-              onChange={this.handleNumberInput}
-            />
+            <Group>
+              <Label htmlFor="inventoryTotal">Inventory Total</Label>
+              <Control
+                placeholder="Enter inventory total"
+                onChange={this.handleNumberInput}
+                name="inventoryTotal"
+                required
+              />
+            </Group>
             <br />
-            <label htmlFor="inventorySold">Inventory Sold: </label>
-            <input
-              name="inventorySold"
-              value={this.state.inventorySold}
-              onChange={this.handleChange}
-            />
+            <Group>
+              <Label htmlFor="inventorySold">Inventory Total</Label>
+              <Control
+                onChange={this.handleNumberInput}
+                value={this.state.inventorySold}
+                name="inventorySold"
+              />
+            </Group>
+
             <br />
-            {/* <label htmlFor="imageUrl">Image URL: </label>
-            <input
-              name="imageUrl"
-              value={this.state.imageUrl}
-              onChange={this.handleChange}
-            /> */}
+            <Group>
+              <Label htmlFor="imageUrl">Image Url</Label>
+              <Control
+                placeholder="Enter image url"
+                onChange={this.handleChange}
+                name="imageUrl"
+              />
+            </Group>
             <br />
-            <label htmlFor="genre">Genre: </label>
-            <input
-              name="genre"
-              value={this.state.genre}
-              onChange={this.handleChange}
-            />
+            <Group>
+              <Label htmlFor="genre">Genre</Label>
+              <Control
+                placeholder="Enter genre"
+                onChange={this.handleChange}
+                name="genre"
+                required
+              />
+            </Group>
             <br />
-            <label htmlFor="author">Author: </label>
-            <input
-              name="author"
-              value={this.state.author}
-              onChange={this.handleChange}
-            />
+            <Group>
+              <Label htmlFor="author">Author</Label>
+              <Control
+                placeholder="Enter author name"
+                onChange={this.handleChange}
+                name="author"
+                required
+              />
+            </Group>
             <br />
-            <button type="submit">Add Book</button>
-          </form>
+            <Button type="submit" variant="primary">
+              Add Book
+            </Button>
+          </Form>
         </div>
       </>
     )
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
-    addBook: newBook => dispatch(addBookThunk(newBook))
+    addBook: newBook => dispatch(addBookThunk(newBook, ownProps.history))
   }
 }
 

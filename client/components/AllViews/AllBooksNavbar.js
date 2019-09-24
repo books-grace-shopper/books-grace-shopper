@@ -51,7 +51,6 @@ class Navbar extends React.Component {
     })
   }
   render() {
-    console.log('props: ', this.props)
     const genres = listToOptions(this.props.metadata.genres)
     const authors = listToOptions(this.props.metadata.authors)
     const previousPage = () =>
@@ -91,7 +90,6 @@ class Navbar extends React.Component {
             <button type="submit">Search</button>
           </form>
         </div>
-        {this.props.isAdmin ? <Link to="admin/addbook">ADD BOOK</Link> : ''}
       </>
     )
   }

@@ -3,6 +3,9 @@ const {Order, Book} = require('../db/models')
 const {die} = require('../../utils')
 module.exports = router
 
+/* Admin ORDER Routes */
+
+// Get all orders
 router.get('/orders/', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
@@ -24,6 +27,7 @@ router.get('/orders/', async (req, res, next) => {
   }
 })
 
+// Get orders by status
 router.get('/orders/status', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
@@ -50,6 +54,7 @@ router.get('/orders/status', async (req, res, next) => {
   }
 })
 
+// Update order status
 router.put('/orders/:id', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {
@@ -76,6 +81,9 @@ router.put('/orders/:id', async (req, res, next) => {
   }
 })
 
+/* Admin BOOK Routes */
+
+// Add new book
 router.post('/books', async (req, res, next) => {
   try {
     if (req.user.isAdmin) {

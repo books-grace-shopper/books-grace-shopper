@@ -40,7 +40,7 @@ const Book = db.define('book', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: pickRandomImage,
+    defaultValue: pickRandomImage(),
     validate: {
       isUrl: true
     }
