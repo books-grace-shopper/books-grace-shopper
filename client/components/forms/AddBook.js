@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {addBookThunk} from '../../store/allBooks'
 import Button from 'react-bootstrap/Button'
 
-import Form, {Group, Label, Control} from 'react-bootstrap/Form'
+import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
 
 const initialState = {
   title: '',
@@ -51,10 +51,13 @@ class AddBook extends React.Component {
   render() {
     return (
       <>
-        <div>
-          <h2>Add New Book</h2>
-          <Form onSubmit={this.handleSubmit}>
-            <Group>
+        <div className="new-book-header">
+          <h3>ADD NEW BOOK</h3>
+        </div>
+
+        <div className="new-book-container">
+          <Form onSubmit={this.handleSubmit} className="new-book-form">
+            <Group className="new-book-field">
               <Label htmlFor="title">Title</Label>
               <Control
                 placeholder="Enter title"
@@ -65,11 +68,12 @@ class AddBook extends React.Component {
               />
             </Group>
             <br />
-            <Group>
+            <Group className="new-book-field">
               <Label htmlFor="description">Description</Label>
               <Control
                 placeholder="Enter description"
                 as="textarea"
+                rows="4"
                 onChange={this.handleChange}
                 name="description"
                 required
@@ -77,7 +81,7 @@ class AddBook extends React.Component {
             </Group>
 
             <br />
-            <Group>
+            <Group className="new-book-field">
               <Label htmlFor="price">Price</Label>
               <Control
                 placeholder="Enter price"
@@ -87,7 +91,7 @@ class AddBook extends React.Component {
               />
             </Group>
             <br />
-            <Group>
+            <Group className="new-book-field">
               <Label htmlFor="inventoryTotal">Inventory Total</Label>
               <Control
                 placeholder="Enter inventory total"
@@ -97,8 +101,8 @@ class AddBook extends React.Component {
               />
             </Group>
             <br />
-            <Group>
-              <Label htmlFor="inventorySold">Inventory Sold</Label>
+            <Group className="new-book-field">
+              <Label htmlFor="inventorySold">Inventory Total</Label>
               <Control
                 onChange={this.handleNumberInput}
                 value={this.state.inventorySold}
@@ -107,7 +111,7 @@ class AddBook extends React.Component {
             </Group>
 
             <br />
-            <Group>
+            <Group className="new-book-field">
               <Label htmlFor="imageUrl">Image Url</Label>
               <Control
                 placeholder="Enter image url"
@@ -116,7 +120,7 @@ class AddBook extends React.Component {
               />
             </Group>
             <br />
-            <Group>
+            <Group className="new-book-field">
               <Label htmlFor="genre">Genre</Label>
               <Control
                 placeholder="Enter genre"
@@ -126,7 +130,7 @@ class AddBook extends React.Component {
               />
             </Group>
             <br />
-            <Group>
+            <Group className="new-book-field">
               <Label htmlFor="author">Author</Label>
               <Control
                 placeholder="Enter author name"
@@ -136,7 +140,7 @@ class AddBook extends React.Component {
               />
             </Group>
             <br />
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="success" className="new-book-button">
               Add Book
             </Button>
           </Form>

@@ -13,6 +13,14 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
       </Link>
     </div>
     <nav className="header-container-right">
+      <Link to="/cart">
+        <Button variant="light" type="button">
+          <img
+            className="cart-button-img"
+            src="https://image.flaticon.com/icons/png/512/34/34627.png"
+          />
+        </Button>
+      </Link>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
@@ -44,14 +52,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
       ) : (
         ''
       )}
-      <Link to="/cart">
-        <Button variant="light" type="button">
-          <img
-            className="cart-button-img"
-            src="https://image.flaticon.com/icons/png/512/34/34627.png"
-          />
-        </Button>
-      </Link>
     </nav>
   </div>
 )

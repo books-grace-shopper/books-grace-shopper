@@ -41,9 +41,13 @@ class AllOrders extends React.Component {
     return (
       <>
         <div className="all-orders-header">
-          <h1>All Orders</h1>
-          <label htmlFor="status">Status:</label>
-          <select onChange={this.handleChange}>
+          <h2>All Orders</h2>
+
+          <label htmlFor="status" className="status-selector">
+            Status:
+          </label>
+
+          <select onChange={this.handleChange} className="filter">
             <option value="">All</option>
             <option value="cart">Cart</option>
             <option value="ordered">Ordered</option>
