@@ -46,7 +46,8 @@ export function SelectedBookCard(props) {
                     accum += review.rating
                     return accum
                   }, 0) / book.reviews.length
-                ).toFixed(2)}
+                ).toFixed(2)}{' '}
+              out of 5
             </p>
             <p>${(book.price / 100).toFixed(2)}</p>
             {props.cart.books ? (
