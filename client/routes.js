@@ -40,6 +40,7 @@ class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/books/:bookId" component={SelectedBook} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/success" component={SuccessfulPurchase} />
         <Route exact path="/user/order-history" component={OrderHistory} />
         {isAdmin && (
           <Switch>
@@ -55,7 +56,6 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/checkout" component={Checkout} />
-            <Route exact path="/success" component={SuccessfulPurchase} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

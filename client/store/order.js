@@ -10,8 +10,15 @@ const REMOVE_BOOK_FROM_CART = 'REMOVE_BOOK_FROM_CART'
 
 const USER_ERROR_MESSAGE = `ERROR: We couldn't find or create a cart for you.`
 
+const UPDATE_BOOKS_AND_ORDER = 'UPDATE_BOOKS_AND_ORDER'
+
 export const getGuestsCart = cart => ({
   type: GET_GUESTS_CART,
+  cart: cart
+})
+
+export const updateBooksAndOrder = cart => ({
+  type: UPDATE_BOOKS_AND_ORDER,
   cart: cart
 })
 
@@ -43,6 +50,16 @@ export const fetchUsersCart = userId => async dispatch => {
     dispatch(getUsersCart(data.cart))
   } catch (err) {
     console.log(USER_ERROR_MESSAGE)
+    console.error(err)
+  }
+}
+
+export const updateBooksAndOrderThunk = id => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/orders/${id}/finalized`)
+    dispatch(updateBooksAndOrder(data))
+  } catch (err) {
+    console.error('We could not process that order for you.')
     console.error(err)
   }
 }
@@ -86,6 +103,8 @@ export default function orderReducer(state = initialCart, action) {
       return {...state, books: action.books}
     case REMOVE_BOOK_FROM_CART:
       return {...state, books: action.books}
+    case UPDATE_BOOKS_AND_ORDER:
+      return action.cart
     default:
       return state
   }

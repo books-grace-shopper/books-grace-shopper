@@ -5,6 +5,7 @@ import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import {connect} from 'react-redux'
 import CartForCheckout from './CartForCheckout'
+import {updateBooksAndOrderThunk} from '../store/order.js'
 
 toast.configure()
 
@@ -36,6 +37,7 @@ function Checkout(props) {
       if (status === 'success') {
         toast('Success! Check email for details!', {type: 'success'})
         props.history.push('/success')
+        props.updateBooksAndOrder(props.cart.id)
       } else {
         toast('Oops! Something went wrong!', {
           type: 'error'
@@ -71,6 +73,7 @@ function Checkout(props) {
           }, 0)
         }
       />
+      <button onClick={() => props.updateBooksAndOrder()} />
     </>
   )
 }
@@ -81,4 +84,12 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(Checkout)
+const mapDispatch = dispatch => {
+  return {
+    updateBooksAndOrder(id) {
+      dispatch(updateBooksAndOrderThunk(id))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Checkout)

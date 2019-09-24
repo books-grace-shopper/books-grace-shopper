@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Book} = require('../db/models')
+const {Order, Book, User, Session} = require('../db/models')
 const {die} = require('../../utils')
 module.exports = router
 
@@ -13,6 +13,26 @@ router.post('/:id', async (req, res, next) => {
     res.json(cart)
   } catch (error) {
     next(error)
+  }
+})
+
+router.put('/:id/finalized', async (req, res, next) => {
+  try {
+    const oldCart = await Order.findByPk(req.params.id)
+    await oldCart.purchaseSelf()
+    const newCart = await Order.create()
+    let user
+    let guest
+    if (req.user) {
+      user = await User.findByPk(req.user.id)
+      await user.addOrder(newCart)
+    } else {
+      guest = await Session.findByPk(req.session.id)
+      await guest.setOrder(newCart)
+    }
+    res.send(newCart)
+  } catch (err) {
+    next(err)
   }
 })
 
