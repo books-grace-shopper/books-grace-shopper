@@ -48,7 +48,7 @@ form div {
 /* Navbar */
 .bookazon-title {
   color: cadetblue;
-  padding-left: 10px;
+  padding-left: 400px;
   font-family: 'Times New Roman', Times, serif;
 }
 
@@ -69,7 +69,8 @@ form div {
 }
 
 .header-container {
-  background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg');
+  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg'); */
+  background-color: #fcdebe;
 }
 
 /* Selected Book View */
@@ -138,4 +139,53 @@ form div {
 .past-order-books-list {
   display: flex;
   flex: 3;
+}
+.header-container {
+  display: grid;
+  grid-template-columns: 0.75fr 0.25fr;
+}
+
+.all-books-navbar {
+  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg'); */
+  background-color: #fcdebe;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.all-books-navbar * {
+  margin: 5px;
+}
+
+#search-bar {
+  width: 300px;
+}
+.site-form {
+  margin: 0px;
+}
+
+.search-buttons {
+  display: flex;
+  justify-content: center;
+  background-color: cadetblue;
+  padding-top: 50px;
+}
+.search-buttons * {
+  margin: 8px;
+}
+
+.header-buttons {
+  display: flex;
+  width: 28%;
+  justify-content: center;
+}
+
+.header-buttons * {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.header-container-right {
+}
+.header-container-right * {
+  margin-bottom: 0px;
 }
