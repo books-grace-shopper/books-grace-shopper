@@ -49,10 +49,7 @@ router.get('/', async (req, res, next) => {
     if (where) {
       query.where = where
     }
-    console.log('WHERE AFTER GENERATION', where)
-    console.log('QUERY IS', query)
     const books = await Book.findAll(query)
-    console.log('THE BOOKS ARE', books.map(book => book.author))
     books ? res.status(200).send(books) : die(404)
   } catch (error) {
     next(error)
