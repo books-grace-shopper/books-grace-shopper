@@ -1,23 +1,23 @@
 body {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
 a {
   text-decoration: none;
 }
-
 label {
   display: block;
 }
-
 nav a {
   display: inline-block;
   margin: 1em;
 }
-
 form div {
   margin: 1em;
   display: inline-block;
+}
+.whole-selected-book {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 /* All Books Component */
@@ -31,64 +31,83 @@ form div {
   background-color: #a7c6da;
   padding-bottom: 1rem;
 }
-
 .card-img-top {
   height: 200px;
   width: 100px;
 }
-
 .cart-button-img {
   height: 25px;
   width: 25px;
 }
-
 .all-books-header {
   text-align: center;
   border-bottom: solid;
-  font-family: 'Times New Roman', Times, serif;
 }
-
 /* Navbar */
 .bookazon-title {
   color: cadetblue;
   padding-top: 20px;
   display: flex;
   padding-left: 50px;
-  font-family: 'Times New Roman', Times, serif;
 }
-
 .login-button {
   color: black;
 }
-
 .signup-button {
   color: black;
 }
-
 .logout-button {
   color: black;
 }
-
 .home-button {
   color: black;
 }
-
 .header-container {
-  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg'); */
   background-color: #fcdebe;
 }
 
 /* Selected Book View */
-
 .selected-book-quote {
   font-family: 'Times New Roman', Times, serif;
-  color: cadetblue;
+  color: black;
+  background-color: #a7c6da;
   font-style: italic;
   text-align: center;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
+.book-author {
+  font-size: 15pt;
+}
 .selected-book-container {
+  marign-top: 20px;
   text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  flex: 75%;
+}
+.book-title {
+  font-size: 20pt;
+}
+
+#review-title {
+  margin-top: 10px;
+  flex: 100%;
+}
+
+.selected-book-card {
+  background-color: #fcdebe;
+  padding-bottom: 10px;
+}
+
+.no-empty-fields {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  background-color: #ada8b6;
+  justify-contents: center;
 }
 
 .selected-book-img-container {
@@ -97,13 +116,63 @@ form div {
 }
 
 .selected-book-img {
+  margin-top: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
   height: 200px;
   width: 200px;
 }
 
+.book-img-cart-checkout {
+  height: 150px;
+  width: 175px;
+}
+
+.review-container {
+  background-color: #ffe5b4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-header {
+  margin-top: 10px;
+  font-size: 20pt;
+}
+
+h1.review-header strong {
+  font-size: 20pt;
+}
+
+h2.reviews-header {
+  font-size: 15pt;
+}
+
+.review-container * {
+  margin: 5px;
+  font-size: 15pt;
+}
+
 .review-card {
   padding: 0 10% 0 3%;
-  background-color: rgb(161, 241, 241);
+}
+
+.form-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.reviews-header {
+  font-size: 20pt;
+}
+
+.review-list {
+  margin: 10px;
+}
+
+.review-list * {
+  margin: 5px;
 }
 
 .book-img-cart-checkout {
@@ -120,14 +189,29 @@ form div {
 .order-history-greeting {
   margin-left: 5%;
 }
-
 .filter-order-history {
   margin-left: 5%;
 }
 
+.past-order-container .card {
+  text-align: center;
+}
+
+.order-history-contains-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .past-order-container .card .card-body {
+  width: 100;
+  padding: 10px auto;
+  background-color: #a7c6da;
+  color: black;
   display: flex;
   flex-direction: row;
+  border: 2px solid #19297c;
 }
 
 .past-order-book-img {
@@ -137,36 +221,59 @@ form div {
   height: auto;
 }
 
-.past-order-details {
-  flex: 2;
+.order-history-background {
+  background-color: white;
 }
 
+.past-order-details {
+  text-align: center;
+  flex: 2;
+  background-color: #96adbd;
+  padding: 10px 0;
+}
 .past-order-books-list {
+  background-color: #7f95a5;
+  padding: 5px;
   display: flex;
   flex: 3;
 }
+
+#hail-mary {
+  width: 100%;
+}
+
+.past-order-item {
+  display: flex;
+  width: 100%;
+}
+
+.item-list-title {
+  justify-self: flex-start;
+}
+
+.item-list-price {
+  justify-self: flex-end;
+}
+
+/* * * */
+
 .header-container {
   display: grid;
   grid-template-columns: 0.6fr 0.4fr;
 }
-
 .all-books-navbar {
-  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg'); */
   background-color: #fcdebe;
   display: flex;
   flex-wrap: wrap;
   padding-left: 40px;
 }
-
 .all-books-navbar * {
   display: flex;
   margin: 5px;
 }
-
 #search-bar {
   width: 300px;
 }
-
 .search-buttons {
   display: flex;
   justify-content: center;
@@ -176,18 +283,15 @@ form div {
 .search-buttons * {
   margin: 8px;
 }
-
 .header-buttons {
   display: flex;
   width: 100%;
   justify-content: start;
 }
-
 .header-buttons * {
   margin-right: 10px;
   margin-left: 10px;
 }
-
 .header-container-right {
   padding-top: 20px;
   display: flex;
@@ -195,21 +299,166 @@ form div {
 .header-container-right * {
   margin-bottom: 0px;
 }
+.whole-selected-info {
+  flex: 66%;
+}
 
 .filter {
   background-color: #ada8b6;
   color: #fffbfe;
   border-radius: 5px;
   border: 0px;
+  margin: 5px;
 }
-
 .filter:focus {
   outline: none !important;
   background-color: #19297c;
 }
-
 .filter * {
   background-color: #ada8b6;
-  color: white;
+  color: black;
   border: 0px;
+}
+
+.admin-home {
+  background-color: #a7c6da;
+  height: 1000px;
+}
+
+.admin-header {
+  text-align: center;
+}
+
+.admin-buttons {
+  text-align: center;
+}
+.admin-buttons button {
+  margin: 1em;
+}
+.new-book-container {
+  text-align: center;
+}
+
+/* styling for AddBook */
+
+.new-book-header {
+  text-align: center;
+}
+
+.new-book-field {
+  border-radius: 5%;
+  text-align: center;
+  margin-bottom: 1px;
+  margin-top: 1px;
+  width: 500px;
+}
+
+.new-book-button {
+  margin-left: 400px;
+}
+
+.all-orders-header {
+  background-color: #a7c6da;
+  text-align: center;
+}
+.all-orders-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #a7c6da;
+}
+.status-selector {
+  margin-right: 1rem;
+}
+
+.single-order-number {
+  margin-top: 0px;
+}
+.single-order-status {
+  background-color: rgb(223, 147, 6);
+}
+
+.single-order-card card {
+  border-radius: 0.75rem;
+}
+/* Cart */
+.cart-container {
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: cadetblue;
+}
+.cart-header {
+  padding-left: 10px;
+}
+.cart-book-info {
+  padding-left: 20px;
+  background-color: #fcdebe;
+}
+.cart-book-img-container {
+  background-color: #fcdebe;
+}
+.cart-checkout-button {
+  background-color: blue;
+  border-radius: 8px;
+  color: white;
+}
+.cart-remove-button {
+  background-color: orange;
+  border-radius: 8px;
+  color: white;
+}
+
+/* Checkout */
+.checkout-book-card {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+.checkout-header {
+  width: 750px;
+  text-align: center;
+}
+.checkout-book-card.card {
+  background-color: cadetblue;
+  max-width: 750px;
+}
+.book-info {
+  padding-left: 5px;
+}
+
+.cart-book-conatiner {
+  background-color: #fcdebe;
+}
+.specs-container {
+  background-color: white;
+  max-width: 150px;
+  padding-left: 5px;
+}
+.details {
+  text-decoration: underline;
+}
+.checkout {
+  text-align: center;
+}
+.div-checkout {
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* UserHome */
+
+.welcome-user {
+  margin: 70px auto;
+  text-align: center;
+}
+
+#order-history-link {
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fcdebe;
+  width: 160px;
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {updateBookQuantityThunk} from '../../store/order'
+import Button from 'react-bootstrap/Button'
 
 class UpdateCart extends React.Component {
   constructor(props) {
@@ -34,11 +35,12 @@ class UpdateCart extends React.Component {
       return <p>Loading cart...</p>
     }
     return (
-      <form onSubmit={this.handleSubmit}>
-        <button type="submit">
+      <form className="selected-book-card" onSubmit={this.handleSubmit}>
+        <Button type="submit">
           {this.state.bookInCart ? 'Modify Cart' : 'Add to Cart'}
-        </button>
+        </Button>
         <select
+          className="filter"
           defaultValue={this.state.selectedBookQuantity}
           onChange={this.handleChange}
         >

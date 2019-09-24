@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {postReviewThunk} from '../../store/selectedBook'
+import Button from 'react-bootstrap/Button'
 import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
 
 class PostReview extends React.Component {
@@ -63,6 +64,7 @@ class PostReview extends React.Component {
           <Group>
             <Label>Rating:</Label>
             <Control
+              className="filter"
               value={this.state.rating}
               onChange={this.handleChange}
               as="select"
@@ -76,9 +78,9 @@ class PostReview extends React.Component {
               <option>5</option>
             </Control>
           </Group>
-          <button type="submit" id="submit-review-button">
+          <Button type="submit" id="submit-review-button">
             Submit Review
-          </button>
+          </Button>
         </Row>
       </Form>
     )

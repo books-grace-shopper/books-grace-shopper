@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Card from 'react-bootstrap/Card'
 import {updateOrderThunk, fetchOrders} from '../store/allOrders'
 import {parseDate} from '../../utils'
+import Button from 'react-bootstrap/Button'
 
 class SingleOrderInfo extends React.Component {
   constructor(props) {
@@ -37,10 +38,14 @@ class SingleOrderInfo extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <Card style={{width: '16rem'}}>
               <Card.Body>
-                <Card.Title>Order #: {order.id}</Card.Title>
+                <Card.Title className="single-order-number">
+                  Order #: {order.id}
+                </Card.Title>
+
                 <Card.Text>
                   Date Ordered: {order.createdAt && parseDate(order.createdAt)}
                 </Card.Text>
+
                 <Card.Text>Customer Name: {name}</Card.Text>
                 <Card.Text />
                 <Card.Text>
@@ -52,6 +57,7 @@ class SingleOrderInfo extends React.Component {
                     <select
                       defaultValue={this.state.status}
                       onChange={this.handleChange}
+                      className="single-order-status"
                     >
                       <option value="cart">Cart</option>
                       <option value="ordered">Ordered</option>
@@ -61,7 +67,9 @@ class SingleOrderInfo extends React.Component {
                     </select>
                   }
                 </Card.Text>
-                <button type="submit">Update Order Status</button>
+                <Button type="submit" variant="success">
+                  Update Order Status
+                </Button>
               </Card.Body>
             </Card>
           </form>
