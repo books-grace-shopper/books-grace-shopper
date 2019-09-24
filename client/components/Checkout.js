@@ -53,7 +53,7 @@ function Checkout(props) {
         <h2 className="checkout-header">Checkout</h2>
         <CartForCheckout />
         <div className="checkout">
-          <h2 className="order-total">
+          <h2>
             Order Total: $
             {props.cart.books &&
               (

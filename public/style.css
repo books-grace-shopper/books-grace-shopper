@@ -270,11 +270,11 @@ form div {
   text-decoration: underline;
 }
 .checkout {
-  max-width: 750px;
-  text-align: right;
+  text-align: center;
 }
-
 .div-checkout {
-  background-color: #ada8b6;
-  padding-left: 45px;
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
