@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchMetadata} from '../../store/allBookInfo.js'
 import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 function listToOptions(list) {
   if (!list) {
@@ -65,14 +66,8 @@ class Navbar extends React.Component {
       })
     return (
       <>
-        <div>
-          <button type="button" onClick={previousPage}>
-            Previous
-          </button>
-          <button type="button" onClick={nextPage}>
-            Next
-          </button>
-          <form onSubmit={this.handleSubmit}>
+        <div className="all-books-navbar">
+          <form onSubmit={this.handleSubmit} className="site-form">
             <select name="author" onChange={this.handleChange}>
               <option value="none">Author</option>
               {authors}
@@ -82,13 +77,24 @@ class Navbar extends React.Component {
               {genres}
             </select>
             <input
+              id="search-bar"
               onChange={this.handleChange}
               name="search"
               type="text"
               value={this.state.search || ''}
             />
-            <button type="submit">Search</button>
+            <Button type="submit" variant="success">
+              Search
+            </Button>
           </form>
+        </div>
+        <div className="search-buttons">
+          <Button type="button" variant="secondary" onClick={previousPage}>
+            Previous
+          </Button>
+          <Button type="button" variant="secondary" onClick={nextPage}>
+            Next
+          </Button>
         </div>
       </>
     )
