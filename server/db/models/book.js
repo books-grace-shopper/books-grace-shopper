@@ -40,7 +40,7 @@ const Book = db.define('book', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: pickRandomImage,
+    defaultValue: pickRandomImage(),
     validate: {
       isUrl: true
     }
@@ -75,5 +75,10 @@ Book.prototype.getReviewsWithUser = async function() {
     console.log('failed to getReviewsWithUser... ', err)
   }
 }
+
+// User.afterValidate(function(user, options, fn) {
+//   user.username = 'Toni'
+//   fn(null, user)
+// })
 
 module.exports = Book

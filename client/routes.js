@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
+
 import {
   Login,
   Signup,
@@ -12,7 +13,9 @@ import {
   Checkout,
   AllOrders,
   OrderHistory,
-  SuccessfulPurchase
+  SuccessfulPurchase,
+  AddBook,
+  AdminHome
 } from './components'
 import {me, fetchUsersCart} from './store'
 
@@ -45,10 +48,10 @@ class Routes extends Component {
         <Route exact path="/checkout" component={Checkout} />
         {isAdmin && (
           <Switch>
-            <Route exact path="/home" component={UserHome} />
-            <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/admin/home" component={AdminHome} />
             <Route exact path="/admin/orders" component={AllOrders} />
-            <Route exact path="/admin/books" />
+            <Route exact path="/admin/add-book" component={AddBook} />
+
             <Route exact path="/admin/users" />
           </Switch>
         )}

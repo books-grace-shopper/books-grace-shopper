@@ -6,7 +6,6 @@ module.exports = router
 router.post('/:id', async (req, res, next) => {
   try {
     const cart = await Order.findByPk(req.params.id)
-    // const book = await Book.findByPk(req.body.bookId)
     await cart.updateBookQuantity(req.body.bookId, req.body.quantity)
     const newBooks = await cart.getBooksWithQuantities()
     cart.dataValues.books = newBooks
