@@ -76,4 +76,9 @@ Book.prototype.getReviewsWithUser = async function() {
   }
 }
 
+// User.afterValidate(function(user, options, fn) {
+//   user.username = 'Toni'
+//   fn(null, user)
+// })
+
 module.exports = Book

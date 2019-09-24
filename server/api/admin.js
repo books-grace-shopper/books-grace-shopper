@@ -75,3 +75,16 @@ router.put('/orders/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/books', async (req, res, next) => {
+  try {
+    if (req.user.isAdmin) {
+      const newBook = await Book.create(req.body)
+      newBook ? res.status(200).send(newBook) : die(404)
+    } else {
+      throw Error('You do not have admin privileges!!!')
+    }
+  } catch (err) {
+    next(err)
+  }
+})
