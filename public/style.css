@@ -25,8 +25,11 @@ form div {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-gap: 1rem;
-  padding: 5rem;
-  background-color: cadetblue;
+  padding-right: 5rem;
+  padding-left: 5rem;
+  padding-top: 1rem;
+  background-color: #a7c6da;
+  padding-bottom: 1rem;
 }
 
 .card-img-top {
@@ -167,8 +170,8 @@ form div {
 .search-buttons {
   display: flex;
   justify-content: center;
-  background-color: cadetblue;
-  padding-top: 50px;
+  background-color: #a7c6da;
+  padding-top: 20px;
 }
 .search-buttons * {
   margin: 8px;
@@ -191,4 +194,22 @@ form div {
 }
 .header-container-right * {
   margin-bottom: 0px;
+}
+
+.filter {
+  background-color: #ada8b6;
+  color: #fffbfe;
+  border-radius: 5px;
+  border: 0px;
+}
+
+.filter:focus {
+  outline: none !important;
+  background-color: #19297c;
+}
+
+.filter * {
+  background-color: #ada8b6;
+  color: white;
+  border: 0px;
 }
