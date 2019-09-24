@@ -26,7 +26,7 @@ class CartBook extends React.Component {
     })
   }
   render() {
-    const {book, cartId, removeBook, updateBook} = this.props
+    const {book, cartId, removeBook} = this.props
     return (
       <div className="cart-book-container">
         <Card>
@@ -38,7 +38,7 @@ class CartBook extends React.Component {
             <h2>{book.title}</h2>
             <p>By: {book.author}</p>
             <p>Description: {book.description}</p>
-            <p>${this.state.currentPrice}</p>
+            <p>${this.state.currentPrice.toFixed(2)}</p>
             <p>Quantity: {book.quantity}</p>
             <select
               value={this.state.currentQuantity}
@@ -56,6 +56,7 @@ class CartBook extends React.Component {
               <option value="10">10</option>
             </select>
             <button
+              className="cart-remove-button"
               type="button"
               onClick={() => {
                 removeBook(book.id, cartId)
