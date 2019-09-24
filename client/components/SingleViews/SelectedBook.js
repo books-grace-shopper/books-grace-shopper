@@ -4,6 +4,8 @@ import {fetchSelectedBook, deleteReviewThunk} from '../../store/selectedBook'
 import {PostReview, UpdateCart} from '../forms'
 import Card from 'react-bootstrap/Card'
 import BookReviews from './BookReviews'
+import Rating from 'react-rating'
+import {getRating} from '../../../utils'
 
 function SelectedBookInfo(props) {
   return (
@@ -33,8 +35,20 @@ export function SelectedBookCard(props) {
           <div className="selected-book-info">
             <p>{book.title}</p>
             <p>By: {book.author}</p>
-            <p>RATING</p>
-            <p>${book.price}</p>
+            <Rating
+              readonly={true}
+              placeholderRating={book.reviews && getRating(book.reviews)}
+            />
+            <p>
+              {book.reviews &&
+                (
+                  book.reviews.reduce((accum, review) => {
+                    accum += review.rating
+                    return accum
+                  }, 0) / book.reviews.length
+                ).toFixed(2)}
+            </p>
+            <p>${(book.price / 100).toFixed(2)}</p>
             {props.cart.books ? (
               <UpdateCart selectedBook={book} cart={props.cart} />
             ) : (

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
-const OrderBook = require('./orderBook.js')
-const Review = require('./review')
+// const OrderBook = require('./orderBook.js')
+// const Review = require('./review')
 const db = require('../db')
 const {pickRandomImage} = require('../../../utils')
 
@@ -40,7 +40,7 @@ const Book = db.define('book', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: pickRandomImage(),
+    defaultValue: pickRandomImage,
     validate: {
       isUrl: true
     }

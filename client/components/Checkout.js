@@ -49,15 +49,17 @@ function Checkout(props) {
   }
   return (
     <>
-      <h2>Your Order</h2>
+      <h2>Checkout</h2>
       <CartForCheckout />
       <h2>
         Order Total: $
         {props.cart.books &&
-          props.cart.books.reduce((sum, book) => {
-            sum += book.quantity * book.price
-            return sum
-          }, 0) / 100}
+          (
+            props.cart.books.reduce((sum, book) => {
+              sum += book.quantity * book.price
+              return sum
+            }, 0) / 100
+          ).toFixed(2)}
       </h2>
       <StripeCheckout
         name="Bookazon"
@@ -73,7 +75,6 @@ function Checkout(props) {
           }, 0)
         }
       />
-      <button onClick={() => props.updateBooksAndOrder()} />
     </>
   )
 }

@@ -16,8 +16,8 @@ function CartForCheckout(props) {
               <h2>{book.title}</h2>
               <p>By: {book.author}</p>
               <p>Quantity: {book.quantity}</p>
-              <p>Price: ${book.price / 100}</p>
-              <p>Subtotal: ${book.price * book.quantity / 100}</p>
+              <p>Price: ${(book.price / 100).toFixed(2)}</p>
+              <p>Subtotal: ${(book.price * book.quantity / 100).toFixed(2)}</p>
             </div>
           </Card>
         ))}

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {addBookThunk} from '../../store/allBooks'
 import Button from 'react-bootstrap/Button'
 
-import Form, {Group, Label, Row, Control} from 'react-bootstrap/Form'
+import Form, {Group, Label, Control} from 'react-bootstrap/Form'
 
 const initialState = {
   title: '',
@@ -52,7 +52,7 @@ class AddBook extends React.Component {
     return (
       <>
         <div>
-          <h2>ADD NEW BOOK</h2>
+          <h2>Add New Book</h2>
           <Form onSubmit={this.handleSubmit}>
             <Group>
               <Label htmlFor="title">Title</Label>
@@ -98,7 +98,7 @@ class AddBook extends React.Component {
             </Group>
             <br />
             <Group>
-              <Label htmlFor="inventorySold">Inventory Total</Label>
+              <Label htmlFor="inventorySold">Inventory Sold</Label>
               <Control
                 onChange={this.handleNumberInput}
                 value={this.state.inventorySold}

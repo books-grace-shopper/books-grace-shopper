@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Card from 'react-bootstrap/Card'
 import {updateOrderThunk, fetchOrders} from '../store/allOrders'
+import {parseDate} from '../../utils'
 
 class SingleOrderInfo extends React.Component {
   constructor(props) {
@@ -36,16 +37,17 @@ class SingleOrderInfo extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <Card style={{width: '16rem'}}>
               <Card.Body>
-                <Card.Title>Order: {order.id}</Card.Title>
+                <Card.Title>Order #: {order.id}</Card.Title>
                 <Card.Text>
-                  Date Ordered:{' '}
-                  {order.createdAt && order.createdAt.slice(0, 10)}
+                  Date Ordered: {order.createdAt && parseDate(order.createdAt)}
                 </Card.Text>
                 <Card.Text>Customer Name: {name}</Card.Text>
                 <Card.Text />
-                <Card.Text>Total price: ${order.price}</Card.Text>
                 <Card.Text>
-                  Status:
+                  Order Total: ${(order.price / 100).toFixed(2)}
+                </Card.Text>
+                <Card.Text>
+                  Order Status:
                   {
                     <select
                       defaultValue={this.state.status}

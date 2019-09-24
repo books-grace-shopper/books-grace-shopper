@@ -18,8 +18,7 @@ function SingleBook(props) {
           <Card.Body>
             <Card.Title>{book.title}</Card.Title>
             <Card.Text>{book.author}</Card.Text>
-            <Card.Text>Book Rating</Card.Text>
-            <Card.Text>${book.price / 100}</Card.Text>
+            <Card.Text>${(book.price / 100).toFixed(2)}</Card.Text>
           </Card.Body>
         </Card>
       </div>

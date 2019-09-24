@@ -16,10 +16,11 @@ class Cart extends React.Component {
     if (!cart.books) {
       return <div>Loading cart...</div>
     } else if (cart.books.length === 0) {
-      return <h1>Go add things to the cart!</h1>
+      return <h1>Your cart is empty!</h1>
     } else {
       return (
         <div>
+          <h1>Cart</h1>
           {cart.books.map(book => (
             <CartBook key={book.title} book={book} cartId={cart.id} />
           ))}
