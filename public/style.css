@@ -1,5 +1,5 @@
 body {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 a {
   text-decoration: none;
@@ -42,7 +42,6 @@ form div {
 .all-books-header {
   text-align: center;
   border-bottom: solid;
-  font-family: 'Times New Roman', Times, serif;
 }
 /* Navbar */
 .bookazon-title {
@@ -50,7 +49,6 @@ form div {
   padding-top: 20px;
   display: flex;
   padding-left: 50px;
-  font-family: 'Times New Roman', Times, serif;
 }
 .login-button {
   color: black;
@@ -65,11 +63,9 @@ form div {
   color: black;
 }
 .header-container {
-  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg(46 kB)
- https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg
- '); */
   background-color: #fcdebe;
 }
+
 /* Selected Book View */
 .selected-book-quote {
   font-family: 'Times New Roman', Times, serif;
@@ -217,9 +213,6 @@ h2.reviews-header {
   grid-template-columns: 0.6fr 0.4fr;
 }
 .all-books-navbar {
-  /* background-image: url('https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg(46 kB)
- https://bhf-cdn.azureedge.net/bhf-blob-prod/0008981_willow-cream-faux-parchment-texture_600.jpeg
- '); */
   background-color: #fcdebe;
   display: flex;
   flex-wrap: wrap;
@@ -277,7 +270,7 @@ h2.reviews-header {
   color: black;
   border: 0px;
 }
-/* styling for AdminHome */
+
 .admin-home {
   background-color: #a7c6da;
   height: 1000px;
@@ -342,4 +335,68 @@ h2.reviews-header {
 
 .single-order-card card {
   border-radius: 0.75rem;
+}
+/* Cart */
+.cart-container {
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: cadetblue;
+}
+.cart-header {
+  padding-left: 10px;
+}
+.cart-book-info {
+  padding-left: 20px;
+  background-color: #fcdebe;
+}
+.cart-book-img-container {
+  background-color: #fcdebe;
+}
+.cart-checkout-button {
+  background-color: blue;
+  border-radius: 8px;
+  color: white;
+}
+.cart-remove-button {
+  background-color: orange;
+  border-radius: 8px;
+  color: white;
+}
+
+/* Checkout */
+.checkout-book-card {
+  padding-left: 35px;
+  padding-right: 35px;
+}
+.checkout-header {
+  width: 750px;
+  text-align: center;
+}
+.checkout-book-card.card {
+  background-color: cadetblue;
+  max-width: 750px;
+}
+.book-info {
+  padding-left: 5px;
+}
+
+.cart-book-conatiner {
+  background-color: #fcdebe;
+}
+.specs-container {
+  background-color: white;
+  max-width: 150px;
+  padding-left: 5px;
+}
+.details {
+  text-decoration: underline;
+}
+.checkout {
+  text-align: center;
+}
+.div-checkout {
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

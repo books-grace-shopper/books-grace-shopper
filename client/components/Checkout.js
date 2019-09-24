@@ -49,32 +49,37 @@ function Checkout(props) {
   }
   return (
     <>
-      <h2>Checkout</h2>
-      <CartForCheckout />
-      <h2>
-        Order Total: $
-        {props.cart.books &&
-          (
-            props.cart.books.reduce((sum, book) => {
-              sum += book.quantity * book.price
-              return sum
-            }, 0) / 100
-          ).toFixed(2)}
-      </h2>
-      <StripeCheckout
-        name="Bookazon"
-        stripeKey="pk_test_I8ksxTCz5FRqZTny6zk5KTmi00y9ARKB0B"
-        token={handleToken}
-        shippingAddress
-        billingAddress
-        amount={
-          props.cart.books &&
-          props.cart.books.reduce((sum, book) => {
-            sum += book.quantity * book.price
-            return sum
-          }, 0)
-        }
-      />
+      <div className="div-checkout">
+        <h2 className="checkout-header">Checkout</h2>
+        <CartForCheckout />
+        <div className="checkout">
+          <h2>
+            Order Total: $
+            {props.cart.books &&
+              (
+                props.cart.books.reduce((sum, book) => {
+                  sum += book.quantity * book.price
+                  return sum
+                }, 0) / 100
+              ).toFixed(2)}
+          </h2>
+
+          <StripeCheckout
+            name="Bookazon"
+            stripeKey="pk_test_I8ksxTCz5FRqZTny6zk5KTmi00y9ARKB0B"
+            token={handleToken}
+            shippingAddress
+            billingAddress
+            amount={
+              props.cart.books &&
+              props.cart.books.reduce((sum, book) => {
+                sum += book.quantity * book.price
+                return sum
+              }, 0)
+            }
+          />
+        </div>
+      </div>
     </>
   )
 }

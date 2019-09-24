@@ -19,20 +19,24 @@ class Cart extends React.Component {
       return <h1>Your cart is empty!</h1>
     } else {
       return (
-        <div>
-          <h1>Cart</h1>
+        <div className="cart-container">
+          <h1 className="cart-header">Your Cart</h1>
           {cart.books.map(book => (
             <CartBook key={book.title} book={book} cartId={cart.id} />
           ))}
           <div>
             <h1>
-              Total: ${cart.books.reduce((sum, book) => {
-                sum += book.quantity * book.price
-                return sum
-              }, 0) / 100}
+              Total: ${(
+                cart.books.reduce((sum, book) => {
+                  sum += book.quantity * book.price
+                  return sum
+                }, 0) / 100
+              ).toFixed(2)}
             </h1>
             <Link to="/checkout" component={Checkout}>
-              <button type="button">Checkout</button>
+              <button type="button" className="cart-checkout-button">
+                Checkout
+              </button>
             </Link>
           </div>
         </div>
