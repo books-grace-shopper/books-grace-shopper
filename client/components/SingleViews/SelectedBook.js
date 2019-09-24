@@ -9,7 +9,7 @@ import {getRating} from '../../../utils'
 
 function SelectedBookInfo(props) {
   return (
-    <div>
+    <div className="whole-selected-book">
       <SelectedBookCard
         cart={props.cart}
         userId={props.userId}
@@ -25,31 +25,35 @@ function SelectedBookInfo(props) {
 
 export function SelectedBookCard(props) {
   const book = props.selectedBook
+  let rating =
+    book.reviews &&
+    book.reviews.reduce((accum, review) => {
+      accum += review.rating
+      return accum
+    }, 0)
+  if (!rating) {
+    rating = <em>No reviews yet...</em>
+  } else {
+    rating = <em>{rating.toFixed(2)} out of 5</em>
+  }
   return (
     <div>
       <div className="selected-book-container">
         <Card>
-          <div className="selected-book-img-container">
-            <img className="selected-book-img" src={book.imageUrl} />
-          </div>
-          <div className="selected-book-info">
-            <p>{book.title}</p>
-            <p>By: {book.author}</p>
-            <Rating
-              readonly={true}
-              placeholderRating={book.reviews && getRating(book.reviews)}
-            />
-            <p>
-              {book.reviews &&
-                (
-                  book.reviews.reduce((accum, review) => {
-                    accum += review.rating
-                    return accum
-                  }, 0) / book.reviews.length
-                ).toFixed(2)}{' '}
-              out of 5
-            </p>
-            <p>${(book.price / 100).toFixed(2)}</p>
+          <div className="selected-book-card">
+            <div className="selected-book-img-container">
+              <img className="selected-book-img" src={book.imageUrl} />
+            </div>
+            <div className="selected-book-info">
+              <p className="book-title">{book.title}</p>
+              <p className="book-author">By: {book.author}</p>
+              <Rating
+                readonly={true}
+                placeholderRating={book.reviews && getRating(book.reviews)}
+              />
+              <p>{rating}</p>
+              <p>${(book.price / 100).toFixed(2)}</p>
+            </div>
             {props.cart.books ? (
               <UpdateCart selectedBook={book} cart={props.cart} />
             ) : (

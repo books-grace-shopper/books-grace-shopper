@@ -20,6 +20,11 @@ form div {
   display: inline-block;
 }
 
+.whole-selected-book {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 /* All Books Component */
 .all-book-cards {
   display: grid;
@@ -82,33 +87,107 @@ form div {
 
 .selected-book-quote {
   font-family: 'Times New Roman', Times, serif;
-  color: cadetblue;
+  color: black;
+  background-color: #a7c6da;
   font-style: italic;
   text-align: center;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.book-author {
+  font-size: 15pt;
 }
 
 .selected-book-container {
+  marign-top: 20px;
   text-align: center;
+  margin: 0 auto;
+  border-radius: 10px;
+  flex: 75%;
 }
 
-.selected-book-img-container {
-  padding-top: 10px;
+.book-title {
+  font-size: 20pt;
+}
+
+#review-title {
+  margin-top: 10px;
+  flex: 100%;
+}
+
+.selected-book-card {
+  background-color: #fcdebe;
   padding-bottom: 10px;
 }
 
-.selected-book-img {
-  height: 200px;
-  width: 200px;
+.no-empty-fields {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  background-color: #ada8b6;
+  justify-contents: center;
 }
 
-.review-card {
-  padding: 0 10% 0 3%;
-  background-color: rgb(161, 241, 241);
+.selected-book-img {
+  margin-top: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  height: 200px;
+  width: 200px;
 }
 
 .book-img-cart-checkout {
   height: 150px;
   width: 175px;
+}
+
+.review-container {
+  background-color: #ffe5b4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review-header {
+  margin-top: 10px;
+  font-size: 20pt;
+}
+
+h1.review-header strong {
+  font-size: 20pt;
+}
+
+h2.reviews-header {
+  font-size: 15pt;
+}
+
+.review-container * {
+  margin: 5px;
+  font-size: 15pt;
+}
+
+.review-card {
+  padding: 0 10% 0 3%;
+}
+
+.form-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.reviews-header {
+  font-size: 20pt;
+}
+
+.review-list {
+  margin: 10px;
+}
+
+.review-list * {
+  margin: 5px;
 }
 
 .successful-purchase-container {
@@ -196,11 +275,16 @@ form div {
   margin-bottom: 0px;
 }
 
+.whole-selected-info {
+  flex: 66%;
+}
+
 .filter {
   background-color: #ada8b6;
   color: #fffbfe;
   border-radius: 5px;
   border: 0px;
+  margin: 5px;
 }
 
 .filter:focus {
@@ -210,6 +294,6 @@ form div {
 
 .filter * {
   background-color: #ada8b6;
-  color: white;
+  color: black;
   border: 0px;
 }
