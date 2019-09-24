@@ -8,7 +8,8 @@ const {
   makeRandomOrder,
   makeRandomReview,
   pickRandomImage,
-  bulkGenerate
+  bulkGenerate,
+  randomNum
 } = require('./randomGenerators')
 
 function die(status) {
@@ -40,5 +41,6 @@ module.exports = {
   AUTHORS,
   MODEL_METHODS,
   die,
-  parseDate
+  parseDate,
+  randomNum
 }
