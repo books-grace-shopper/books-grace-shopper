@@ -43,7 +43,7 @@
 	"author": "Fullstack Academy of Code",
 	"license": "MIT",
 	"dependencies": {
-		"axios": "^0.19.0",
+		"axios": "^0.21.1",
 		"bootstrap": "^4.3.1",
 		"chance": "^1.1.0",
 		"compression": "^1.7.3",
